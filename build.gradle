@@ -1,0 +1,49 @@
+buildscript {
+    apply from: 'versions.gradle'
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.0-beta02'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+    }
+}
+
+plugins {
+    id 'com.diffplug.spotless' version '5.12.4'
+}
+
+subprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+
+    apply plugin: 'com.diffplug.spotless'
+    spotless {
+        kotlin {
+            target '**/*.kt'
+            targetExclude("$buildDir/**/*.kt")
+            targetExclude('bin/**/*.kt')
+
+            ktlint(libs.versions.ktlint.get())//.userData([android: "true"])
+        }
+        java {
+            target '**/*.java'
+            targetExclude("$buildDir/**/*.java")
+            targetExclude('bin/**/*.java')
+        }
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            allWarningsAsErrors = true
+            freeCompilerArgs = [
+                    '-Xallow-unstable-dependencies',
+                    '-Xopt-in=kotlin.RequiresOptIn',
+            ]
+            jvmTarget = "11"
+        }
+    }
+}
