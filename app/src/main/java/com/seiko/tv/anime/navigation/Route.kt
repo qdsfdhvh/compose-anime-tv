@@ -1,47 +1,30 @@
 package com.seiko.tv.anime.navigation
 
-import androidx.compose.runtime.Composable
-import androidx.navigation.*
-import androidx.navigation.compose.*
-import com.seiko.tv.anime.ui.detail.DetailScene
-import com.seiko.tv.anime.ui.home.HomeScene
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDeepLink
+import androidx.navigation.NavType
+import androidx.navigation.compose.NamedNavArgument
+import androidx.navigation.compose.navArgument
 
-const val initialRoute = Route.Home
+val initialRoute = Route.Home.route
 
-object Route {
-  const val Home = "home"
+sealed class Route(val route: String) {
+  open val arguments: List<NamedNavArgument> get() = emptyList()
+  open val deepLinks: List<NavDeepLink> get() = emptyList()
 
-  object Detail : Provide {
-    private const val id = "animeId"
+  object Home : Route("home")
 
-    override val route = "detail/{${id}}"
-    override val arguments = listOf(navArgument(id) { NavType.LongType })
-
-    operator fun invoke(id: Long) = "detail/$id"
-
-    fun getId(entry: NavBackStackEntry): Long {
-      return entry.arguments?.getString(id)?.toLongOrNull() ?: 0
-    }
+  object Detail : Route("detail/{animeId}") {
+    operator fun invoke(animeId: Long) = "detail/$animeId"
+    override val arguments = listOf(longArgument("animeId"))
+    fun getId(entry: NavBackStackEntry): Long = entry.getString("animeId")?.toLongOrNull() ?: 0
   }
 }
 
-private interface Provide {
-  val route: String
-  val arguments: List<NamedNavArgument>
-  val deepLinks: List<NavDeepLink> get() = emptyList()
-}
+private fun stringArgument(name: String) = navArgument(name) { NavType.StringType }
+private fun intArgument(name: String) = navArgument(name) { NavType.IntType }
+private fun longArgument(name: String) = navArgument(name) { NavType.LongType }
 
-private fun NavGraphBuilder.composable(
-  provide: Provide,
-  content: @Composable (NavBackStackEntry) -> Unit
-) {
-  composable(provide.route, provide.arguments, provide.deepLinks, content)
-}
-
-@Composable
-fun Router(navController: NavHostController = rememberNavController()) {
-  NavHost(navController, startDestination = initialRoute) {
-    composable(Route.Home) { HomeScene() }
-    composable(Route.Detail) { DetailScene(Route.Detail.getId(it)) }
-  }
-}
+private fun NavBackStackEntry.getString(key: String) = arguments?.getString(key)
+private fun NavBackStackEntry.getInt(key: String) = arguments?.getInt(key)
+private fun NavBackStackEntry.getLong(key: String) = arguments?.getLong(key)
