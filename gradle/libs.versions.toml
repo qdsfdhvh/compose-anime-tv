@@ -5,6 +5,9 @@ lifecycle_base = "2.4.0-alpha01"
 lifecycle_compose = "1.0.0-alpha04"
 kotlin-coroutines = "1.4.3"
 ktlint = "0.41.0"
+hilt = "2.34.1-beta"
+androidx_hilt = "1.0.0"
+navigation = "2.4.0-alpha01"
 
 [libraries]
 # AndroidX Activity
@@ -34,6 +37,15 @@ compose-runtime_livedata = { module = "androidx.compose.runtime:runtime-livedata
 kotlinx-coroutines-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines"}
 kotlinx-coroutines-test = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-coroutines"}
 
+# Hilt
+hilt-android-base = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx_hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx_hilt" }
+
+# Navigation
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+
 [bundles]
 activity = [
     "activity-ktx",
@@ -57,4 +69,15 @@ compose = [
     "compose-material-icons-extended",
     "compose-runtime_livedata",
 #    "kotlinx-collections-immutable-jvm",
+]
+hilt-base = [
+    "hilt-android-base",
+    "hilt-work",
+]
+hilt-compiler = [
+    "hilt-android-compiler",
+    "hilt-compiler",
+]
+navigation = [
+    "navigation-compose"
 ]

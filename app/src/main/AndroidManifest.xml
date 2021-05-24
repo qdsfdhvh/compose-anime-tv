@@ -3,6 +3,7 @@
     package="com.seiko.tv.anime">
 
     <application
+        android:name=".AnimeTvApp"
         android:allowBackup="true"
         android:fullBackupContent="@xml/anime_backup_rules"
         android:icon="@mipmap/ic_launcher"

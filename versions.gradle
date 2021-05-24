@@ -1,6 +1,7 @@
 ext {
     versions = [
             kotlin: "1.4.32",
+            hilt: "2.34.1-beta",
     ]
     global = [
             compileSdkVersion: 'android-S',
