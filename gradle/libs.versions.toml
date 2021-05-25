@@ -25,7 +25,6 @@ lifecycle-viewmodel-compose_compose = { module = "androidx.lifecycle:lifecycle-v
 
 # Compose
 compose-ui-base = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose-ui-test = { module = "androidx.compose.ui:ui-test", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
@@ -33,6 +32,11 @@ compose-material-base = { module = "androidx.compose.material:material", version
 compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
 compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 compose-runtime_livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
+
+# Compose Test
+compose-ui-test-base = { module = "androidx.compose.ui:ui-test", version.ref = "compose" }
+compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
+compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 
 # Kotlinx Coroutines
 kotlinx-coroutines-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines"}
@@ -66,7 +70,7 @@ lifecycle = [
     "lifecycle-common-java8",
     "lifecycle-viewmodel-compose_compose",
 ]
-compose = [
+compose-ui = [
     "compose-ui-base",
     "compose-ui-tooling",
     "compose-foundation",
@@ -75,7 +79,11 @@ compose = [
     "compose-material-icons-core",
     "compose-material-icons-extended",
     "compose-runtime_livedata",
-#    "kotlinx-collections-immutable-jvm",
+]
+compose-test = [
+    "compose-ui-test-base",
+    "compose-ui-test-junit4",
+    "compose-ui-test-manifest",
 ]
 hilt-base = [
     "hilt-android-base",
