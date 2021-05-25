@@ -58,6 +58,9 @@ dependencies {
     implementation libs.bundles.navigation
     implementation libs.bundles.accompanist
 
+    // compose color https://github.com/PatilSiddhesh/Holi
+    implementation("com.siddroid:holi:0.0.6")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
