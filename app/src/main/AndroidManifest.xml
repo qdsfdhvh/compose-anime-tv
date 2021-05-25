@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.seiko.tv.anime">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".AnimeTvApp"
         android:allowBackup="true"
@@ -12,10 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Anime">
         <activity
-            android:name=".MainActivity"
+            android:name=".AnimeTvActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:screenOrientation="landscape">
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Anime">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
