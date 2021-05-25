@@ -8,6 +8,7 @@ ktlint = "0.41.0"
 hilt = "2.35.1"
 androidx_hilt = "1.0.0"
 navigation = "2.4.0-alpha01"
+accompanist = "0.10.0"
 
 [libraries]
 # AndroidX Activity
@@ -46,6 +47,12 @@ hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "android
 # Navigation
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 
+# Accompanist
+accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanist" }
+#accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
+#accompanist-pager-base = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
+#accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
+
 [bundles]
 activity = [
     "activity-ktx",
@@ -80,4 +87,10 @@ hilt-compiler = [
 ]
 navigation = [
     "navigation-compose"
+]
+accompanist = [
+    "accompanist-coil",
+#    "accompanist-insets",
+#    "accompanist-pager-base",
+#    "accompanist-pager-indicators",
 ]
