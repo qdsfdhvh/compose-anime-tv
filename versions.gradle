@@ -4,10 +4,10 @@ ext {
             hilt: "2.34.1-beta",
     ]
     global = [
-            compileSdkVersion: 'android-S',
-            buildToolsVersion: '31.0.0-rc4',
+            compileSdkVersion: 30,
+            buildToolsVersion: '30.0.3',
             minSdkVersion    : 21,
-            targetSdkVersion : 31,
+            targetSdkVersion : 30,
             versionCode      : 1,
             versionName      : "1.0.0"
     ]
