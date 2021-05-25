@@ -5,7 +5,7 @@ lifecycle_base = "2.4.0-alpha01"
 lifecycle_compose = "1.0.0-alpha04"
 kotlin-coroutines = "1.4.3"
 ktlint = "0.41.0"
-hilt = "2.34.1-beta"
+hilt = "2.35.1"
 androidx_hilt = "1.0.0"
 navigation = "2.4.0-alpha01"
 
