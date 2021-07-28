@@ -1,6 +1,6 @@
 ext {
     versions = [
-            kotlin: "1.4.32",
+            kotlin: "1.5.10",
             hilt: "2.37",
     ]
     global = [
