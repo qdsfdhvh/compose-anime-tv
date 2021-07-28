@@ -6,11 +6,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import com.google.accompanist.coil.rememberCoilPainter
-import com.google.accompanist.imageloading.ImageLoadState
-import com.google.accompanist.imageloading.LoadPainter
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.ImagePainter
+import coil.compose.rememberImagePainter
 import com.seiko.tv.anime.R
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun NetworkImage(
   data: Any,
@@ -21,9 +22,11 @@ fun NetworkImage(
   val painter = if (data is Painter) {
     data
   } else {
-    rememberCoilPainter(request = data, fadeIn = true)
+    rememberImagePainter(data = data, builder = {
+      crossfade(true)
+    })
   }
-  if (painter is LoadPainter<*> && painter.loadState is ImageLoadState.Loading) {
+  if (painter is ImagePainter && painter.state is ImagePainter.State.Loading) {
     placeholder?.invoke()
   }
   Image(

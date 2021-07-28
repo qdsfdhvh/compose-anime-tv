@@ -55,7 +55,7 @@ private fun AnimeCard(index: Int, anime: Anime) {
     modifier = Modifier
       .onFocusChanged { isFocused = it.isFocused }
       .focusRequester(focusRequester)
-      .focusModifier()
+      .focusTarget()
       .clickable { focusRequester.requestFocus() }
       .size(160.dp, 280.dp),
   ) {
