@@ -1,15 +1,15 @@
 package com.seiko.tv.anime.ui.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import com.seiko.tv.anime.model.Anime
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor() : ViewModel() {
 
-  val animeList = liveData {
+  val animeList = flow {
     emit(
       listOf(
         Anime(12241, "干支魂 猫客万来", "https://ddcdn-img.acplay.net/anime/12241.jpg!client"),

@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,7 +27,7 @@ import com.seiko.tv.anime.ui.widget.foundation.NetworkImage
 fun HomeScene() {
   val viewModel: HomeViewModel = viewModel()
 
-  val list by viewModel.animeList.observeAsState(emptyList())
+  val list by viewModel.animeList.collectAsState(emptyList())
 
   Box(Modifier.fillMaxSize()) {
     LazyRow(
