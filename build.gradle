@@ -39,12 +39,11 @@ subprojects {
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         kotlinOptions {
+            jvmTarget = "11"
             allWarningsAsErrors = true
             freeCompilerArgs = [
-                    '-Xallow-unstable-dependencies',
                     '-Xopt-in=kotlin.RequiresOptIn',
             ]
-            jvmTarget = "11"
         }
     }
 }
