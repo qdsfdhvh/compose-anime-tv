@@ -29,10 +29,13 @@ fun HomeScene() {
 
   val list by viewModel.animeList.collectAsState(emptyList())
 
-  Box(Modifier.fillMaxSize()) {
+  Column(Modifier.fillMaxSize()) {
+    LazyRow() {
+      
+    }
     LazyRow(
       modifier = Modifier
-        .align(Alignment.Center)
+        .align(Alignment.CenterHorizontally)
     ) {
       itemsIndexed(list) { index, anime ->
         if (anime is Anime) {
