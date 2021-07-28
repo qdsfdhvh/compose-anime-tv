@@ -2,17 +2,11 @@ buildscript {
     apply from: 'versions.gradle'
     repositories {
         google()
-        maven {
-            url  "https://oss.sonatype.org/content/repositories/snapshots"
-            content {
-                includeModule("com.google.dagger", "hilt-android-gradle-plugin")
-            }
-        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.0-alpha01'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath("com.google.dagger:hilt-android-gradle-plugin:HEAD-SNAPSHOT")
+        classpath "com.google.dagger:hilt-android-gradle-plugin:${versions.hilt}"
     }
 }
 
