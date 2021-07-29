@@ -35,7 +35,8 @@ fun HomeScene() {
     }
     LazyRow(
       modifier = Modifier
-        .align(Alignment.CenterHorizontally)
+        .fillMaxSize()
+        .statusBarsPadding()
     ) {
       itemsIndexed(list) { index, anime ->
         if (anime is Anime) {

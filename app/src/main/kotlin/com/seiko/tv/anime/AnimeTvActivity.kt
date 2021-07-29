@@ -1,8 +1,8 @@
 package com.seiko.tv.anime
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
@@ -11,6 +11,7 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
+import com.google.accompanist.insets.ProvideWindowInsets
 import com.seiko.tv.anime.focus.AppFocusManager
 import com.seiko.tv.anime.navigation.AppNavigator
 import com.seiko.tv.anime.navigation.Router
@@ -31,10 +32,7 @@ class AnimeTvActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     WindowCompat.setDecorFitsSystemWindows(window, false)
-
-    // set Color.TRANSPARENT is not fully transparent
-    window.navigationBarColor = Color.parseColor("#01FFFFFF")
-    window.statusBarColor = Color.TRANSPARENT
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
     setContent {
       AppFocusManager.focusManager = LocalFocusManager.current
@@ -43,7 +41,10 @@ class AnimeTvActivity : ComponentActivity() {
         LocalAppNavigator provides AppNavigator(navController)
       ) {
         AnimeTvTheme {
-          Router(navController)
+          // https://stackoverflow.com/questions/65260293
+          ProvideWindowInsets {
+            Router(navController)
+          }
         }
       }
     }
