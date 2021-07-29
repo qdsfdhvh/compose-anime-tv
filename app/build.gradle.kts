@@ -27,7 +27,18 @@ android {
     versionName = "1.0.0"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
+  signingConfigs {
+     getByName("debug") {
+      storeFile = rootProject.file("secrets/debug-keystore.jks")
+      storePassword = "123456"
+      keyAlias = "compose-anime-tv"
+      keyPassword = "123456"
+    }
+  }
   buildTypes {
+    debug {
+      signingConfig = signingConfigs.getByName("debug")
+    }
     release {
       isMinifyEnabled = false
       proguardFiles(
