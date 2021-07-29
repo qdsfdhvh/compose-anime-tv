@@ -87,4 +87,7 @@ dependencies {
 
   // parse html https://github.com/jhy/jsoup/
   implementation("org.jsoup:jsoup:1.13.1")
+
+  // logger https://github.com/JakeWharton/timber
+  implementation("com.jakewharton.timber:timber:4.7.1")
 }
