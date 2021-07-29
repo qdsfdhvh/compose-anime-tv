@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,12 +21,24 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.seiko.tv.anime.model.Anime
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.widget.foundation.NetworkImage
 
 @Composable
 fun HomeScene() {
+  // 配置状态栏颜色
+  val systemUiController = rememberSystemUiController()
+  val useDarkIcons = MaterialTheme.colors.isLight
+  SideEffect {
+    systemUiController.setSystemBarsColor(
+      color = Color.Transparent,
+      darkIcons = useDarkIcons
+    )
+  }
+
   val viewModel: HomeViewModel = hiltViewModel()
 
   val list by viewModel.animeList.collectAsState(emptyList())

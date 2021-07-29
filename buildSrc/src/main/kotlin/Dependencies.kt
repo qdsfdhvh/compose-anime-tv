@@ -52,6 +52,7 @@ fun DependencyHandlerScope.kotlinCoroutines() {
 fun DependencyHandlerScope.accompanist() {
   implementation("com.google.accompanist:accompanist-coil", Versions.accompanist)
   implementation("com.google.accompanist:accompanist-insets", Versions.accompanist)
+  implementation("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
 }
 
 fun DependencyHandlerScope.navigation() {
