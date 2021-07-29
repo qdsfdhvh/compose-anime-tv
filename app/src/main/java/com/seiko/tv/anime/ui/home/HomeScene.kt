@@ -35,7 +35,9 @@ fun HomeScene() {
         .align(Alignment.Center)
     ) {
       itemsIndexed(list) { index, anime ->
-        AnimeCard(index, anime)
+        if (anime is Anime) {
+          AnimeCard(index, anime)
+        }
       }
     }
   }
@@ -69,7 +71,7 @@ private fun AnimeCard(index: Int, anime: Anime) {
       )
       Spacer(modifier = Modifier.height(6.dp))
       Text(
-        text = anime.name,
+        text = anime.title,
         modifier = Modifier
           .width(140.dp)
           .align(Alignment.CenterHorizontally),
@@ -95,7 +97,7 @@ fun PreviewAnimeCardFocused() {
       index = 0,
       anime = Anime(
         id = 12241,
-        name = "干支魂 猫客万来",
+        title = "干支魂 猫客万来",
         imageUrl = "https://ddcdn-img.acplay.net/anime/12241.jpg!client"
       )
     )
@@ -110,7 +112,7 @@ fun PreviewAnimeCard() {
       index = 1,
       anime = Anime(
         id = 12241,
-        name = "干支魂 猫客万来",
+        title = "干支魂 猫客万来",
         imageUrl = "https://ddcdn-img.acplay.net/anime/12241.jpg!client"
       )
     )

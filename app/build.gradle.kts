@@ -84,4 +84,7 @@ dependencies {
 
   // compose color https://github.com/PatilSiddhesh/Holi
   implementation("com.siddroid:holi:0.0.6")
+
+  // parse html https://github.com/jhy/jsoup/
+  implementation("org.jsoup:jsoup:1.13.1")
 }
