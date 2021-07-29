@@ -21,6 +21,7 @@ allprojects {
       allWarningsAsErrors = true
       freeCompilerArgs = listOf(
         "-Xopt-in=kotlin.RequiresOptIn",
+        "-Xallow-unstable-dependencies"
       )
     }
   }

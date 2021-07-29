@@ -51,7 +51,7 @@ class AnimeTvActivity : ComponentActivity() {
   }
 
   override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-    return AppFocusManager.onKeyDown(keyCode, event) ?: super.onKeyDown(keyCode, event)
+    return AppFocusManager.onKeyDown(keyCode) ?: super.onKeyDown(keyCode, event)
   }
 
   override fun onDestroy() {

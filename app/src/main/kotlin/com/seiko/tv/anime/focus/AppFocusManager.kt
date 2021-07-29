@@ -8,7 +8,7 @@ object AppFocusManager {
 
   var focusManager: FocusManager? = null
 
-  fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean? {
+  fun onKeyDown(keyCode: Int): Boolean? {
     return when (keyCode) {
       KeyEvent.KEYCODE_DPAD_DOWN -> focusManager?.moveFocus(FocusDirection.Down)
       KeyEvent.KEYCODE_DPAD_UP -> focusManager?.moveFocus(FocusDirection.Up)
