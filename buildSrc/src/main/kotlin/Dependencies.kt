@@ -33,6 +33,7 @@ fun DependencyHandlerScope.hilt() {
   kapt("com.google.dagger:hilt-android-compiler", Versions.hilt)
   implementation("androidx.hilt:hilt-work", Versions.androidx_hilt)
   kapt("androidx.hilt:hilt-compiler", Versions.androidx_hilt)
+  implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
 }
 
 fun DependencyHandlerScope.lifecycle() {

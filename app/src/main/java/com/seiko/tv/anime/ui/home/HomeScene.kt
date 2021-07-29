@@ -18,14 +18,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.seiko.tv.anime.model.Anime
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.widget.foundation.NetworkImage
 
 @Composable
 fun HomeScene() {
-  val viewModel: HomeViewModel = viewModel()
+  val viewModel: HomeViewModel = hiltViewModel()
 
   val list by viewModel.animeList.collectAsState(emptyList())
 
