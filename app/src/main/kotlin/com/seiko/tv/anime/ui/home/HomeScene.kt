@@ -1,7 +1,6 @@
 package com.seiko.tv.anime.ui.home
 
 import androidx.compose.animation.core.animateIntSizeAsState
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -13,7 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.*
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +25,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.seiko.tv.anime.model.Anime
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.widget.foundation.NetworkImage
+import com.seiko.tv.anime.ui.widget.foundation.TvTab
+import com.seiko.tv.anime.util.extensions.focusTarget
 
 @Composable
 fun HomeScene() {
@@ -40,21 +41,21 @@ fun HomeScene() {
   }
 
   val viewModel: HomeViewModel = hiltViewModel()
+  val tabList by viewModel.tabList.collectAsState(emptyList())
+  val animeList by viewModel.animeList.collectAsState(emptyList())
 
-  val list by viewModel.animeList.collectAsState(emptyList())
-
-  Column(Modifier.fillMaxSize()) {
-    LazyRow() {
-      
-    }
-    LazyRow(
+  Scaffold {
+    Column(
       modifier = Modifier
         .fillMaxSize()
         .statusBarsPadding()
     ) {
-      itemsIndexed(list) { index, anime ->
-        if (anime is Anime) {
-          AnimeCard(index, anime)
+      TvTab(tabList)
+      LazyRow {
+        itemsIndexed(animeList) { index, anime ->
+          if (anime is Anime) {
+            AnimeCard(index, anime)
+          }
         }
       }
     }
@@ -72,10 +73,9 @@ private fun AnimeCard(index: Int, anime: Anime) {
 
   Box(
     modifier = Modifier
-      .onFocusChanged { isFocused = it.isFocused }
-      .focusRequester(focusRequester)
-      .focusTarget()
-      .clickable { focusRequester.requestFocus() }
+      .focusTarget(focusRequester) {
+        isFocused = it.isFocused
+      }
       .size(160.dp, 280.dp),
   ) {
     Column(
