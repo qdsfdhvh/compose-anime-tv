@@ -17,6 +17,7 @@ allprojects {
 
   tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
+      languageVersion = "1.5"
       jvmTarget = Versions.Java.jvmTarget
       allWarningsAsErrors = true
       freeCompilerArgs = listOf(
