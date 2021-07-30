@@ -91,3 +91,8 @@ dependencies {
   // logger https://github.com/JakeWharton/timber
   implementation("com.jakewharton.timber:timber:4.7.1")
 }
+
+// 剔除livedata，使用flow代替
+configurations.all {
+  exclude(group = "androidx.lifecycle", module = "lifecycle-livedata")
+}
