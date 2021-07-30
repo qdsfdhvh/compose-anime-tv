@@ -23,9 +23,10 @@ fun DependencyHandlerScope.compose() {
   // implementation("androidx.compose.runtime:runtime-livedata", Versions.compose)
 }
 
-fun DependencyHandlerScope.activity() {
+fun DependencyHandlerScope.androidx() {
   implementation("androidx.activity:activity-ktx", Versions.activity)
   implementation("androidx.activity:activity-compose", Versions.activity)
+  implementation("androidx.core:core-ktx:1.6.0")
 }
 
 fun DependencyHandlerScope.hilt() {

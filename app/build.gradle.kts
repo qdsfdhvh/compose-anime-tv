@@ -71,7 +71,7 @@ android {
 
 dependencies {
   compose()
-  activity()
+  androidx()
   hilt()
   lifecycle()
   kotlinCoroutines()
