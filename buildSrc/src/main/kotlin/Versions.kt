@@ -26,4 +26,5 @@ object Versions {
   const val androidx_hilt = "1.0.0"
   const val navigation = "2.4.0-alpha05"
   const val accompanist = "0.15.0"
+  const val okhttp = "4.9.1"
 }

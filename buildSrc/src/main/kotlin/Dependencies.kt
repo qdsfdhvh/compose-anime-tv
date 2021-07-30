@@ -60,14 +60,17 @@ fun DependencyHandlerScope.navigation() {
   implementation("androidx.navigation:navigation-compose", Versions.navigation)
 }
 
-fun DependencyHandlerScope.junit5() {
-  testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-  testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+fun DependencyHandlerScope.network() {
+  implementation("com.squareup.okhttp3:okhttp", Versions.okhttp)
+  implementation("com.squareup.okhttp3:logging-interceptor", Versions.okhttp)
+  // 🐂🍺 https://github.com/Tlaster/Hson
+  implementation("com.github.Tlaster:Hson:0.1.4")
 }
 
-fun DependencyHandlerScope.junit4() {
-  testImplementation("junit:junit:4.13.2")
+fun DependencyHandlerScope.junit5() {
+  testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+  testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
 }
 
 fun DependencyHandlerScope.mockito() {
@@ -76,7 +79,7 @@ fun DependencyHandlerScope.mockito() {
 }
 
 fun DependencyHandlerScope.androidTest() {
-  testImplementation("androidx.arch.core:core-testing:2.1.0")
+//  testImplementation("androidx.arch.core:core-testing:2.1.0")
   androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
   androidTestImplementation("androidx.test:core", Versions.androidx_test)
   androidTestImplementation("androidx.test:runner", Versions.androidx_test)

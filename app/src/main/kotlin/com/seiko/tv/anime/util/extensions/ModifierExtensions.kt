@@ -8,7 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.*
 
-// noRippleClick https://stackoverflow.com/a/66839858/14299073
+/**
+ * 焦点
+ */
 @SuppressLint("UnnecessaryComposedModifier")
 fun Modifier.focusTarget(
   focusRequester: FocusRequester,
@@ -17,8 +19,10 @@ fun Modifier.focusTarget(
   onFocusChanged(onFocusChanged)
     .focusRequester(focusRequester)
     .focusTarget()
+    // noRipple https://stackoverflow.com/a/66839858/14299073
     .clickable(
       indication = null,
-      interactionSource = remember { MutableInteractionSource() }
-    ) { focusRequester.requestFocus() }
+      interactionSource = remember { MutableInteractionSource() },
+      onClick = { focusRequester.requestFocus() }
+    )
 }

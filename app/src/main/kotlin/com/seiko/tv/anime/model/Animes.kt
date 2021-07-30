@@ -1,15 +1,14 @@
 package com.seiko.tv.anime.model
 
+import moe.tlaster.hson.annotations.HtmlSerializable
+
 sealed interface AnimeNode
 
 data class Anime(
-  val id: Int,
+  @HtmlSerializable("img", attr = "alt")
   val title: String = "",
-  val referer: String = "",
+  @HtmlSerializable("img", attr = "src")
   val imageUrl: String = "",
-  val actionUrl: String = "",
-) : AnimeNode
-
-data class AnimeTitle(
-  val title: String
+  @HtmlSerializable("a", attr = "href")
+  val actionUrl: String = ""
 ) : AnimeNode

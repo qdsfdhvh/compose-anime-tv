@@ -80,6 +80,7 @@ dependencies {
   kotlinCoroutines()
   navigation()
   accompanist()
+  network()
 
   junit5()
   mockito()

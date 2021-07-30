@@ -110,29 +110,29 @@ private fun AnimeCard(index: Int, anime: Anime) {
 @Preview
 @Composable
 fun PreviewAnimeCardFocused() {
-  AnimeTvTheme {
-    AnimeCard(
-      index = 0,
-      anime = Anime(
-        id = 12241,
-        title = "干支魂 猫客万来",
-        imageUrl = "https://ddcdn-img.acplay.net/anime/12241.jpg!client"
-      )
-    )
-  }
+//  AnimeTvTheme {
+//    AnimeCard(
+//      index = 0,
+//      anime = Anime(
+////        id = 12241,
+//        title = "干支魂 猫客万来",
+//        imageUrl = "https://ddcdn-img.acplay.net/anime/12241.jpg!client"
+//      )
+//    )
+//  }
 }
 
 @Preview
 @Composable
 fun PreviewAnimeCard() {
-  AnimeTvTheme {
-    AnimeCard(
-      index = 1,
-      anime = Anime(
-        id = 12241,
-        title = "干支魂 猫客万来",
-        imageUrl = "https://ddcdn-img.acplay.net/anime/12241.jpg!client"
-      )
-    )
-  }
+//  AnimeTvTheme {
+//    AnimeCard(
+//      index = 1,
+//      anime = Anime(
+//        id = 12241,
+//        title = "干支魂 猫客万来",
+//        imageUrl = "https://ddcdn-img.acplay.net/anime/12241.jpg!client"
+//      )
+//    )
+//  }
 }
