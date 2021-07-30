@@ -1,10 +1,12 @@
 buildscript {
   repositories {
     google()
+    mavenCentral()
   }
 
   dependencies {
     classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
+    classpath("de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1")
   }
 }
 
@@ -15,6 +17,7 @@ plugins {
 }
 
 apply(plugin = "dagger.hilt.android.plugin")
+apply(plugin = "de.mannodermaus.android-junit5")
 
 android {
   compileSdk = AndroidSdk.compile
@@ -78,7 +81,7 @@ dependencies {
   navigation()
   accompanist()
 
-  junit4()
+  junit5()
   mockito()
   androidTest()
 
