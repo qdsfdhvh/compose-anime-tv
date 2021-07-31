@@ -2,8 +2,8 @@ package com.seiko.tv.anime.ui.home
 
 import androidx.compose.animation.core.animateIntSizeAsState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -15,7 +15,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,6 +24,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.seiko.tv.anime.model.Anime
 import com.seiko.tv.anime.ui.widget.foundation.NetworkImage
 import com.seiko.tv.anime.ui.widget.foundation.TvTabBar
+import com.seiko.tv.anime.ui.widget.foundation.TvTitleGroup
 import com.seiko.tv.anime.util.extensions.focusTarget
 
 @Composable
@@ -44,18 +44,17 @@ fun HomeScene() {
   val animeList by viewModel.animeList.collectAsState(emptyList())
 
   Scaffold {
-    Column(
+    LazyColumn(
       modifier = Modifier
         .fillMaxSize()
         .statusBarsPadding()
     ) {
-      TvTabBar(tabList)
-      LazyRow {
-        itemsIndexed(animeList) { index, anime ->
-          if (anime is Anime) {
-            AnimeCard(index, anime)
-          }
-        }
+      item { TvTabBar(tabList) }
+      items(animeList) { item ->
+        TvTitleGroup(
+          title = item.title,
+          list = item.animes
+        )
       }
     }
   }
@@ -104,34 +103,4 @@ private fun AnimeCard(index: Int, anime: Anime) {
     if (index == 0) focusRequester.requestFocus()
     onDispose { }
   }
-}
-
-@Preview
-@Composable
-fun PreviewAnimeCardFocused() {
-//  AnimeTvTheme {
-//    AnimeCard(
-//      index = 0,
-//      anime = Anime(
-////        id = 12241,
-//        title = "干支魂 猫客万来",
-//        imageUrl = "https://ddcdn-img.acplay.net/anime/12241.jpg!client"
-//      )
-//    )
-//  }
-}
-
-@Preview
-@Composable
-fun PreviewAnimeCard() {
-//  AnimeTvTheme {
-//    AnimeCard(
-//      index = 1,
-//      anime = Anime(
-//        id = 12241,
-//        title = "干支魂 猫客万来",
-//        imageUrl = "https://ddcdn-img.acplay.net/anime/12241.jpg!client"
-//      )
-//    )
-//  }
 }

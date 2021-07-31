@@ -12,3 +12,8 @@ data class Anime(
   @HtmlSerializable("a", attr = "href")
   val actionUrl: String = ""
 ) : AnimeNode
+
+data class AnimeGroup(
+  val title: String,
+  val animes: List<Anime>
+)

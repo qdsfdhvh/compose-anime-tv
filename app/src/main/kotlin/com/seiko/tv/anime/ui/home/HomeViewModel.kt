@@ -2,7 +2,9 @@ package com.seiko.tv.anime.ui.home
 
 import androidx.lifecycle.ViewModel
 import com.seiko.tv.anime.data.AnimeShowRepository
+import com.seiko.tv.anime.model.AnimeGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -28,6 +30,6 @@ class HomeViewModel @Inject constructor(
       "最近更新",
     ))
   }
-  val animeList = repository.getAnimeList()
+  val animeList: Flow<List<AnimeGroup>> = repository.getAnimeList()
     .catch { Timber.w(it, "Home animeList error: ") }
 }

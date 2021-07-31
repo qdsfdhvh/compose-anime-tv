@@ -16,7 +16,11 @@ class ResponseTest {
     assert(file.isNotEmpty())
 
     val response = Hson.deserializeKData<HomeResponse>(file)
-    assert(response.animes.any())
-    assert(response.animes[0].title.isNotEmpty())
+    assert(response.titles.any())
+    assert(response.titles[0].isNotEmpty())
+    assert(response.groups.any())
+    assert(response.groups[0].animes.any())
+    assert(response.groups[0].animes[0].title.isNotEmpty())
+    assert(response.titles.size == response.groups.size)
   }
 }
