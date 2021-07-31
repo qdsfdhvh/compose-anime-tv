@@ -23,9 +23,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.seiko.tv.anime.model.Anime
-import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.widget.foundation.NetworkImage
-import com.seiko.tv.anime.ui.widget.foundation.TvTab
+import com.seiko.tv.anime.ui.widget.foundation.TvTabBar
 import com.seiko.tv.anime.util.extensions.focusTarget
 
 @Composable
@@ -50,7 +49,7 @@ fun HomeScene() {
         .fillMaxSize()
         .statusBarsPadding()
     ) {
-      TvTab(tabList)
+      TvTabBar(tabList)
       LazyRow {
         itemsIndexed(animeList) { index, anime ->
           if (anime is Anime) {
