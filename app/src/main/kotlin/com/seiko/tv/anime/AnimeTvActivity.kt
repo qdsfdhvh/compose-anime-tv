@@ -12,7 +12,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.seiko.tv.anime.focus.AppFocusManager
 import com.seiko.tv.anime.navigation.AppNavigator
 import com.seiko.tv.anime.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
@@ -35,8 +34,6 @@ class AnimeTvActivity : ComponentActivity() {
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
     setContent {
-      AppFocusManager.focusManager = LocalFocusManager.current
-
       CompositionLocalProvider(
         LocalAppNavigator provides AppNavigator(navController)
       ) {
@@ -48,14 +45,5 @@ class AnimeTvActivity : ComponentActivity() {
         }
       }
     }
-  }
-
-  override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-    return AppFocusManager.onKeyDown(keyCode) ?: super.onKeyDown(keyCode, event)
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    AppFocusManager.focusManager = null
   }
 }
