@@ -4,8 +4,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -14,22 +13,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.seiko.compose.focuskit.*
 import com.seiko.tv.anime.model.Anime
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
-import com.seiko.tv.anime.util.extensions.focusTarget
 
 @Composable
 fun TvTitleGroup(
   title: String,
-  list: List<Anime>
+  list: List<Anime>,
+  parent: ContainerTvFocusItem? = null
 ) {
+  val container = parent ?: rememberContainerTvFocusItem()
+
   Column {
     Text(
       text = title,
@@ -37,15 +38,22 @@ fun TvTitleGroup(
       modifier = Modifier
         .padding(start = 15.dp, top = 10.dp),
     )
-    LazyRow {
-      items(list) { item ->
+    TvLazyRow(container) {
+      itemsIndexed(list) { index, item ->
+        val focusItem = rememberTvFocusItem(
+          key = item,
+          container = container,
+          index = index
+        )
         var isFocused by remember { mutableStateOf(false) }
         GroupItem(
+          modifier = Modifier
+            .onFocusChanged { }
+            .onTvFocusChanged(focusItem) {
+              isFocused = it.isFocused
+            },
           item = item,
           isFocused = isFocused,
-          onFocusChanged = {
-            isFocused = it.isFocused
-          }
         )
       }
     }
@@ -56,13 +64,11 @@ fun TvTitleGroup(
 private fun GroupItem(
   item: Anime,
   isFocused: Boolean,
-  onFocusChanged: (FocusState) -> Unit = {}
+  modifier: Modifier = Modifier,
 ) {
-  val focusRequester = remember { FocusRequester() }
   val scale by animateFloatAsState(if (isFocused) 1.1f else 1f)
   Box(
-    modifier = Modifier
-      .focusTarget(focusRequester, onFocusChanged)
+    modifier = modifier
       .scale(scale)
       .padding(horizontal = 15.dp, vertical = 10.dp)
       .shadow(if (isFocused) 5.dp else 0.dp)

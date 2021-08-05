@@ -94,6 +94,9 @@ dependencies {
 
   // logger https://github.com/JakeWharton/timber
   implementation("com.jakewharton.timber:timber:4.7.1")
+
+  // compose focus https://github.com/qdsfdhvh/compose-focuskit
+  implementation("com.github.qdsfdhvh:compose-focuskit:0.0.1")
 }
 
 // 剔除livedata，使用flow代替
