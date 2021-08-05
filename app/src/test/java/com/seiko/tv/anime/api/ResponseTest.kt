@@ -11,7 +11,7 @@ import java.io.File
 class ResponseTest {
 
   @Test
-  fun userTest() = runBlocking {
+  fun homeTest() = runBlocking {
     val file = File("src/test/resources/api/yhdm_home.html").readText()
     assert(file.isNotEmpty())
 

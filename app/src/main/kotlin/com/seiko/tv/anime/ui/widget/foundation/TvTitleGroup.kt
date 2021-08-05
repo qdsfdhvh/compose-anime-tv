@@ -77,7 +77,7 @@ private fun GroupItem(
       .size(140.dp, 200.dp)
   ) {
     NetworkImage(
-      data = item.imageUrl,
+      data = item.cover,
       modifier = Modifier
         .fillMaxSize()
     )
@@ -104,7 +104,7 @@ fun GroupItemPreview() {
         GroupItem(
           Anime(
             title = "妖精的尾巴",
-            imageUrl = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
+            cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
             actionUrl = "/show/273.html",
           ),
           isFocused = true
@@ -112,7 +112,7 @@ fun GroupItemPreview() {
         GroupItem(
           Anime(
             title = "妖精的尾巴",
-            imageUrl = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
+            cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
             actionUrl = "/show/273.html",
           ),
           isFocused = false
@@ -132,12 +132,12 @@ fun TvTitleGroupPreview() {
         list = listOf(
           Anime(
             title = "妖精的尾巴",
-            imageUrl = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
+            cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
             actionUrl = "/show/273.html",
           ),
           Anime(
             title = "妖精的尾巴",
-            imageUrl = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
+            cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
             actionUrl = "/show/273.html",
           )
         )
