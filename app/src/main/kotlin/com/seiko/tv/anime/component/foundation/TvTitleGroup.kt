@@ -53,6 +53,12 @@ fun TvTitleGroup(
             .clickableNoRipple {
               navigator.push(item.actionUrl)
             }
+            .onTvKeyHandler(focusItem) { key, _ ->
+              if (key == TvControllerKey.Enter) {
+                navigator.push(item.actionUrl)
+                true
+              } else false
+            }
             .onTvFocusChanged(focusItem) {
               isFocused = it.isFocused
             },

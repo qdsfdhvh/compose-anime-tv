@@ -2,7 +2,7 @@ package com.seiko.tv.anime.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.seiko.tv.anime.data.AnimeShowRepository
+import com.seiko.tv.anime.data.AnimeHomeRepository
 import com.seiko.tv.anime.model.AnimeGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-  repository: AnimeShowRepository
+  repository: AnimeHomeRepository
 ) : ViewModel() {
 
   val tabList: StateFlow<List<String>> = flow {

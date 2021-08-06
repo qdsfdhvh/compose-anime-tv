@@ -2,7 +2,7 @@ package com.seiko.tv.anime.di
 
 import com.seiko.tv.anime.BuildConfig
 import com.seiko.tv.anime.constant.YHDM_BAS_URL
-import com.seiko.tv.anime.http.YydmService
+import com.seiko.tv.anime.http.YhdmService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,8 +31,8 @@ object HttpModule {
 
   @Singleton
   @Provides
-  fun provideYhDmService(client: OkHttpClient): YydmService {
-    return YydmService(YHDM_BAS_URL, client)
+  fun provideYhDmService(client: OkHttpClient): YhdmService {
+    return YhdmService(YHDM_BAS_URL, client)
   }
 
 }

@@ -17,14 +17,20 @@ import com.seiko.compose.focuskit.LocalRootTvFocusItem
 import com.seiko.compose.focuskit.Logger
 import com.seiko.compose.focuskit.RootTvFocusItem
 import com.seiko.compose.focuskit.tvFocusable
+import com.seiko.tv.anime.di.assisted.AssistedFactoryMap
+import com.seiko.tv.anime.di.assisted.ProvideAssistedFactory
 import com.seiko.tv.anime.navigation.AppNavigator
 import com.seiko.tv.anime.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AnimeTvActivity : ComponentActivity() {
+
+  @Inject
+  lateinit var assistedFactoryMap: AssistedFactoryMap
 
   private val navController by lazy {
     NavHostController(this).apply {
@@ -51,14 +57,17 @@ class AnimeTvActivity : ComponentActivity() {
         LocalRootTvFocusItem provides RootTvFocusItem()
       ) {
         AnimeTvTheme {
-          // https://stackoverflow.com/questions/65260293
-          ProvideWindowInsets {
-            Box(
-              modifier = Modifier
-                .fillMaxSize()
-                .tvFocusable()
-            ) {
-              Router(navController)
+          ProvideAssistedFactory(
+            factoryMap = assistedFactoryMap
+          ) {
+            ProvideWindowInsets {
+              Box(
+                modifier = Modifier
+                  .fillMaxSize()
+                  .tvFocusable()
+              ) {
+                Router(navController)
+              }
             }
           }
         }
