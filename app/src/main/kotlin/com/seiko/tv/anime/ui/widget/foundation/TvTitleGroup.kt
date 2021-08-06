@@ -13,15 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.*
+import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.model.Anime
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
+import com.seiko.tv.anime.util.extensions.clickableNoRipple
 
 @Composable
 fun TvTitleGroup(
@@ -30,6 +31,7 @@ fun TvTitleGroup(
   parent: ContainerTvFocusItem? = null
 ) {
   val container = parent ?: rememberContainerTvFocusItem()
+  val navigator = LocalAppNavigator.current
 
   Column {
     Text(
@@ -48,7 +50,9 @@ fun TvTitleGroup(
         var isFocused by remember { mutableStateOf(false) }
         GroupItem(
           modifier = Modifier
-            .onFocusChanged { }
+            .clickableNoRipple {
+              navigator.push(item.actionUrl)
+            }
             .onTvFocusChanged(focusItem) {
               isFocused = it.isFocused
             },

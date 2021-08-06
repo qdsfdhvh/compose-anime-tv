@@ -6,23 +6,16 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.focus.*
 
 /**
- * 焦点
+ * 无波纹点击
+ * https://stackoverflow.com/a/66839858/14299073
  */
 @SuppressLint("UnnecessaryComposedModifier")
-fun Modifier.focusTarget(
-  focusRequester: FocusRequester,
-  onFocusChanged: (FocusState) -> Unit
-) = composed {
-  onFocusChanged(onFocusChanged)
-    .focusRequester(focusRequester)
-    .focusTarget()
-    // noRipple https://stackoverflow.com/a/66839858/14299073
-    .clickable(
-      indication = null,
-      interactionSource = remember { MutableInteractionSource() },
-      onClick = { focusRequester.requestFocus() }
-    )
+fun Modifier.clickableNoRipple(onClick: () -> Unit): Modifier = composed {
+  clickable(
+    indication = null,
+    interactionSource = remember { MutableInteractionSource() },
+    onClick = onClick
+  )
 }

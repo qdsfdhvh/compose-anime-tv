@@ -11,7 +11,7 @@ import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.navigation.AppNavigator
 
 @Composable
-fun DetailScene(id: Long) {
+fun DetailScene(id: Int) {
   val navigator: AppNavigator = LocalAppNavigator.current
 
   Box(modifier = Modifier.fillMaxSize()) {
@@ -19,7 +19,7 @@ fun DetailScene(id: Long) {
       onClick = { navigator.pop() },
       modifier = Modifier.align(Alignment.Center)
     ) {
-      Text(text = "go back $id")
+      Text(text = "anime $id")
     }
   }
 }
