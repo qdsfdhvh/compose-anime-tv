@@ -40,6 +40,7 @@ class ResponseTest {
     assert(response.types.isNotEmpty())
     assert(response.tags.isNotEmpty())
     assert(response.indexes.isNotEmpty())
+    assert(response.state.isNotEmpty())
     assert(response.description.isNotEmpty())
   }
 }
