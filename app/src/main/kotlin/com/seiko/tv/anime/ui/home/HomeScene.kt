@@ -14,8 +14,8 @@ import com.seiko.compose.focuskit.LocalRootTvFocusItem
 import com.seiko.compose.focuskit.TvLazyColumn
 import com.seiko.compose.focuskit.refocus
 import com.seiko.compose.focuskit.rememberContainerTvFocusItem
-import com.seiko.tv.anime.ui.widget.foundation.TvTabBar
-import com.seiko.tv.anime.ui.widget.foundation.TvTitleGroup
+import com.seiko.tv.anime.component.foundation.TvTabBar
+import com.seiko.tv.anime.component.foundation.TvTitleGroup
 
 @Composable
 fun HomeScene() {
