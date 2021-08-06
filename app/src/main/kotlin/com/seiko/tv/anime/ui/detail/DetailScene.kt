@@ -16,7 +16,7 @@ fun DetailScene(id: Long) {
 
   Box(modifier = Modifier.fillMaxSize()) {
     Button(
-      onClick = { navigator.popBackStack() },
+      onClick = { navigator.pop() },
       modifier = Modifier.align(Alignment.Center)
     ) {
       Text(text = "go back $id")

@@ -2,15 +2,13 @@ package com.seiko.tv.anime.navigation
 
 import androidx.navigation.NavHostController
 
-class AppNavigator(
-  private val navController: NavHostController
-) {
+class AppNavigator(private val navController: NavHostController) {
 
-  fun navigate(route: String) {
+  fun push(route: String) {
     navController.navigate(route)
   }
 
-  fun popBackStack() {
+  fun pop() {
     navController.popBackStack()
   }
 }
