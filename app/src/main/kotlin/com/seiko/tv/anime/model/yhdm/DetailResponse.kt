@@ -27,4 +27,25 @@ data class DetailResponse(
   val state: String = "",
   @HtmlSerializable("div.info", serializer = TrimStringSerializer::class)
   val description: String = "",
-)
+  @HtmlSerializable("div.movurl > ul > li")
+  val episodeList: List<Episode> = emptyList(),
+  @HtmlSerializable("div.pics > ul > li")
+  val relatedList: List<Anime> = emptyList(),
+) {
+
+  data class Episode(
+    @HtmlSerializable("a")
+    val title: String,
+    @HtmlSerializable("a", attr="href")
+    val actionUrl: String,
+  )
+
+  data class Anime(
+    @HtmlSerializable("img", attr = "alt")
+    val title: String = "",
+    @HtmlSerializable("img", attr = "src")
+    val cover: String = "",
+    @HtmlSerializable("a", attr = "href")
+    val actionUrl: String = ""
+  )
+}

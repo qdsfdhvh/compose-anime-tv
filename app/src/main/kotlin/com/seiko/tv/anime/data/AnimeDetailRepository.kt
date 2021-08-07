@@ -1,7 +1,9 @@
 package com.seiko.tv.anime.data
 
 import com.seiko.tv.anime.http.YhdmService
+import com.seiko.tv.anime.model.Anime
 import com.seiko.tv.anime.model.AnimeDetail
+import com.seiko.tv.anime.model.AnimeEpisode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -23,6 +25,19 @@ class AnimeDetailRepository @Inject constructor(private val service: YhdmService
           indexes = response.indexes,
           state = response.state,
           description = response.description,
+          episodeList = response.episodeList.map { episode ->
+            AnimeEpisode(
+              title = episode.title,
+              actionUrl = episode.actionUrl,
+            )
+          },
+          relatedList = response.relatedList.map { anime ->
+            Anime(
+              title = anime.title,
+              cover = anime.cover,
+              actionUrl = anime.actionUrl
+            )
+          }
         )
       )
     }

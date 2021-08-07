@@ -23,4 +23,11 @@ data class AnimeDetail(
   val indexes: List<String> = emptyList(),
   val state: String = "",
   val description: String = "",
+  val episodeList: List<AnimeEpisode> = emptyList(),
+  val relatedList: List<Anime> = emptyList(),
+)
+
+data class AnimeEpisode(
+  val title: String,
+  val actionUrl: String,
 )

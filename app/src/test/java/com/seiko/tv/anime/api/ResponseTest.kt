@@ -42,5 +42,7 @@ class ResponseTest {
     assert(response.indexes.isNotEmpty())
     assert(response.state.isNotEmpty())
     assert(response.description.isNotEmpty())
+    assert(response.episodeList.isNotEmpty())
+    assert(response.relatedList.isNotEmpty())
   }
 }
