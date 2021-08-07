@@ -2,7 +2,7 @@ import org.gradle.api.JavaVersion
 
 object Versions {
   object Kotlin {
-    const val lang = "1.5.10"
+    const val lang = "1.5.21"
     const val coroutines = "1.5.1"
   }
 
