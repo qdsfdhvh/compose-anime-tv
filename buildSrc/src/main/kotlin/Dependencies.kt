@@ -21,6 +21,7 @@ fun DependencyHandlerScope.compose() {
   implementation("androidx.compose.material:material-icons-core", Versions.compose)
   implementation("androidx.compose.material:material-icons-extended", Versions.compose)
   // implementation("androidx.compose.runtime:runtime-livedata", Versions.compose)
+  implementation("androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02")
 }
 
 fun DependencyHandlerScope.androidx() {
