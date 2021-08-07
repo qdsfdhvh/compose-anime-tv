@@ -3,7 +3,7 @@ import org.gradle.api.JavaVersion
 object Versions {
   object Kotlin {
     const val lang = "1.5.10"
-    const val coroutines = "1.5.0"
+    const val coroutines = "1.5.1"
   }
 
   object Java {
@@ -18,10 +18,11 @@ object Versions {
   const val extJUnitVersion = "1.1.3-rc01"
   const val espressoVersion = "3.4.0-rc01"
 
-  const val hilt = "2.37"
-  const val compose = "1.0.0"
+  const val hilt = "2.38.1"
+  const val compose = "1.1.0-alpha01"
+  const val constraintLayout = "1.0.0-beta02"
   const val activity = "1.3.0"
-  const val lifecycle = "2.4.0-alpha02"
+  const val lifecycle = "2.4.0-alpha03"
   const val lifecycle_compose = "1.0.0-alpha07"
   const val androidx_hilt = "1.0.0"
   const val navigation = "2.4.0-alpha05"
