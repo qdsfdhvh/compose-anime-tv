@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,15 +54,14 @@ fun TvTitleGroup(
             .clickableNoRipple {
               navigator.push(item.actionUrl)
             }
-            .onTvKeyHandler(focusItem) { key, _ ->
-              if (key == TvControllerKey.Enter) {
-                navigator.push(item.actionUrl)
-                true
-              } else false
+            .handleTvKey(TvControllerKey.Enter) {
+              navigator.push(item.actionUrl)
+              true
             }
-            .onTvFocusChanged(focusItem) {
+            .onFocusChanged {
               isFocused = it.isFocused
-            },
+            }
+            .tvFocusTarget(focusItem),
           item = item,
           isFocused = isFocused,
         )

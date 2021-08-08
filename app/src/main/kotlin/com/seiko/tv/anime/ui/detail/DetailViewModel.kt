@@ -7,10 +7,7 @@ import com.seiko.tv.anime.di.assisted.ComposeAssistedFactory
 import com.seiko.tv.anime.model.AnimeDetail
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 
 class DetailViewModel @AssistedInject constructor(
@@ -18,7 +15,8 @@ class DetailViewModel @AssistedInject constructor(
   repository: AnimeDetailRepository,
 ) : ViewModel() {
 
-  val info: StateFlow<AnimeDetail> = repository.getAnimeDetail(animeId)
+  val detail: StateFlow<AnimeDetail> = repository.getAnimeDetail(animeId)
+    .onEach { Timber.d(it.toString()) }
     .catch { Timber.w(it, "Detail animeDetail error: ") }
     .stateIn(viewModelScope, SharingStarted.Lazily, AnimeDetail())
 

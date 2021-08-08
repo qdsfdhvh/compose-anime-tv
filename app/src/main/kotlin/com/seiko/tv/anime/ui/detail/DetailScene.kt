@@ -9,8 +9,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.google.accompanist.insets.statusBarsPadding
-import com.seiko.compose.focuskit.TvLazyColumn
-import com.seiko.compose.focuskit.rememberContainerTvFocusItem
+import com.seiko.compose.focuskit.*
+import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.component.foundation.TvEpisodeList
 import com.seiko.tv.anime.component.foundation.TvMovieInfo
 import com.seiko.tv.anime.component.foundation.TvTitleGroup
@@ -22,25 +22,29 @@ fun DetailScene(id: Int) {
     factory.create(id)
   }
 
-  val container = rememberContainerTvFocusItem()
+  val container = rememberRootTvFocusItem()
 
-  val info by viewModel.info.collectAsState()
+  val detail by viewModel.detail.collectAsState()
+  val navController = LocalAppNavigator.current
 
   Surface(color = MaterialTheme.colors.background) {
     TvLazyColumn(
       container = container,
       modifier = Modifier
         .fillMaxSize()
-        .statusBarsPadding(),
+        .statusBarsPadding()
+        .handleTvKey(TvControllerKey.Back) {
+          navController.pop()
+        },
     ) {
       item {
         TvMovieInfo(
-          title = info.title,
-          cover = info.cover,
-          releaseTime = info.releaseTime,
-          state = info.state,
-          tags = info.tags,
-          description = info.description,
+          title = detail.title,
+          cover = detail.cover,
+          releaseTime = detail.releaseTime,
+          state = detail.state,
+          tags = detail.tags,
+          description = detail.description,
         )
       }
 
@@ -53,11 +57,11 @@ fun DetailScene(id: Int) {
 
         TvEpisodeList(
           title = "播放列表",
-          list = info.episodeList,
+          list = detail.episodeList,
           parent = episodeContainer,
         )
 
-        LaunchedEffect(info) {
+        LaunchedEffect(detail) {
           episodeContainer.focusIndex = 0
         }
       }
@@ -72,9 +76,13 @@ fun DetailScene(id: Int) {
         TvTitleGroup(
           parent = relatedContainer,
           title = "相关推荐",
-          list = info.relatedList
+          list = detail.relatedList
         )
       }
     }
+  }
+
+  LaunchedEffect(detail) {
+    container.refocus()
   }
 }

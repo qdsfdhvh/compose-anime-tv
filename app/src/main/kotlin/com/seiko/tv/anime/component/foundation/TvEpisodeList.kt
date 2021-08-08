@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.*
@@ -47,9 +48,10 @@ fun TvEpisodeList(
         var isFocused by remember { mutableStateOf(false) }
         EpisodeItem(
           modifier = Modifier
-            .onTvFocusChanged(focusItem) {
+            .onFocusChanged {
               isFocused = it.isFocused
-            },
+            }
+            .tvFocusTarget(focusItem),
           episode = item,
           isFocused = isFocused,
         )

@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,12 +40,13 @@ fun TvTabBar(
       var isFocused by remember { mutableStateOf(false) }
       TvTabBarItem(
         modifier = Modifier
-          .onTvFocusChanged(focusItem) {
+          .onFocusChanged {
             isFocused = it.isFocused
             if (isFocused) {
               tabIndex = index
             }
-          },
+          }
+          .tvFocusTarget(focusItem),
         title = title,
         isFocused = isFocused,
         isSelected = isSelected,

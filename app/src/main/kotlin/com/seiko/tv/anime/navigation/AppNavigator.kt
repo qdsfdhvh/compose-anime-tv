@@ -4,11 +4,12 @@ import androidx.navigation.NavHostController
 
 class AppNavigator(private val navController: NavHostController) {
 
-  fun push(route: String) {
+  fun push(route: String): Boolean {
     navController.navigate(route)
+    return true
   }
 
-  fun pop() {
-    navController.popBackStack()
+  fun pop(): Boolean {
+    return navController.popBackStack()
   }
 }
