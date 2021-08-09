@@ -28,6 +28,8 @@ fun DependencyHandlerScope.androidx() {
   implementation("androidx.activity:activity-ktx", Versions.activity)
   implementation("androidx.activity:activity-compose", Versions.activity)
   implementation("androidx.core:core-ktx:1.6.0")
+  implementation("com.google.android.exoplayer:exoplayer", Versions.exoplayer)
+  implementation("com.google.android.exoplayer:extension-okhttp", Versions.exoplayer)
 }
 
 fun DependencyHandlerScope.hilt() {
