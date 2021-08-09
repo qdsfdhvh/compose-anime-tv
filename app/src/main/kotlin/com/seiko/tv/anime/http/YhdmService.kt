@@ -2,6 +2,7 @@ package com.seiko.tv.anime.http
 
 import com.seiko.tv.anime.model.yhdm.DetailResponse
 import com.seiko.tv.anime.model.yhdm.HomeResponse
+import com.seiko.tv.anime.model.yhdm.VideoResponse
 import com.seiko.tv.anime.util.extensions.await
 import moe.tlaster.hson.Hson
 import okhttp3.OkHttpClient
@@ -21,6 +22,10 @@ class YhdmService(
 
   suspend fun getDetailResponse(animeId: Int): DetailResponse {
     return Hson.deserializeKData(getHtml("show/${animeId}.html"))
+  }
+
+  suspend fun getDetailResponse(episode: String): VideoResponse {
+    return Hson.deserializeKData(getHtml("v/${episode}.html"))
   }
 
   @Suppress("BlockingMethodInNonBlockingContext")

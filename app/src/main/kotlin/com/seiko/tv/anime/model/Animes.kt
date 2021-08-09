@@ -31,3 +31,7 @@ data class AnimeEpisode(
   val title: String,
   val actionUrl: String,
 )
+
+data class AnimeVideo(
+  val playUrl: String = ""
+)

@@ -2,6 +2,7 @@ package com.seiko.tv.anime.api
 
 import com.seiko.tv.anime.model.yhdm.DetailResponse
 import com.seiko.tv.anime.model.yhdm.HomeResponse
+import com.seiko.tv.anime.model.yhdm.VideoResponse
 import kotlinx.coroutines.runBlocking
 import moe.tlaster.hson.Hson
 import org.junit.jupiter.api.Test
@@ -44,5 +45,15 @@ class ResponseTest {
     assert(response.description.isNotEmpty())
     assert(response.episodeList.isNotEmpty())
     assert(response.relatedList.isNotEmpty())
+  }
+
+  @Test
+  fun videoTest() = runBlocking {
+    val file = File("src/test/resources/api/yhdm_video.html").readText()
+    assert(file.isNotEmpty())
+
+    val response = Hson.deserializeKData<VideoResponse>(file)
+    assert(response.playUrl.isNotEmpty())
+    assert(response.playUrl.contains("$").not())
   }
 }

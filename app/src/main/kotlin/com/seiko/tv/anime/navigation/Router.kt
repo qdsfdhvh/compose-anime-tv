@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.seiko.tv.anime.ui.detail.DetailScene
 import com.seiko.tv.anime.ui.home.HomeScene
+import com.seiko.tv.anime.ui.player.PlayerScene
 
 @Composable
 fun Router(
@@ -17,6 +18,10 @@ fun Router(
     composable("/show/{animeId}.html") {
       val animeId = it.arguments?.getString("animeId")?.toIntOrNull() ?: 0
       DetailScene(animeId)
+    }
+    composable("/v/{episode}.html") {
+      val episode = it.arguments?.getString("episode").orEmpty()
+      PlayerScene(episode)
     }
   }
 }
