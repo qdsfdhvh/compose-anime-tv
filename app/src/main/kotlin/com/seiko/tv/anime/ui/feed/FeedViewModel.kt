@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.ui.home
+package com.seiko.tv.anime.ui.feed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +10,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class FeedViewModel @Inject constructor(
   repository: AnimeHomeRepository
 ) : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.ui.home
+package com.seiko.tv.anime.ui.feed
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -18,7 +18,7 @@ import com.seiko.tv.anime.component.foundation.TvTabBar
 import com.seiko.tv.anime.component.foundation.TvTitleGroup
 
 @Composable
-fun HomeScene() {
+fun FeedScene() {
   // 配置状态栏颜色
   val systemUiController = rememberSystemUiController()
   val useDarkIcons = MaterialTheme.colors.isLight
@@ -29,7 +29,7 @@ fun HomeScene() {
     )
   }
 
-  val viewModel: HomeViewModel = hiltViewModel()
+  val viewModel: FeedViewModel = hiltViewModel()
   val tabList by viewModel.tabList.collectAsState()
   val animeList by viewModel.animeList.collectAsState()
 
