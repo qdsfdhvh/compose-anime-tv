@@ -9,7 +9,12 @@ class AppNavigator(private val navController: NavHostController) {
     return true
   }
 
+  @OptIn(ExperimentalStdlibApi::class)
   fun pop(): Boolean {
-    return navController.popBackStack()
+    // navGraph + backStack
+    if (navController.backQueue.size > 2) {
+      return navController.popBackStack()
+    }
+    return false
   }
 }

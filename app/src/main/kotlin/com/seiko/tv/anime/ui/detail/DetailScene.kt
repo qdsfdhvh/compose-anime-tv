@@ -9,8 +9,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.google.accompanist.insets.statusBarsPadding
-import com.seiko.compose.focuskit.*
-import com.seiko.tv.anime.LocalAppNavigator
+import com.seiko.compose.focuskit.TvLazyColumn
+import com.seiko.compose.focuskit.refocus
+import com.seiko.compose.focuskit.rememberContainerTvFocusItem
+import com.seiko.compose.focuskit.rememberRootTvFocusItem
 import com.seiko.tv.anime.component.foundation.TvEpisodeList
 import com.seiko.tv.anime.component.foundation.TvMovieInfo
 import com.seiko.tv.anime.component.foundation.TvTitleGroup
@@ -18,21 +20,16 @@ import com.seiko.tv.anime.component.foundation.TvTitleGroup
 @Composable
 fun DetailScene(animeId: Int) {
   val viewModel = detailViewModel(animeId)
+  val detail by viewModel.detail.collectAsState()
 
   val container = rememberRootTvFocusItem()
-
-  val detail by viewModel.detail.collectAsState()
-  val navController = LocalAppNavigator.current
 
   Surface(color = MaterialTheme.colors.background) {
     TvLazyColumn(
       container = container,
       modifier = Modifier
         .fillMaxSize()
-        .statusBarsPadding()
-        .handleTvKey(TvControllerKey.Back) {
-          navController.pop()
-        },
+        .statusBarsPadding(),
     ) {
       item {
         TvMovieInfo(

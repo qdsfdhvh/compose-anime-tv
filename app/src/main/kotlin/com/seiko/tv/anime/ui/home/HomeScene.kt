@@ -10,8 +10,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.seiko.compose.focuskit.*
-import com.seiko.tv.anime.LocalAppNavigator
+import com.seiko.compose.focuskit.TvLazyColumn
+import com.seiko.compose.focuskit.refocus
+import com.seiko.compose.focuskit.rememberContainerTvFocusItem
+import com.seiko.compose.focuskit.rememberRootTvFocusItem
 import com.seiko.tv.anime.component.foundation.TvTabBar
 import com.seiko.tv.anime.component.foundation.TvTitleGroup
 
@@ -32,7 +34,6 @@ fun HomeScene() {
   val animeList by viewModel.animeList.collectAsState()
 
   val container = rememberRootTvFocusItem()
-  val navController = LocalAppNavigator.current
 
   Scaffold {
     TvLazyColumn(
@@ -40,9 +41,6 @@ fun HomeScene() {
       modifier = Modifier
         .fillMaxSize()
         .statusBarsPadding()
-        .handleTvKey(TvControllerKey.Back) {
-          navController.pop()
-        }
     ) {
       item {
         val tabContainer = rememberContainerTvFocusItem(

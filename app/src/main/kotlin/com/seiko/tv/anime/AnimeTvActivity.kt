@@ -5,15 +5,20 @@ import android.util.Log
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
+import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.seiko.compose.focuskit.TvControllerKey
 import com.seiko.compose.focuskit.TvLogger
+import com.seiko.compose.focuskit.handleTvKey
 import com.seiko.tv.anime.di.assisted.AssistedFactoryMap
-import com.seiko.tv.anime.di.assisted.ProvideAssistedFactory
+import com.seiko.tv.anime.di.assisted.LocalAssistedFactoryMap
 import com.seiko.tv.anime.navigation.AppNavigator
 import com.seiko.tv.anime.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
@@ -52,15 +57,24 @@ class AnimeTvActivity : ComponentActivity() {
       }
     })
 
+    val navigator = AppNavigator(navController)
+
     setContent {
       CompositionLocalProvider(
-        LocalAppNavigator provides AppNavigator(navController),
+        LocalAppNavigator provides navigator,
+        LocalAssistedFactoryMap provides assistedFactoryMap
       ) {
         AnimeTvTheme {
-          ProvideAssistedFactory(
-            factoryMap = assistedFactoryMap
-          ) {
-            ProvideWindowInsets {
+          ProvideWindowInsets {
+            Box(
+              modifier = Modifier
+                .handleTvKey(TvControllerKey.Back) {
+                  if (!navigator.pop()) {
+                    ActivityCompat.finishAffinity(this)
+                  }
+                  true
+                }
+            ) {
               Router(navController)
             }
           }
