@@ -14,13 +14,10 @@ import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.component.foundation.TvEpisodeList
 import com.seiko.tv.anime.component.foundation.TvMovieInfo
 import com.seiko.tv.anime.component.foundation.TvTitleGroup
-import com.seiko.tv.anime.di.assisted.assistedViewModel
 
 @Composable
-fun DetailScene(id: Int) {
-  val viewModel = assistedViewModel<DetailViewModel.AssistedFactory, DetailViewModel> { factory ->
-    factory.create(id)
-  }
+fun DetailScene(animeId: Int) {
+  val viewModel = detailViewModel(animeId)
 
   val container = rememberRootTvFocusItem()
 

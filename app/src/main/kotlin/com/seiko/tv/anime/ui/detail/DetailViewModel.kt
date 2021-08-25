@@ -1,9 +1,11 @@
 package com.seiko.tv.anime.ui.detail
 
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.seiko.tv.anime.data.AnimeDetailRepository
 import com.seiko.tv.anime.di.assisted.ComposeAssistedFactory
+import com.seiko.tv.anime.di.assisted.assistedViewModel
 import com.seiko.tv.anime.model.AnimeDetail
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -25,5 +27,12 @@ class DetailViewModel @AssistedInject constructor(
   @dagger.assisted.AssistedFactory
   interface AssistedFactory : ComposeAssistedFactory {
     fun create(animeId: Int): DetailViewModel
+  }
+}
+
+@Composable
+fun detailViewModel(animeId: Int): DetailViewModel {
+  return assistedViewModel<DetailViewModel.AssistedFactory, DetailViewModel> { factory ->
+    factory.create(animeId)
   }
 }
