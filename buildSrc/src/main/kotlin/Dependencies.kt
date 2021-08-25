@@ -52,6 +52,7 @@ fun DependencyHandlerScope.lifecycle() {
 
 fun DependencyHandlerScope.kotlinCoroutines() {
   api("org.jetbrains.kotlinx:kotlinx-coroutines-core", Versions.Kotlin.coroutines)
+  api("org.jetbrains.kotlinx:kotlinx-coroutines-android", Versions.Kotlin.coroutines)
 }
 
 fun DependencyHandlerScope.accompanist() {
