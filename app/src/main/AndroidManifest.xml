@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Anime"
-        tools:ignore="DataExtractionRules,MissingTvBanner">
+        android:banner="@drawable/ic_app_banner"
+        tools:ignore="DataExtractionRules">
         <activity
             android:name=".AnimeTvActivity"
             android:exported="true"
