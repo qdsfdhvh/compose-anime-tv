@@ -14,4 +14,5 @@ dependencies {
   kotlinCoroutines()
   accompanist()
   navigation()
+  hilt()
 }

@@ -74,8 +74,7 @@ android {
 
 dependencies {
   implementation(project(":core"))
-
-  hilt()
+  hiltCompiler()
   network()
 
   junit5()

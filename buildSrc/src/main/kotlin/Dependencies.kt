@@ -12,10 +12,15 @@ fun Project.configRepository() {
 }
 
 fun DependencyHandlerScope.hilt() {
-  implementation("com.google.dagger:hilt-android", Versions.hilt)
+  api("com.google.dagger:hilt-android", Versions.hilt)
+  api("androidx.hilt:hilt-work", Versions.androidx_hilt)
+}
+
+fun DependencyHandlerScope.hiltCompiler() {
   kapt("com.google.dagger:hilt-android-compiler", Versions.hilt)
-  implementation("androidx.hilt:hilt-work", Versions.androidx_hilt)
   kapt("androidx.hilt:hilt-compiler", Versions.androidx_hilt)
+  // Fix Caused by: java.lang.IllegalStateException: The Hilt Android Gradle plugin ...
+  implementation("com.google.dagger:hilt-android", Versions.hilt)
 }
 
 fun DependencyHandlerScope.compose() {
