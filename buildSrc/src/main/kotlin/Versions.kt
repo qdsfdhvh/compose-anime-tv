@@ -26,7 +26,7 @@ object Versions {
   const val lifecycle_compose = "1.0.0-alpha07"
   const val androidx_hilt = "1.0.0"
   const val navigation = "2.4.0-alpha06"
-  const val accompanist = "0.15.0"
+  const val accompanist = "0.17.0"
   const val okhttp = "4.9.1"
   const val exoplayer = "2.14.2"
 }

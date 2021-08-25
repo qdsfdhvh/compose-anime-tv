@@ -81,6 +81,9 @@ dependencies {
   test()
   androidTest()
 
+  // image https://github.com/coil-kt/coil
+  implementation("io.coil-kt:coil-compose:1.3.2")
+
   // parse html https://github.com/jhy/jsoup/
   implementation("org.jsoup:jsoup:1.13.1")
 

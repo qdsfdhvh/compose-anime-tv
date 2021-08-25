@@ -56,7 +56,6 @@ fun DependencyHandlerScope.kotlinCoroutines() {
 }
 
 fun DependencyHandlerScope.accompanist() {
-  api("com.google.accompanist:accompanist-coil", Versions.accompanist)
   api("com.google.accompanist:accompanist-insets", Versions.accompanist)
   api("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
 }
