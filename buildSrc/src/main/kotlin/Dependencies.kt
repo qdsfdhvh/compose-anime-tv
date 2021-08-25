@@ -38,8 +38,6 @@ fun DependencyHandlerScope.androidx() {
   api("androidx.core:core-ktx:1.6.0")
   api("androidx.activity:activity-ktx", Versions.activity)
   api("androidx.activity:activity-compose", Versions.activity)
-  api("com.google.android.exoplayer:exoplayer", Versions.exoplayer)
-  api("com.google.android.exoplayer:extension-okhttp", Versions.exoplayer)
 }
 
 fun DependencyHandlerScope.lifecycle() {

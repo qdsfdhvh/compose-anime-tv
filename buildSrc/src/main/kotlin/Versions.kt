@@ -19,14 +19,13 @@ object Versions {
   const val espressoVersion = "3.4.0-rc01"
 
   const val hilt = "2.38.1"
-  const val compose = "1.1.0-alpha01"
+  const val compose = "1.1.0-alpha02"
   const val constraintLayout = "1.0.0-beta02"
-  const val activity = "1.3.0"
+  const val activity = "1.3.1"
   const val lifecycle = "2.4.0-alpha03"
   const val lifecycle_compose = "1.0.0-alpha07"
   const val androidx_hilt = "1.0.0"
   const val navigation = "2.4.0-alpha06"
   const val accompanist = "0.17.0"
   const val okhttp = "4.9.1"
-  const val exoplayer = "2.14.2"
 }
