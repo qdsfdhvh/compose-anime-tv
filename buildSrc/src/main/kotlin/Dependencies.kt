@@ -11,56 +11,53 @@ fun Project.configRepository() {
   }
 }
 
-fun DependencyHandlerScope.compose() {
-  implementation("androidx.compose.ui:ui", Versions.compose)
-  implementation("androidx.compose.ui:ui-tooling", Versions.compose)
-  androidTestImplementation("androidx.compose.ui:ui-test", Versions.compose)
-  implementation("androidx.compose.foundation:foundation", Versions.compose)
-  implementation("androidx.compose.animation:animation", Versions.compose)
-  implementation("androidx.compose.material:material", Versions.compose)
-  implementation("androidx.compose.material:material-icons-core", Versions.compose)
-  implementation("androidx.compose.material:material-icons-extended", Versions.compose)
-  // implementation("androidx.compose.runtime:runtime-livedata", Versions.compose)
-  implementation("androidx.constraintlayout:constraintlayout-compose", Versions.constraintLayout)
-}
-
-fun DependencyHandlerScope.androidx() {
-  implementation("androidx.activity:activity-ktx", Versions.activity)
-  implementation("androidx.activity:activity-compose", Versions.activity)
-  implementation("androidx.core:core-ktx:1.6.0")
-  implementation("com.google.android.exoplayer:exoplayer", Versions.exoplayer)
-  implementation("com.google.android.exoplayer:extension-okhttp", Versions.exoplayer)
-}
-
 fun DependencyHandlerScope.hilt() {
   implementation("com.google.dagger:hilt-android", Versions.hilt)
   kapt("com.google.dagger:hilt-android-compiler", Versions.hilt)
   implementation("androidx.hilt:hilt-work", Versions.androidx_hilt)
   kapt("androidx.hilt:hilt-compiler", Versions.androidx_hilt)
-  implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+}
+
+fun DependencyHandlerScope.compose() {
+  api("androidx.compose.ui:ui", Versions.compose)
+  api("androidx.compose.ui:ui-tooling", Versions.compose)
+  api("androidx.compose.foundation:foundation", Versions.compose)
+  api("androidx.compose.animation:animation", Versions.compose)
+  api("androidx.compose.material:material", Versions.compose)
+  api("androidx.compose.material:material-icons-core", Versions.compose)
+  api("androidx.compose.material:material-icons-extended", Versions.compose)
+  api("androidx.constraintlayout:constraintlayout-compose", Versions.constraintLayout)
+}
+
+fun DependencyHandlerScope.androidx() {
+  api("androidx.core:core-ktx:1.6.0")
+  api("androidx.activity:activity-ktx", Versions.activity)
+  api("androidx.activity:activity-compose", Versions.activity)
+  api("com.google.android.exoplayer:exoplayer", Versions.exoplayer)
+  api("com.google.android.exoplayer:extension-okhttp", Versions.exoplayer)
 }
 
 fun DependencyHandlerScope.lifecycle() {
-  implementation("androidx.lifecycle:lifecycle-runtime-ktx", Versions.lifecycle)
-  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx", Versions.lifecycle)
-  implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate", Versions.lifecycle)
-  implementation("androidx.lifecycle:lifecycle-common-java8", Versions.lifecycle)
-  implementation("androidx.lifecycle:lifecycle-viewmodel-compose", Versions.lifecycle_compose)
+  api("androidx.lifecycle:lifecycle-runtime-ktx", Versions.lifecycle)
+  api("androidx.lifecycle:lifecycle-viewmodel-ktx", Versions.lifecycle)
+  api("androidx.lifecycle:lifecycle-viewmodel-savedstate", Versions.lifecycle)
+  api("androidx.lifecycle:lifecycle-common-java8", Versions.lifecycle)
+  api("androidx.lifecycle:lifecycle-viewmodel-compose", Versions.lifecycle_compose)
 }
 
 fun DependencyHandlerScope.kotlinCoroutines() {
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core", Versions.Kotlin.coroutines)
-  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test", Versions.Kotlin.coroutines)
+  api("org.jetbrains.kotlinx:kotlinx-coroutines-core", Versions.Kotlin.coroutines)
 }
 
 fun DependencyHandlerScope.accompanist() {
-  implementation("com.google.accompanist:accompanist-coil", Versions.accompanist)
-  implementation("com.google.accompanist:accompanist-insets", Versions.accompanist)
-  implementation("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
+  api("com.google.accompanist:accompanist-coil", Versions.accompanist)
+  api("com.google.accompanist:accompanist-insets", Versions.accompanist)
+  api("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
 }
 
 fun DependencyHandlerScope.navigation() {
-  implementation("androidx.navigation:navigation-compose", Versions.navigation)
+  api("androidx.navigation:navigation-compose", Versions.navigation)
+  api("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
 }
 
 fun DependencyHandlerScope.network() {
@@ -76,16 +73,17 @@ fun DependencyHandlerScope.junit5() {
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
 }
 
-fun DependencyHandlerScope.mockito() {
+fun DependencyHandlerScope.test() {
   testImplementation("org.mockito:mockito-core:3.11.2")
   testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
+  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test", Versions.Kotlin.coroutines)
 }
 
 fun DependencyHandlerScope.androidTest() {
-//  testImplementation("androidx.arch.core:core-testing:2.1.0")
   androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
   androidTestImplementation("androidx.test:core", Versions.androidx_test)
   androidTestImplementation("androidx.test:runner", Versions.androidx_test)
   androidTestImplementation("androidx.test.ext:junit", Versions.extJUnitVersion)
   androidTestImplementation("androidx.test.espresso:espresso-core", Versions.espressoVersion)
+  androidTestImplementation("androidx.compose.ui:ui-test", Versions.compose)
 }

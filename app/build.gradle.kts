@@ -73,17 +73,13 @@ android {
 }
 
 dependencies {
-  compose()
-  androidx()
+  implementation(project(":core"))
+
   hilt()
-  lifecycle()
-  kotlinCoroutines()
-  navigation()
-  accompanist()
   network()
 
   junit5()
-  mockito()
+  test()
   androidTest()
 
   // compose color https://github.com/PatilSiddhesh/Holi
