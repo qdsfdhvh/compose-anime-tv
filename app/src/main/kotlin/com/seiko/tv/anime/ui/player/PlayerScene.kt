@@ -3,50 +3,55 @@ package com.seiko.tv.anime.ui.player
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.focusTarget
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.seiko.compose.focuskit.TvControllerKey
 import com.seiko.compose.focuskit.handleTvKey
+import com.seiko.compose.player.TvVideoPlayer
+import com.seiko.compose.player.rememberPlayer
+import com.seiko.compose.player.rememberVideoPlayerController
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.component.foundation.TvSelectDialog
-import com.seiko.tv.anime.component.foundation.TvVideoPlayer
-import com.seiko.tv.anime.di.assisted.assistedViewModel
 
 @Composable
 fun PlayerScene(episode: String) {
-  // 全屏
-  val systemUiController = rememberSystemUiController()
-  DisposableEffect(Unit) {
-    systemUiController.isStatusBarVisible = false
-    onDispose {
-      systemUiController.isStatusBarVisible = true
+  val viewModel = playerViewModel(episode)
+  val source by viewModel.video.collectAsState()
+
+  if (source == null) return
+
+  val player = rememberPlayer(source!!)
+  val controller = rememberVideoPlayerController(player)
+
+  var openDialog by remember { mutableStateOf(false) }
+  var isPlaying by remember(source) { mutableStateOf(false) }
+
+  fun savePlayState() {
+    isPlaying = controller.isPlaying
+  }
+
+  fun restorePlayState() {
+    if (isPlaying) {
+      controller.play()
     }
   }
 
-  val navController = LocalAppNavigator.current
-  var openDialog by remember { mutableStateOf(false) }
-  val focusRequester = remember { FocusRequester() }
-
-  val viewModel = assistedViewModel<PlayerViewModel.AssistedFactory, PlayerViewModel> { factory ->
-    factory.create(episode)
-  }
-  val video by viewModel.video.collectAsState()
   Box(
     modifier = Modifier
       .handleTvKey(TvControllerKey.Back) {
         if (!openDialog) {
           openDialog = true
+          savePlayState()
+          player.pause()
         }
         true
       }
-      .focusRequester(focusRequester)
-      .focusTarget(),
   ) {
-    TvVideoPlayer(url = video.playUrl)
+    TvVideoPlayer(
+      player = player,
+      controller = controller
+    )
 
     if (openDialog) {
+      val navController = LocalAppNavigator.current
       TvSelectDialog(
         text = "是否退出播放？",
         onCenterClick = {
@@ -55,12 +60,9 @@ fun PlayerScene(episode: String) {
         },
         onCancelClick = {
           openDialog = false
+          restorePlayState()
         },
       )
     }
-  }
-
-  LaunchedEffect(Unit) {
-    focusRequester.requestFocus()
   }
 }
