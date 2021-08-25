@@ -1,5 +1,6 @@
 plugins {
   id("com.diffplug.spotless").version(Versions.spotless)
+  id("com.gradleup.auto.manifest").version("1.0.4")
 }
 
 buildscript {
@@ -45,4 +46,8 @@ allprojects {
       // licenseHeaderFile(rootProject.file("spotless/license"))
     }
   }
+}
+
+autoManifest {
+  packageName.set(Package.applicationId)
 }

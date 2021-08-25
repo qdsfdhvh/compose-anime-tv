@@ -23,11 +23,11 @@ android {
   compileSdk = AndroidSdk.compile
   buildToolsVersion = AndroidSdk.buildTools
   defaultConfig {
-    applicationId = "com.seiko.tv.anime"
+    applicationId = Package.applicationId
     minSdk = AndroidSdk.min
     targetSdk = AndroidSdk.target
-    versionCode = 1
-    versionName = "1.0.0"
+    versionCode = Package.versionCode
+    versionName = Package.versionName
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
   signingConfigs {
