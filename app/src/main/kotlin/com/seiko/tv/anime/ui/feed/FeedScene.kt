@@ -14,20 +14,13 @@ import com.seiko.compose.focuskit.TvLazyColumn
 import com.seiko.compose.focuskit.refocus
 import com.seiko.compose.focuskit.rememberContainerTvFocusItem
 import com.seiko.compose.focuskit.rememberRootTvFocusItem
+import com.seiko.tv.anime.component.SetSystemBarColor
 import com.seiko.tv.anime.component.foundation.TvTabBar
 import com.seiko.tv.anime.component.foundation.TvTitleGroup
 
 @Composable
 fun FeedScene() {
-  // 配置状态栏颜色
-  val systemUiController = rememberSystemUiController()
-  val useDarkIcons = MaterialTheme.colors.isLight
-  SideEffect {
-    systemUiController.setSystemBarsColor(
-      color = Color.Transparent,
-      darkIcons = useDarkIcons
-    )
-  }
+  SetSystemBarColor()
 
   val viewModel: FeedViewModel = hiltViewModel()
   val tabList by viewModel.tabList.collectAsState()
