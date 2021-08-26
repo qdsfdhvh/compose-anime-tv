@@ -7,8 +7,7 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = darkColors(
-)
+private val DarkColorPalette = darkColors()
 
 private val LightColorPalette = lightColors(
   background = backgroundColor,

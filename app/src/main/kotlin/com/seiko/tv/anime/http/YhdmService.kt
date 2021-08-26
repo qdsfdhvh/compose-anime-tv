@@ -21,11 +21,11 @@ class YhdmService(
   }
 
   suspend fun getDetailResponse(animeId: Int): DetailResponse {
-    return Hson.deserializeKData(getHtml("show/${animeId}.html"))
+    return Hson.deserializeKData(getHtml("show/$animeId.html"))
   }
 
   suspend fun getDetailResponse(episode: String): VideoResponse {
-    return Hson.deserializeKData(getHtml("v/${episode}.html"))
+    return Hson.deserializeKData(getHtml("v/$episode.html"))
   }
 
   @Suppress("BlockingMethodInNonBlockingContext")

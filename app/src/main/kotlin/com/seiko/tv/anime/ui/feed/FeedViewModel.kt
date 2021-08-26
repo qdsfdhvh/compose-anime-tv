@@ -5,7 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.seiko.tv.anime.data.AnimeHomeRepository
 import com.seiko.tv.anime.model.AnimeGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import timber.log.Timber
 import javax.inject.Inject
 

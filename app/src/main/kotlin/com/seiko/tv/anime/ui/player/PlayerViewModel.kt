@@ -7,10 +7,13 @@ import com.seiko.compose.player.VideoPlayerSource
 import com.seiko.tv.anime.data.AnimeVideoRepository
 import com.seiko.tv.anime.di.assisted.ComposeAssistedFactory
 import com.seiko.tv.anime.di.assisted.assistedViewModel
-import com.seiko.tv.anime.model.AnimeVideo
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import timber.log.Timber
 
 class PlayerViewModel @AssistedInject constructor(

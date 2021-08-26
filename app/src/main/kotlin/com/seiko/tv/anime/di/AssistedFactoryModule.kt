@@ -23,5 +23,4 @@ interface AssistedFactoryModule {
   @IntoMap
   @ComposeAssistedFactoryKey(PlayerViewModel.AssistedFactory::class)
   fun bindPlayerViewModelAssistedFactory(factory: PlayerViewModel.AssistedFactory): ComposeAssistedFactory
-
 }

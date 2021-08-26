@@ -22,9 +22,12 @@ fun NetworkImage(
   val painter = if (data is Painter) {
     data
   } else {
-    rememberImagePainter(data = data, builder = {
-      crossfade(true)
-    })
+    rememberImagePainter(
+      data = data,
+      builder = {
+        crossfade(true)
+      }
+    )
   }
   if (painter is ImagePainter && painter.state is ImagePainter.State.Loading) {
     placeholder?.invoke()

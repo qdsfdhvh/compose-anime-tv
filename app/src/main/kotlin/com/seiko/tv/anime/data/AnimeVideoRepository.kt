@@ -10,9 +10,11 @@ class AnimeVideoRepository @Inject constructor(private val service: YhdmService)
   fun getAnimeVideo(episode: String): Flow<AnimeVideo> {
     return flow {
       val response = service.getDetailResponse(episode)
-      emit(AnimeVideo(
-        playUrl = response.playUrl
-      ))
+      emit(
+        AnimeVideo(
+          playUrl = response.playUrl
+        )
+      )
     }
   }
 }

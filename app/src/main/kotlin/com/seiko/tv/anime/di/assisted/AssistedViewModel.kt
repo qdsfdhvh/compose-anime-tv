@@ -10,7 +10,7 @@ import javax.inject.Provider
 
 interface ComposeAssistedFactory
 
-typealias AssistedFactoryMap = Map<Class<out ComposeAssistedFactory>, @JvmSuppressWildcards Provider<ComposeAssistedFactory>>
+typealias AssistedFactoryMap = Map<Class<out ComposeAssistedFactory>, Provider<ComposeAssistedFactory>>
 
 val LocalAssistedFactoryMap = staticCompositionLocalOf<AssistedFactoryMap> { emptyMap() }
 

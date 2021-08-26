@@ -31,7 +31,7 @@ android {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
   signingConfigs {
-     getByName("debug") {
+    getByName("debug") {
       storeFile = rootProject.file("secrets/debug-keystore.jks")
       storePassword = "123456"
       keyAlias = "compose-anime-tv"

@@ -34,5 +34,4 @@ object HttpModule {
   fun provideYhDmService(client: OkHttpClient): YhdmService {
     return YhdmService(YHDM_BAS_URL, client)
   }
-
 }

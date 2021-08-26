@@ -13,15 +13,20 @@ class AnimeHomeRepository @Inject constructor(private val service: YhdmService) 
   fun getAnimeList(): Flow<List<AnimeGroup>> {
     return flow {
       val response = service.getHomeResponse()
-      emit(response.groups.mapIndexed { index, item ->
-        AnimeGroup(response.titles[index], item.animes.map {
-          Anime(
-            title = it.title,
-            cover = it.cover,
-            actionUrl = it.actionUrl
+      emit(
+        response.groups.mapIndexed { index, item ->
+          AnimeGroup(
+            response.titles[index],
+            item.animes.map {
+              Anime(
+                title = it.title,
+                cover = it.cover,
+                actionUrl = it.actionUrl
+              )
+            }
           )
-        })
-      })
+        }
+      )
     }.flowOn(Dispatchers.IO)
   }
 }

@@ -32,13 +32,28 @@ allprojects {
   spotless {
     kotlin {
       target("**/*.kt")
-      targetExclude("$buildDir/**/*.kt", "bin/**/*.kt", "buildSrc/**/*.kt")
-      ktlint(Versions.ktlint)
+      targetExclude(
+        "$buildDir/**/*.kt",
+        "bin/**/*.kt",
+        "buildSrc/**/*.kt",
+        "**/*Response.kt"
+      )
+      ktlint(Versions.ktlint).userData(
+        mapOf(
+          "indent_size" to "2",
+          "continuation_indent_size" to "2"
+        )
+      )
       // licenseHeaderFile(rootProject.file("spotless/license"))
     }
     kotlinGradle {
       target("*.gradle.kts")
-      ktlint(Versions.ktlint)
+      ktlint(Versions.ktlint).userData(
+        mapOf(
+          "indent_size" to "2",
+          "continuation_indent_size" to "2"
+        )
+      )
     }
     java {
       target("**/*.java")
