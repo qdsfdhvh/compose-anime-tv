@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.seiko.compose.player.VideoPlayerSource
 import com.seiko.tv.anime.data.AnimeVideoRepository
-import com.seiko.tv.anime.di.assisted.ComposeAssistedFactory
 import com.seiko.tv.anime.di.assisted.assistedViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -27,7 +26,7 @@ class PlayerViewModel @AssistedInject constructor(
     .stateIn(viewModelScope, SharingStarted.Lazily, null)
 
   @dagger.assisted.AssistedFactory
-  interface AssistedFactory : ComposeAssistedFactory {
+  interface AssistedFactory {
     fun create(episode: String): PlayerViewModel
   }
 }

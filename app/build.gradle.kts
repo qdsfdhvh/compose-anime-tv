@@ -14,6 +14,7 @@ plugins {
   id("com.android.application")
   kotlin("android")
   kotlin("kapt")
+  id("com.google.devtools.ksp").version(Versions.ksp)
 }
 
 apply(plugin = "dagger.hilt.android.plugin")
@@ -50,6 +51,11 @@ android {
       )
     }
   }
+  sourceSets {
+    getByName("main") {
+      java.srcDir(File("build/generated/ksp/debug/kotlin"))
+    }
+  }
   compileOptions {
     sourceCompatibility = Versions.Java.java
     targetCompatibility = Versions.Java.java
@@ -74,6 +80,7 @@ android {
 
 dependencies {
   implementation(project(":core"))
+  ksp(project(":compiler"))
   hiltCompiler()
   network()
 

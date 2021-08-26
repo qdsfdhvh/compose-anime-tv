@@ -1,29 +1,15 @@
 package com.seiko.tv.anime.di.assisted
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import javax.inject.Provider
+import com.seiko.tv.anime.LocalAssistedFactoryMap
 
-interface ComposeAssistedFactory
-
-typealias AssistedFactoryMap = Map<Class<out ComposeAssistedFactory>, Provider<ComposeAssistedFactory>>
-
-val LocalAssistedFactoryMap = staticCompositionLocalOf<AssistedFactoryMap> { emptyMap() }
+typealias AssistedFactoryMap = Map<Class<out Any>, Any>
 
 @Composable
-fun ProvideAssistedFactory(factoryMap: AssistedFactoryMap, content: @Composable () -> Unit) {
-  CompositionLocalProvider(
-    LocalAssistedFactoryMap provides factoryMap,
-    content = content
-  )
-}
-
-@Composable
-inline fun <reified AF : ComposeAssistedFactory, reified VM : ViewModel> assistedViewModel(
+inline fun <reified AF : Any, reified VM : ViewModel> assistedViewModel(
   vararg dependsOn: Any,
   noinline creator: ((AF) -> VM),
 ): VM {
@@ -38,7 +24,7 @@ inline fun <reified AF : ComposeAssistedFactory, reified VM : ViewModel> assiste
     factory = object : ViewModelProvider.Factory {
       override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return creator(factory.get() as AF) as T
+        return creator(factory as AF) as T
       }
     }
   )

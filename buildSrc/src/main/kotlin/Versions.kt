@@ -11,6 +11,7 @@ object Versions {
     val java = JavaVersion.VERSION_11
   }
 
+  const val ksp = "${Kotlin.lang}-1.0.0-beta07"
   const val ktlint = "0.41.0"
   const val spotless = "5.12.5"
 

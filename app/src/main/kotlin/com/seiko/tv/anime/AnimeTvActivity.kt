@@ -17,8 +17,6 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.seiko.compose.focuskit.TvControllerKey
 import com.seiko.compose.focuskit.TvLogger
 import com.seiko.compose.focuskit.handleTvKey
-import com.seiko.tv.anime.di.assisted.AssistedFactoryMap
-import com.seiko.tv.anime.di.assisted.LocalAssistedFactoryMap
 import com.seiko.tv.anime.navigation.AppNavigator
 import com.seiko.tv.anime.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
@@ -30,7 +28,7 @@ import javax.inject.Inject
 class AnimeTvActivity : ComponentActivity() {
 
   @Inject
-  lateinit var assistedFactoryMap: AssistedFactoryMap
+  lateinit var assistedViewHolder: AnimeTvActivityAssistedViewHolder
 
   private val navController by lazy {
     NavHostController(this).apply {
@@ -62,7 +60,7 @@ class AnimeTvActivity : ComponentActivity() {
     setContent {
       CompositionLocalProvider(
         LocalAppNavigator provides navigator,
-        LocalAssistedFactoryMap provides assistedFactoryMap
+        LocalAssistedFactoryMap provides assistedViewHolder.factory
       ) {
         AnimeTvTheme {
           ProvideWindowInsets {

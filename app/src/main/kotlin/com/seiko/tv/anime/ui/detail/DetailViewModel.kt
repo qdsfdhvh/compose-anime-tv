@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.seiko.tv.anime.data.AnimeDetailRepository
-import com.seiko.tv.anime.di.assisted.ComposeAssistedFactory
 import com.seiko.tv.anime.di.assisted.assistedViewModel
 import com.seiko.tv.anime.model.AnimeDetail
 import dagger.assisted.Assisted
@@ -25,7 +24,7 @@ class DetailViewModel @AssistedInject constructor(
     .stateIn(viewModelScope, SharingStarted.Lazily, AnimeDetail())
 
   @dagger.assisted.AssistedFactory
-  interface AssistedFactory : ComposeAssistedFactory {
+  interface AssistedFactory {
     fun create(animeId: Int): DetailViewModel
   }
 }
