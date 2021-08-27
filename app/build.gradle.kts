@@ -78,6 +78,10 @@ android {
   }
 }
 
+repositories {
+  maven(url = "https://maven.aliyun.com/repository/public")
+}
+
 dependencies {
   implementation(project(":core"))
   ksp(project(":compiler"))
@@ -87,6 +91,10 @@ dependencies {
   junit5()
   test()
   androidTest()
+
+  // fix not javax.annotation.processing.Generated with dagger2
+  // https://github.com/pengrad/jdk9-deps
+  compileOnly("com.github.pengrad:jdk9-deps:1.0")
 
   // image https://github.com/coil-kt/coil
   implementation("io.coil-kt:coil-compose:1.3.2")
