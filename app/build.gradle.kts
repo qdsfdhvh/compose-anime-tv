@@ -84,7 +84,7 @@ repositories {
 
 dependencies {
   implementation(project(":core"))
-  ksp(project(":compiler"))
+  ksp(project(":compiler:assistedFactory"))
   hiltCompiler()
   network()
 

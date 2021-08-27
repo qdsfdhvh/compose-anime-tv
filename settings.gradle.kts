@@ -6,7 +6,8 @@ pluginManagement {
 }
 
 rootProject.name = "compose-anime-tv"
-include(":app", ":core", ":compiler")
+include(":app", ":core")
+include(":compiler:assistedFactory")
 
 enableFeaturePreview("VERSION_CATALOGS")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
