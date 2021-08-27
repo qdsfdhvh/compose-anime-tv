@@ -1,11 +1,18 @@
 package com.seiko.tv.anime.navigation
 
 import androidx.navigation.NavHostController
+import androidx.navigation.navOptions
 
 class AppNavigator(private val navController: NavHostController) {
 
-  fun push(route: String): Boolean {
-    navController.navigate(route)
+  fun push(router: Router, isSingleTop: Boolean = false): Boolean {
+    return push(router.route, isSingleTop)
+  }
+
+  fun push(route: String, isSingleTop: Boolean = false): Boolean {
+    navController.navigate(route, navOptions {
+      launchSingleTop = isSingleTop
+    })
     return true
   }
 
