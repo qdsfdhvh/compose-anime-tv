@@ -41,7 +41,10 @@ class AssistedViewModelProcessor(environment: SymbolProcessorEnvironment) : Symb
       val className = "${node.qualifiedName?.getShortName()}AssistedViewHolder"
 
       coderGenerator.createNewFile(
-        Dependencies(aggregating = false),
+        Dependencies(
+          true,
+          *(data.mapNotNull { it.containingFile } + listOfNotNull(node.containingFile)).toTypedArray()
+        ),
         packageName = packageName,
         fileName = className
       ).use { output ->
