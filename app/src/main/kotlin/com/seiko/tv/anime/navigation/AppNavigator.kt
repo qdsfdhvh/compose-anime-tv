@@ -10,9 +10,12 @@ class AppNavigator(private val navController: NavHostController) {
   }
 
   fun push(route: String, isSingleTop: Boolean = false): Boolean {
-    navController.navigate(route, navOptions {
-      launchSingleTop = isSingleTop
-    })
+    navController.navigate(
+      route,
+      navOptions {
+        launchSingleTop = isSingleTop
+      }
+    )
     return true
   }
 
