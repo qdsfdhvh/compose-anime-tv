@@ -4,11 +4,17 @@ import com.seiko.tv.anime.http.YhdmService
 import com.seiko.tv.anime.model.Anime
 import com.seiko.tv.anime.model.AnimeDetail
 import com.seiko.tv.anime.model.AnimeEpisode
+import com.seiko.tv.core.di.IoDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class AnimeDetailRepository @Inject constructor(private val service: YhdmService) {
+class AnimeDetailRepository @Inject constructor(
+  private val service: YhdmService,
+  @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+) {
   fun getAnimeDetail(animeId: Int): Flow<AnimeDetail> {
     return flow {
       val response = service.getDetailResponse(animeId)
@@ -40,6 +46,6 @@ class AnimeDetailRepository @Inject constructor(private val service: YhdmService
           }
         )
       )
-    }
+    }.flowOn(ioDispatcher)
   }
 }

@@ -1,6 +1,7 @@
 plugins {
   id("com.android.library")
   kotlin("android")
+  kotlin("kapt")
 }
 
 android {
@@ -15,4 +16,5 @@ dependencies {
   accompanist()
   navigation()
   hilt()
+  hiltCompiler()
 }
