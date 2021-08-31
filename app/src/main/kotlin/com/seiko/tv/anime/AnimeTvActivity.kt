@@ -1,7 +1,6 @@
 package com.seiko.tv.anime
 
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,14 +14,12 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.seiko.compose.focuskit.TvKeyEvent
-import com.seiko.compose.focuskit.TvLogger
 import com.seiko.compose.focuskit.handleTvKey
 import com.seiko.tv.anime.navigation.AppNavigator
 import com.seiko.tv.anime.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import timber.log.Timber
 
 @AndroidEntryPoint
 class AnimeTvActivity : ComponentActivity() {
@@ -42,18 +39,6 @@ class AnimeTvActivity : ComponentActivity() {
 
     WindowCompat.setDecorFitsSystemWindows(window, false)
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-
-    TvLogger.setLogger(object : TvLogger {
-      override var level: Int = Log.DEBUG
-      override fun log(level: Int, msg: String?, throwable: Throwable?) {
-        if (msg != null) {
-          Timber.tag("Focuskit").log(level, msg)
-        }
-        if (throwable != null) {
-          Timber.tag("Focuskit").log(level, msg, throwable)
-        }
-      }
-    })
 
     val navigator = AppNavigator(navController)
 
