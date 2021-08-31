@@ -25,7 +25,11 @@ data class AnimeDetail(
   val description: String = "",
   val episodeList: List<AnimeEpisode> = emptyList(),
   val relatedList: List<Anime> = emptyList(),
-)
+) {
+  companion object {
+    val Empty = AnimeDetail()
+  }
+}
 
 data class AnimeEpisode(
   val title: String,

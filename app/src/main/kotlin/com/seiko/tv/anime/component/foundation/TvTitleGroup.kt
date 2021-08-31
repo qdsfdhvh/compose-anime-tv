@@ -3,6 +3,9 @@ package com.seiko.tv.anime.component.foundation
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +18,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,64 +27,57 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.seiko.compose.focuskit.ContainerTvFocusItem
-import com.seiko.compose.focuskit.TvControllerKey
-import com.seiko.compose.focuskit.TvLazyRow
-import com.seiko.compose.focuskit.handleTvKey
-import com.seiko.compose.focuskit.rememberContainerTvFocusItem
-import com.seiko.compose.focuskit.rememberTvFocusItem
-import com.seiko.compose.focuskit.tvFocusTarget
+import com.seiko.compose.focuskit.*
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.model.Anime
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
-import com.seiko.tv.anime.util.extensions.clickableNoRipple
 
 @Composable
 fun TvTitleGroup(
   title: String,
   list: List<Anime>,
-  parent: ContainerTvFocusItem? = null
+  modifier: Modifier = Modifier,
 ) {
-  val container = parent ?: rememberContainerTvFocusItem()
-  val navigator = LocalAppNavigator.current
+  val navController = LocalAppNavigator.current
+
+  val focusRequesters = rememberFocusRequesters(list)
+  val interactionSource = remember { MutableInteractionSource() }
+  val focusIndex by interactionSource.collectFocusIndexAsState()
+  var isParentFocused by remember { mutableStateOf(false) }
 
   Column {
     Text(
       text = title,
       style = MaterialTheme.typography.h6,
-      modifier = Modifier
-        .padding(start = 15.dp, top = 10.dp),
+      modifier = Modifier.padding(start = 15.dp, top = 10.dp),
     )
-    TvLazyRow(container) {
+    TvLazyRow(
+      modifier = modifier.onFocusChanged { isParentFocused = it.hasFocus || it.isFocused },
+      interactionSource = interactionSource,
+    ) {
       itemsIndexed(list) { index, item ->
-        val focusItem = rememberTvFocusItem(
-          key = item,
-          container = container,
-          index = index
-        )
-        var isFocused by remember { mutableStateOf(false) }
+        val itemInteractionSource = remember { MutableInteractionSource() }
         GroupItem(
           modifier = Modifier
-            .clickableNoRipple {
-              navigator.push(item.actionUrl)
-            }
-            .handleTvKey(TvControllerKey.Enter) {
-              navigator.push(item.actionUrl)
-              true
-            }
-            .onFocusChanged {
-              isFocused = it.isFocused
-            }
-            .tvFocusTarget(focusItem),
+            .focusClick { navController.push(item.actionUrl) }
+            .focusRequester(focusRequesters[index])
+            .focusable(interactionSource = itemInteractionSource),
           item = item,
-          isFocused = isFocused,
+          isFocused = itemInteractionSource.collectIsFocusedAsState().value,
         )
+      }
+    }
+
+    LaunchedEffect(focusIndex, isParentFocused) {
+      if (isParentFocused) {
+        focusRequesters.getOrNull(focusIndex)?.requestFocus()
       }
     }
   }

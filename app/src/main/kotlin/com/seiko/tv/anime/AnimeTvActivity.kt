@@ -14,15 +14,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.seiko.compose.focuskit.TvControllerKey
+import com.seiko.compose.focuskit.TvKeyEvent
 import com.seiko.compose.focuskit.TvLogger
 import com.seiko.compose.focuskit.handleTvKey
 import com.seiko.tv.anime.navigation.AppNavigator
 import com.seiko.tv.anime.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AnimeTvActivity : ComponentActivity() {
@@ -66,7 +66,7 @@ class AnimeTvActivity : ComponentActivity() {
           ProvideWindowInsets {
             Box(
               modifier = Modifier
-                .handleTvKey(TvControllerKey.Back) {
+                .handleTvKey(TvKeyEvent.Back) {
                   if (!navigator.pop()) {
                     ActivityCompat.finishAffinity(this)
                   }

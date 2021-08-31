@@ -106,8 +106,8 @@ dependencies {
   implementation("com.jakewharton.timber:timber:4.7.1")
 
   // compose focus https://github.com/qdsfdhvh/compose-focuskit
-  implementation("com.github.qdsfdhvh.compose-focuskit:focuskit:0.0.4.2")
-  implementation("com.github.qdsfdhvh.compose-focuskit:player:0.0.4.2")
+  implementation("com.github.qdsfdhvh.compose-focuskit:focuskit:0.0.5")
+  implementation("com.github.qdsfdhvh.compose-focuskit:player:0.0.5")
 }
 
 // 剔除livedata，使用flow代替

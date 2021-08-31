@@ -1,7 +1,9 @@
 package com.seiko.tv.anime.component.foundation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -12,20 +14,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.focusTarget
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.seiko.compose.focuskit.TvControllerKey
-import com.seiko.compose.focuskit.handleTvKey
+import com.seiko.compose.focuskit.focusClick
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 
 @Composable
@@ -40,42 +36,28 @@ fun TvSelectDialog(
   val focusRequester = remember { FocusRequester() }
 
   AlertDialog(
-    onDismissRequest = { /* nothing to do */ },
-    title = {
-      Text(text = title)
-    },
-    text = {
-      Text(text)
-    },
+    onDismissRequest = { onCancelClick() },
+    title = { Text(text = title) },
+    text = { Text(text) },
     confirmButton = {
-      var isFocused by remember { mutableStateOf(false) }
+      val interactionSource = remember { MutableInteractionSource() }
       TvSelectDialogButton(
         modifier = Modifier
-          .handleTvKey(TvControllerKey.Enter) {
-            onCancelClick()
-            true
-          }
-          .clickable(onClick = onCancelClick)
-          .onFocusChanged { isFocused = it.isFocused }
-          .focusTarget(),
+          .focusClick { onCancelClick() }
+          .focusable(interactionSource = interactionSource),
         text = cancelText,
-        isFocused = isFocused,
+        isFocused = interactionSource.collectIsFocusedAsState().value,
       )
     },
     dismissButton = {
-      var isFocused by remember { mutableStateOf(false) }
+      val interactionSource = remember { MutableInteractionSource() }
       TvSelectDialogButton(
         modifier = Modifier
-          .handleTvKey(TvControllerKey.Enter) {
-            onCenterClick()
-            true
-          }
-          .clickable(onClick = onCenterClick)
+          .focusClick { onCenterClick() }
           .focusRequester(focusRequester)
-          .onFocusChanged { isFocused = it.isFocused }
-          .focusTarget(),
+          .focusable(interactionSource = interactionSource),
         text = centerText,
-        isFocused = isFocused,
+        isFocused = interactionSource.collectIsFocusedAsState().value,
       )
     }
   )

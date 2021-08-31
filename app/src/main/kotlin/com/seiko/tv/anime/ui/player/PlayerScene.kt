@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.seiko.compose.focuskit.TvControllerKey
+import com.seiko.compose.focuskit.TvKeyEvent
 import com.seiko.compose.focuskit.handleTvKey
 import com.seiko.compose.player.TvVideoPlayer
 import com.seiko.compose.player.rememberPlayer
@@ -41,7 +41,7 @@ fun PlayerScene(episode: String) {
 
   Box(
     modifier = Modifier
-      .handleTvKey(TvControllerKey.Back) {
+      .handleTvKey(TvKeyEvent.Back) {
         if (!openDialog) {
           openDialog = true
           savePlayState()

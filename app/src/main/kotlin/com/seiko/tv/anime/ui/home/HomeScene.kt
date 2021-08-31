@@ -1,8 +1,12 @@
 package com.seiko.tv.anime.ui.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
@@ -10,26 +14,17 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.focusRequester
 import com.google.accompanist.insets.statusBarsPadding
-import com.seiko.compose.focuskit.TvControllerKey
-import com.seiko.compose.focuskit.TvLazyRow
-import com.seiko.compose.focuskit.handleTvKey
-import com.seiko.compose.focuskit.refocus
-import com.seiko.compose.focuskit.rememberRootTvFocusItem
-import com.seiko.compose.focuskit.rememberTvFocusItem
-import com.seiko.compose.focuskit.tvFocusTarget
+import com.seiko.compose.focuskit.focusClick
+import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.component.SetSystemBarColor
 import com.seiko.tv.anime.component.foundation.RoundIcon
 import com.seiko.tv.anime.navigation.Router
-import com.seiko.tv.anime.util.extensions.clickableNoRipple
 
 @Composable
 fun HomeScene() {
@@ -43,7 +38,8 @@ fun HomeScene() {
   }
 
   val navigator = LocalAppNavigator.current
-  val container = rememberRootTvFocusItem()
+
+  val focusRequesters = rememberFocusRequesters(list)
 
   Box(
     Modifier
@@ -51,38 +47,29 @@ fun HomeScene() {
       .statusBarsPadding()
       .background(MaterialTheme.colors.background)
   ) {
-    TvLazyRow(
-      container = container,
-      modifier = Modifier.align(Alignment.Center)
+    LazyRow(
+      modifier = Modifier.align(Alignment.Center),
     ) {
       itemsIndexed(list) { index, item ->
-        val focusItem = rememberTvFocusItem(
-          key = item,
-          container = container,
-          index = index
-        )
-        var isFocused by remember { mutableStateOf(false) }
+        val itemInteractionSource = remember { MutableInteractionSource() }
         RoundIcon(
           image = item.first,
           name = item.second,
-          isFocused = isFocused,
+          isFocused = itemInteractionSource.collectIsFocusedAsState().value,
           modifier = Modifier
-            .clickableNoRipple {
-              navigator.push(Router.Feed)
+            .focusClick {
+              if (item.second == "热门") {
+                navigator.push(Router.Feed)
+              }
             }
-            .handleTvKey(TvControllerKey.Enter) {
-              navigator.push(Router.Feed)
-            }
-            .onFocusChanged {
-              isFocused = it.isFocused
-            }
-            .tvFocusTarget(focusItem)
+            .focusRequester(focusRequesters[index])
+            .focusable(interactionSource = itemInteractionSource)
         )
       }
     }
   }
 
   LaunchedEffect(list) {
-    container.refocus()
+    focusRequesters[0].requestFocus()
   }
 }

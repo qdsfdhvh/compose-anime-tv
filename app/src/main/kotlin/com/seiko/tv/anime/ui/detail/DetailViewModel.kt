@@ -21,7 +21,7 @@ class DetailViewModel @AssistedInject constructor(
 
   val detail: StateFlow<AnimeDetail> = repository.getAnimeDetail(animeId)
     .catch { Timber.w(it, "Detail animeDetail error: ") }
-    .stateIn(viewModelScope, SharingStarted.Lazily, AnimeDetail())
+    .stateIn(viewModelScope, SharingStarted.Lazily, AnimeDetail.Empty)
 
   @dagger.assisted.AssistedFactory
   interface AssistedFactory {

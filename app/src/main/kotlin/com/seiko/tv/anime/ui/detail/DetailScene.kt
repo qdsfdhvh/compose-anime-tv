@@ -1,5 +1,6 @@
 package com.seiko.tv.anime.ui.detail
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -7,29 +8,39 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.TvLazyColumn
-import com.seiko.compose.focuskit.refocus
-import com.seiko.compose.focuskit.rememberContainerTvFocusItem
-import com.seiko.compose.focuskit.rememberRootTvFocusItem
+import com.seiko.compose.focuskit.collectFocusIndexAsState
+import com.seiko.compose.focuskit.rememberFocusRequesters
+import com.seiko.tv.anime.component.ShowProgress
 import com.seiko.tv.anime.component.foundation.TvEpisodeList
 import com.seiko.tv.anime.component.foundation.TvMovieInfo
 import com.seiko.tv.anime.component.foundation.TvTitleGroup
+import com.seiko.tv.anime.model.AnimeDetail
 
 @Composable
 fun DetailScene(animeId: Int) {
   val viewModel = detailViewModel(animeId)
   val detail by viewModel.detail.collectAsState()
 
-  val container = rememberRootTvFocusItem()
+  if (detail === AnimeDetail.Empty) {
+    ShowProgress()
+    return
+  }
+
+  val focusRequesters = rememberFocusRequesters(3)
+  val interactionSource = remember(detail) { MutableInteractionSource() }
+  val focusIndex by interactionSource.collectFocusIndexAsState()
 
   Surface(color = MaterialTheme.colors.background) {
     TvLazyColumn(
-      container = container,
       modifier = Modifier
         .fillMaxSize()
         .statusBarsPadding(),
+      interactionSource = interactionSource,
     ) {
       item {
         TvMovieInfo(
@@ -39,44 +50,29 @@ fun DetailScene(animeId: Int) {
           state = detail.state,
           tags = detail.tags,
           description = detail.description,
+          modifier = Modifier.focusRequester(focusRequesters[0]),
         )
       }
 
       item {
-        val episodeContainer = rememberContainerTvFocusItem(
-          key = Unit,
-          container = container,
-          index = 0
-        )
-
         TvEpisodeList(
           title = "播放列表",
           list = detail.episodeList,
-          parent = episodeContainer,
+          modifier = Modifier.focusRequester(focusRequesters[1]),
         )
-
-        LaunchedEffect(detail) {
-          episodeContainer.focusIndex = 0
-        }
       }
 
       item {
-        val relatedContainer = rememberContainerTvFocusItem(
-          key = Unit,
-          container = container,
-          index = 1
-        )
-
         TvTitleGroup(
-          parent = relatedContainer,
           title = "相关推荐",
-          list = detail.relatedList
+          list = detail.relatedList,
+          modifier = Modifier.focusRequester(focusRequesters[2]),
         )
       }
     }
   }
 
-  LaunchedEffect(detail) {
-    container.refocus()
+  LaunchedEffect(focusIndex) {
+    focusRequesters.getOrNull(focusIndex)?.requestFocus()
   }
 }

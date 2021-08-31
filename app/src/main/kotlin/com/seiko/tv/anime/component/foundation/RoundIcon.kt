@@ -46,11 +46,11 @@ fun RoundIcon(
       contentDescription = contentDescription,
       modifier = modifier
         .scale(scale)
-        .padding(24.dp)
-        .shadow(if (isFocused) 12.dp else 0.dp, CircleShape)
+        .padding(16.dp)
+        .shadow(if (isFocused) 5.dp else 0.dp, CircleShape)
         .background(background, CircleShape)
-        .padding(20.dp)
-        .size(60.dp)
+        .padding(10.dp)
+        .size(40.dp)
     )
     Text(
       modifier = Modifier.padding(top = 4.dp),
