@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -63,6 +64,7 @@ fun FeedScene() {
   }
 
   LaunchedEffect(focusIndex, animeList) {
+    withFrameNanos {}
     focusRequesters.getOrNull(focusIndex)?.requestFocus()
   }
 }

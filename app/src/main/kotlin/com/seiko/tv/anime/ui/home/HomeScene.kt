@@ -15,10 +15,10 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
-import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.LocalAppNavigator
@@ -42,13 +42,13 @@ fun HomeScene() {
   val focusRequesters = rememberFocusRequesters(list)
 
   Box(
-    Modifier
+    modifier = Modifier
       .fillMaxSize()
-      .statusBarsPadding()
       .background(MaterialTheme.colors.background)
   ) {
     LazyRow(
-      modifier = Modifier.align(Alignment.Center),
+      modifier = Modifier
+        .align(Alignment.Center),
     ) {
       itemsIndexed(list) { index, item ->
         val itemInteractionSource = remember { MutableInteractionSource() }
@@ -70,6 +70,7 @@ fun HomeScene() {
   }
 
   LaunchedEffect(list) {
+    withFrameNanos {}
     focusRequesters[0].requestFocus()
   }
 }

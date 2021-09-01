@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import com.google.accompanist.insets.statusBarsPadding
@@ -73,6 +74,7 @@ fun DetailScene(animeId: Int) {
   }
 
   LaunchedEffect(focusIndex) {
+    withFrameNanos {}
     focusRequesters.getOrNull(focusIndex)?.requestFocus()
   }
 }
