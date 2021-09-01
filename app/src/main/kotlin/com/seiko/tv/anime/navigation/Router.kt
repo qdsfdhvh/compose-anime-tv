@@ -38,7 +38,11 @@ private fun NavGraphBuilder.composable(
   deepLinks: List<NavDeepLink> = emptyList(),
   content: @Composable (NavBackStackEntry) -> Unit
 ) {
-  composable(router.route, arguments, deepLinks, content)
+  composable(router.route, arguments, deepLinks) {
+    SceneWrap {
+      content(it)
+    }
+  }
 }
 
 sealed class Router(val route: String) {
