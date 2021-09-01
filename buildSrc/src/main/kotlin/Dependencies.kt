@@ -63,6 +63,10 @@ fun DependencyHandlerScope.navigation() {
   api("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
 }
 
+fun DependencyHandlerScope.utils() {
+  api("com.jakewharton.timber:timber:4.7.1")
+}
+
 fun DependencyHandlerScope.network() {
   implementation("com.squareup.okhttp3:okhttp", Versions.okhttp)
   implementation("com.squareup.okhttp3:logging-interceptor", Versions.okhttp)

@@ -17,4 +17,5 @@ dependencies {
   navigation()
   hilt()
   hiltCompiler()
+  utils()
 }

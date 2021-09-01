@@ -102,9 +102,6 @@ dependencies {
   // parse html https://github.com/jhy/jsoup/
   implementation("org.jsoup:jsoup:1.13.1")
 
-  // logger https://github.com/JakeWharton/timber
-  implementation("com.jakewharton.timber:timber:4.7.1")
-
   // compose focus https://github.com/qdsfdhvh/compose-focuskit
   implementation("com.github.qdsfdhvh.compose-focuskit:focuskit:0.0.5")
   implementation("com.github.qdsfdhvh.compose-focuskit:player:0.0.5")
