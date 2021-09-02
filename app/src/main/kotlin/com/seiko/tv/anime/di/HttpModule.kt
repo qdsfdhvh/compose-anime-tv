@@ -22,7 +22,7 @@ object HttpModule {
     if (BuildConfig.DEBUG) {
       builder.addInterceptor(
         HttpLoggingInterceptor().apply {
-          setLevel(HttpLoggingInterceptor.Level.BODY)
+          setLevel(HttpLoggingInterceptor.Level.HEADERS)
         }
       )
     }
