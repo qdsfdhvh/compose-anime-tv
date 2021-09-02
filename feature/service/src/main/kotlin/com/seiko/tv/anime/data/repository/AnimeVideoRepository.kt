@@ -2,7 +2,7 @@ package com.seiko.tv.anime.data.repository
 
 import com.seiko.tv.anime.data.model.anime.AnimeVideo
 import com.seiko.tv.anime.data.service.YhdmService
-import com.seiko.tv.core.di.IoDispatcher
+import com.seiko.tv.anime.di.scope.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

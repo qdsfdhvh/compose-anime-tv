@@ -17,10 +17,10 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.TvLazyColumn
 import com.seiko.compose.focuskit.collectFocusIndexAsState
 import com.seiko.compose.focuskit.rememberFocusRequesters
-import com.seiko.tv.anime.component.SetSystemBarColor
-import com.seiko.tv.anime.component.ShowProgress
-import com.seiko.tv.anime.component.foundation.TvTabBar
-import com.seiko.tv.anime.component.foundation.TvTitleGroup
+import com.seiko.tv.anime.ui.common.SetSystemBarColor
+import com.seiko.tv.anime.ui.common.ShowProgress
+import com.seiko.tv.anime.ui.common.foundation.TvTabBar
+import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 
 @Composable
 fun FeedScene() {

@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.di.assisted
+package com.seiko.tv.anime.ui.composer.assisted
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel

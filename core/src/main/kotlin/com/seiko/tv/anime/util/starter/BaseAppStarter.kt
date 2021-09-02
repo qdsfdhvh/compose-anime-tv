@@ -1,4 +1,4 @@
-package com.seiko.tv.core.starter
+package com.seiko.tv.anime.util.starter
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor

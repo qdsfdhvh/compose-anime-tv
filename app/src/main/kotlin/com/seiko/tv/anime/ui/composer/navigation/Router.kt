@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.navigation
+package com.seiko.tv.anime.ui.composer.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry

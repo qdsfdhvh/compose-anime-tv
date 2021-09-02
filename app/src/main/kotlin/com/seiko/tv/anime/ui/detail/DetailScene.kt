@@ -16,11 +16,11 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.TvLazyColumn
 import com.seiko.compose.focuskit.collectFocusIndexAsState
 import com.seiko.compose.focuskit.rememberFocusRequesters
-import com.seiko.tv.anime.component.ShowProgress
-import com.seiko.tv.anime.component.foundation.TvEpisodeList
-import com.seiko.tv.anime.component.foundation.TvMovieInfo
-import com.seiko.tv.anime.component.foundation.TvTitleGroup
 import com.seiko.tv.anime.data.model.anime.AnimeDetail
+import com.seiko.tv.anime.ui.common.ShowProgress
+import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
+import com.seiko.tv.anime.ui.common.foundation.TvMovieInfo
+import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 
 @Composable
 fun DetailScene(animeId: Int) {

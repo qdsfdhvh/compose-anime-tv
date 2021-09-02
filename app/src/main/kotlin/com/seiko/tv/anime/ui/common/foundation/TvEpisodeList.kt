@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.component.foundation
+package com.seiko.tv.anime.ui.common.foundation
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background

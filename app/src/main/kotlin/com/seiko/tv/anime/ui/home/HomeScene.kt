@@ -22,9 +22,9 @@ import androidx.compose.ui.focus.focusRequester
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.LocalAppNavigator
-import com.seiko.tv.anime.component.SetSystemBarColor
-import com.seiko.tv.anime.component.foundation.RoundIcon
-import com.seiko.tv.anime.navigation.Router
+import com.seiko.tv.anime.ui.common.SetSystemBarColor
+import com.seiko.tv.anime.ui.common.foundation.RoundIcon
+import com.seiko.tv.anime.ui.composer.navigation.Router
 
 @Composable
 fun HomeScene() {

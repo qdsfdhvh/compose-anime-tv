@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.navigation
+package com.seiko.tv.anime.ui.composer.navigation
 
 import androidx.navigation.NavHostController
 import androidx.navigation.navOptions

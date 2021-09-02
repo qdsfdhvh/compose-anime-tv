@@ -22,8 +22,8 @@ import androidx.navigation.compose.DialogNavigator
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.seiko.compose.focuskit.TvKeyEvent
 import com.seiko.compose.focuskit.handleTvKey
-import com.seiko.tv.anime.navigation.AppNavigator
-import com.seiko.tv.anime.navigation.Router
+import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
+import com.seiko.tv.anime.ui.composer.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.FpsHelper
 import dagger.hilt.android.AndroidEntryPoint

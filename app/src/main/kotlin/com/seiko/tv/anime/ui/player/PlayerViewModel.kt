@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.seiko.compose.player.VideoPlayerSource
 import com.seiko.tv.anime.data.repository.AnimeVideoRepository
-import com.seiko.tv.anime.di.assisted.assistedViewModel
+import com.seiko.tv.anime.ui.composer.assisted.assistedViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.SharingStarted

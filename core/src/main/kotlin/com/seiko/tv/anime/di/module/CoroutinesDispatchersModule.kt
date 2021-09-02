@@ -1,5 +1,9 @@
-package com.seiko.tv.core.di
+package com.seiko.tv.anime.di.module
 
+import com.seiko.tv.anime.di.scope.DefaultDispatcher
+import com.seiko.tv.anime.di.scope.IoDispatcher
+import com.seiko.tv.anime.di.scope.MainDispatcher
+import com.seiko.tv.anime.di.scope.MainImmediateDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

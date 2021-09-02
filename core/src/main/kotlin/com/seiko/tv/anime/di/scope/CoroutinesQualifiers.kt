@@ -1,4 +1,4 @@
-package com.seiko.tv.core.di
+package com.seiko.tv.anime.di.scope
 
 import javax.inject.Qualifier
 

@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.component.foundation
+package com.seiko.tv.anime.ui.common.foundation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable

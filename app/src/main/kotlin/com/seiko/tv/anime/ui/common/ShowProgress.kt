@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.component
+package com.seiko.tv.anime.ui.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

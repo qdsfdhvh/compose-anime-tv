@@ -1,4 +1,4 @@
-package com.seiko.tv.core.starter
+package com.seiko.tv.anime.util.starter
 
 import android.os.Process
 import android.os.Process.THREAD_PRIORITY_FOREGROUND

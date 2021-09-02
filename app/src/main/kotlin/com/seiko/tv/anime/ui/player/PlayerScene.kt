@@ -14,7 +14,7 @@ import com.seiko.compose.player.TvVideoPlayer
 import com.seiko.compose.player.rememberPlayer
 import com.seiko.compose.player.rememberVideoPlayerController
 import com.seiko.tv.anime.LocalAppNavigator
-import com.seiko.tv.anime.component.foundation.TvSelectDialog
+import com.seiko.tv.anime.ui.common.foundation.TvSelectDialog
 import com.seiko.tv.anime.util.video.HlsVideoPlayerFactory
 
 @Composable
