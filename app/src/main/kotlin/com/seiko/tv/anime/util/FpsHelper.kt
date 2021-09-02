@@ -1,7 +1,6 @@
 package com.seiko.tv.anime.util
 
 import android.view.Choreographer
-import kotlin.math.pow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -9,6 +8,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlin.math.pow
 
 object FpsHelper {
 
@@ -38,5 +38,4 @@ object FpsHelper {
       awaitClose { Choreographer.getInstance().removeFrameCallback(frameCallback) }
     }.stateIn(scope, SharingStarted.Lazily, 0)
   }
-
 }

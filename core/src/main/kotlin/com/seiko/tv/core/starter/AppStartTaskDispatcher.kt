@@ -197,10 +197,12 @@ class AppStartTaskDispatcher private constructor(
 
   private fun logSortTask(sortTaskList: List<AppStartTask>) {
     if (isShowLog) {
-      log(sortTaskList.joinToString(
-        prefix = "Task Sort ",
-        separator = "-->"
-      ) { it.taskKey.simpleName!! })
+      log(
+        sortTaskList.joinToString(
+          prefix = "Task Sort ",
+          separator = "-->"
+        ) { it.taskKey.simpleName!! }
+      )
     }
   }
 
