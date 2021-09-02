@@ -1,24 +1,11 @@
-buildscript {
-  repositories {
-    google()
-    mavenCentral()
-  }
-
-  dependencies {
-    classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
-    classpath("de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1")
-  }
-}
-
 plugins {
   id("com.android.application")
   kotlin("android")
   kotlin("kapt")
   id("com.google.devtools.ksp").version(Versions.ksp)
+  id("dagger.hilt.android.plugin")
+  id("de.mannodermaus.android-junit5")
 }
-
-apply(plugin = "dagger.hilt.android.plugin")
-apply(plugin = "de.mannodermaus.android-junit5")
 
 android {
   compileSdk = AndroidSdk.compile
@@ -84,13 +71,13 @@ repositories {
 
 dependencies {
   implementation(project(":core"))
+  implementation(project(":feature:service"))
   ksp(project(":compiler:assistedFactory"))
 
   hilt()
   compose()
   android()
   kotlinCoroutines()
-  network()
 
   junit5()
   test()

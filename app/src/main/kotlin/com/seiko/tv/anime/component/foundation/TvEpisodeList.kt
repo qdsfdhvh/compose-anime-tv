@@ -31,7 +31,7 @@ import com.seiko.compose.focuskit.collectFocusIndexAsState
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.LocalAppNavigator
-import com.seiko.tv.anime.model.AnimeEpisode
+import com.seiko.tv.anime.data.model.anime.AnimeEpisode
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 

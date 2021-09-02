@@ -33,9 +33,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.seiko.compose.focuskit.*
+import com.seiko.compose.focuskit.TvLazyRow
+import com.seiko.compose.focuskit.collectFocusIndexAsState
+import com.seiko.compose.focuskit.focusClick
+import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.LocalAppNavigator
-import com.seiko.tv.anime.model.Anime
+import com.seiko.tv.anime.data.model.anime.Anime
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 

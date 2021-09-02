@@ -20,7 +20,7 @@ import com.seiko.tv.anime.component.ShowProgress
 import com.seiko.tv.anime.component.foundation.TvEpisodeList
 import com.seiko.tv.anime.component.foundation.TvMovieInfo
 import com.seiko.tv.anime.component.foundation.TvTitleGroup
-import com.seiko.tv.anime.model.AnimeDetail
+import com.seiko.tv.anime.data.model.anime.AnimeDetail
 
 @Composable
 fun DetailScene(animeId: Int) {

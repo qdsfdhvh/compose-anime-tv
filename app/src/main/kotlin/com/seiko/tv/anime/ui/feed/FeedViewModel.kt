@@ -2,8 +2,8 @@ package com.seiko.tv.anime.ui.feed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.seiko.tv.anime.data.AnimeHomeRepository
-import com.seiko.tv.anime.model.AnimeGroup
+import com.seiko.tv.anime.data.model.anime.AnimeGroup
+import com.seiko.tv.anime.data.repository.AnimeHomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

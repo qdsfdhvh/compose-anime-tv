@@ -3,9 +3,9 @@ package com.seiko.tv.anime.ui.detail
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.seiko.tv.anime.data.AnimeDetailRepository
+import com.seiko.tv.anime.data.model.anime.AnimeDetail
+import com.seiko.tv.anime.data.repository.AnimeDetailRepository
 import com.seiko.tv.anime.di.assisted.assistedViewModel
-import com.seiko.tv.anime.model.AnimeDetail
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.SharingStarted

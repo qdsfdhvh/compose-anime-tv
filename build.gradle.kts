@@ -6,10 +6,13 @@ plugins {
 buildscript {
   repositories {
     google()
+    mavenCentral()
   }
   dependencies {
     classpath(kotlin("gradle-plugin", version = Versions.Kotlin.lang))
     classpath("com.android.tools.build:gradle:7.1.0-alpha10")
+    classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
+    classpath("de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1")
   }
 }
 

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.seiko.compose.player.VideoPlayerSource
-import com.seiko.tv.anime.data.AnimeVideoRepository
+import com.seiko.tv.anime.data.repository.AnimeVideoRepository
 import com.seiko.tv.anime.di.assisted.assistedViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject

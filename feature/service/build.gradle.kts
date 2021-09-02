@@ -2,6 +2,7 @@ plugins {
   id("com.android.library")
   kotlin("android")
   kotlin("kapt")
+  id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -13,8 +14,9 @@ android {
 }
 
 dependencies {
+  implementation(project(":core"))
   hilt()
-  android()
   kotlinCoroutines()
-  utils()
+  network()
+  junit5()
 }
