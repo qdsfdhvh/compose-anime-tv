@@ -85,7 +85,11 @@ repositories {
 dependencies {
   implementation(project(":core"))
   ksp(project(":compiler:assistedFactory"))
-  hiltCompiler()
+
+  hilt()
+  compose()
+  android()
+  kotlinCoroutines()
   network()
 
   junit5()
@@ -95,19 +99,4 @@ dependencies {
   // fix not javax.annotation.processing.Generated with dagger2
   // https://github.com/pengrad/jdk9-deps
   compileOnly("com.github.pengrad:jdk9-deps:1.0")
-
-  // image https://github.com/coil-kt/coil
-  implementation("io.coil-kt:coil-compose:1.3.2")
-
-  // parse html https://github.com/jhy/jsoup/
-  implementation("org.jsoup:jsoup:1.13.1")
-
-  // compose focus https://github.com/qdsfdhvh/compose-focuskit
-  implementation("com.github.qdsfdhvh.compose-focuskit:focuskit:0.0.5")
-  implementation("com.github.qdsfdhvh.compose-focuskit:player:0.0.5")
-}
-
-// 剔除livedata，使用flow代替
-configurations.all {
-  exclude(group = "androidx.lifecycle", module = "lifecycle-livedata")
 }

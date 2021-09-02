@@ -9,13 +9,8 @@ android {
 }
 
 dependencies {
-  compose()
-  androidx()
-  lifecycle()
-  kotlinCoroutines()
-  accompanist()
-  navigation()
   hilt()
-  hiltCompiler()
+  android()
+  kotlinCoroutines()
   utils()
 }

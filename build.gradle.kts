@@ -61,6 +61,11 @@ allprojects {
       // licenseHeaderFile(rootProject.file("spotless/license"))
     }
   }
+
+  // 剔除livedata，使用flow代替
+  configurations.all {
+    exclude(group = "androidx.lifecycle", module = "lifecycle-livedata")
+  }
 }
 
 autoManifest {

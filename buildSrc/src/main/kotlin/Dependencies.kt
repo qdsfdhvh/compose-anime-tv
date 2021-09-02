@@ -12,55 +12,48 @@ fun Project.configRepository() {
 }
 
 fun DependencyHandlerScope.hilt() {
-  api("com.google.dagger:hilt-android", Versions.hilt)
-  api("androidx.hilt:hilt-work", Versions.androidx_hilt)
-}
-
-fun DependencyHandlerScope.hiltCompiler() {
+  implementation("com.google.dagger:hilt-android", Versions.hilt)
+  implementation("androidx.hilt:hilt-work", Versions.androidx_hilt)
   kapt("com.google.dagger:hilt-android-compiler", Versions.hilt)
   kapt("androidx.hilt:hilt-compiler", Versions.androidx_hilt)
-  // Fix Caused by: java.lang.IllegalStateException: The Hilt Android Gradle plugin ...
-  implementation("com.google.dagger:hilt-android", Versions.hilt)
 }
 
 fun DependencyHandlerScope.compose() {
-  api("androidx.compose.ui:ui", Versions.compose)
-  api("androidx.compose.ui:ui-tooling", Versions.compose)
-  api("androidx.compose.foundation:foundation", Versions.compose)
-  api("androidx.compose.animation:animation", Versions.compose)
-  api("androidx.compose.material:material", Versions.compose)
-  api("androidx.compose.material:material-icons-core", Versions.compose)
-  api("androidx.compose.material:material-icons-extended", Versions.compose)
-  api("androidx.constraintlayout:constraintlayout-compose", Versions.constraintLayout)
+  implementation("androidx.compose.ui:ui", Versions.compose)
+  implementation("androidx.compose.ui:ui-tooling", Versions.compose)
+  implementation("androidx.compose.foundation:foundation", Versions.compose)
+  implementation("androidx.compose.animation:animation", Versions.compose)
+  implementation("androidx.compose.material:material", Versions.compose)
+  implementation("androidx.compose.material:material-icons-core", Versions.compose)
+  implementation("androidx.compose.material:material-icons-extended", Versions.compose)
+  implementation("androidx.constraintlayout:constraintlayout-compose", Versions.constraintLayout)
+  implementation("androidx.navigation:navigation-compose", Versions.navigation)
+  implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+  implementation("com.google.accompanist:accompanist-insets", Versions.accompanist)
+  implementation("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
+  implementation("com.github.qdsfdhvh.compose-focuskit:focuskit:0.0.5")
+  implementation("com.github.qdsfdhvh.compose-focuskit:player:0.0.5")
 }
 
-fun DependencyHandlerScope.androidx() {
-  api("androidx.core:core-ktx:1.6.0")
-  api("androidx.activity:activity-ktx", Versions.activity)
-  api("androidx.activity:activity-compose", Versions.activity)
+fun DependencyHandlerScope.android() {
+  lifecycle()
+  implementation("androidx.core:core-ktx:1.6.0")
+  implementation("androidx.activity:activity-ktx", Versions.activity)
+  implementation("androidx.activity:activity-compose", Versions.activity)
+  implementation("io.coil-kt:coil-compose:1.3.2")
 }
 
 fun DependencyHandlerScope.lifecycle() {
-  api("androidx.lifecycle:lifecycle-runtime-ktx", Versions.lifecycle)
-  api("androidx.lifecycle:lifecycle-viewmodel-ktx", Versions.lifecycle)
-  api("androidx.lifecycle:lifecycle-viewmodel-savedstate", Versions.lifecycle)
-  api("androidx.lifecycle:lifecycle-common-java8", Versions.lifecycle)
-  api("androidx.lifecycle:lifecycle-viewmodel-compose", Versions.lifecycle_compose)
+  implementation("androidx.lifecycle:lifecycle-runtime-ktx", Versions.lifecycle)
+  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx", Versions.lifecycle)
+  implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate", Versions.lifecycle)
+  implementation("androidx.lifecycle:lifecycle-common-java8", Versions.lifecycle)
+  implementation("androidx.lifecycle:lifecycle-viewmodel-compose", Versions.lifecycle_compose)
 }
 
 fun DependencyHandlerScope.kotlinCoroutines() {
-  api("org.jetbrains.kotlinx:kotlinx-coroutines-core", Versions.Kotlin.coroutines)
-  api("org.jetbrains.kotlinx:kotlinx-coroutines-android", Versions.Kotlin.coroutines)
-}
-
-fun DependencyHandlerScope.accompanist() {
-  api("com.google.accompanist:accompanist-insets", Versions.accompanist)
-  api("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
-}
-
-fun DependencyHandlerScope.navigation() {
-  api("androidx.navigation:navigation-compose", Versions.navigation)
-  api("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core", Versions.Kotlin.coroutines)
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android", Versions.Kotlin.coroutines)
 }
 
 fun DependencyHandlerScope.utils() {
@@ -72,6 +65,8 @@ fun DependencyHandlerScope.network() {
   implementation("com.squareup.okhttp3:logging-interceptor", Versions.okhttp)
   // 🐂🍺 https://github.com/Tlaster/Hson
   implementation("com.github.Tlaster:Hson:0.1.4")
+  // parse html https://github.com/jhy/jsoup/
+  implementation("org.jsoup:jsoup:1.13.1")
 }
 
 fun DependencyHandlerScope.junit5() {
