@@ -3,7 +3,7 @@ package com.seiko.tv.anime.data.repository
 import com.seiko.tv.anime.data.model.anime.Anime
 import com.seiko.tv.anime.data.model.anime.AnimeDetail
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
-import com.seiko.tv.anime.data.service.YhdmService
+import com.seiko.tv.anime.data.service.SakuraService
 import com.seiko.tv.anime.di.scope.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class AnimeDetailRepository @Inject constructor(
-  private val service: YhdmService,
+  private val service: SakuraService,
   @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
   fun getAnimeDetail(animeId: Int): Flow<AnimeDetail> {

@@ -6,6 +6,11 @@ data class Anime(
   val actionUrl: String
 )
 
+data class AnimeTab(
+  val title: String,
+  val uri: String
+)
+
 data class AnimeGroup(
   val title: String,
   val animes: List<Anime>

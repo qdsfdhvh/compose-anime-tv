@@ -1,7 +1,7 @@
 package com.seiko.tv.anime.injection.module
 
 import com.seiko.tv.anime.YHDM_BAS_URL
-import com.seiko.tv.anime.data.service.YhdmService
+import com.seiko.tv.anime.data.service.SakuraService
 import com.seiko.tv.anime.feature.service.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -31,7 +31,7 @@ object HttpModule {
 
   @Singleton
   @Provides
-  fun provideYhDmService(client: OkHttpClient): YhdmService {
-    return YhdmService(YHDM_BAS_URL, client)
+  fun provideSakuraService(client: OkHttpClient): SakuraService {
+    return SakuraService(YHDM_BAS_URL, client)
   }
 }

@@ -14,9 +14,7 @@ class ResponseTest {
 
   @Test
   fun homeTest() = runBlocking {
-    val file = File("src/test/resources/api/yhdm_home.html").readText()
-    assert(file.isNotEmpty())
-
+    val file = File("src/test/resources/api/sakura_home.html").readText()
     val response = Hson.deserializeKData<HomeResponse>(file)
     assert(response.titles.any())
     assert(response.titles[0].isNotEmpty())
@@ -24,11 +22,25 @@ class ResponseTest {
     assert(response.groups[0].animes.any())
     assert(response.groups[0].animes[0].title.isNotEmpty())
     assert(response.titles.size == response.groups.size)
+    assert(response.tabs.any())
+    assert(response.tabs[0].title.isNotEmpty())
+  }
+
+  @Test
+  fun homeType2Test() = runBlocking {
+    val file = File("src/test/resources/api/sakura_home_type2.html").readText()
+    val response = Hson.deserializeKData<HomeResponse>(file)
+    assert(response.titles.any()) { response }
+    assert(response.titles[0].isNotEmpty()) { response }
+    assert(response.groups.any()) { response }
+    assert(response.groups[0].animes.any()) { response }
+    assert(response.groups[0].animes[0].title.isNotEmpty()) { response }
+    assert(response.titles.size == response.groups.size) { response }
   }
 
   @Test
   fun detailTest() = runBlocking {
-    val file = File("src/test/resources/api/yhdm_detail.html").readText()
+    val file = File("src/test/resources/api/sakura_detail.html").readText()
     assert(file.isNotEmpty())
 
     val response = Hson.deserializeKData<DetailResponse>(file)
@@ -49,7 +61,7 @@ class ResponseTest {
 
   @Test
   fun videoTest() = runBlocking {
-    val file = File("src/test/resources/api/yhdm_video.html").readText()
+    val file = File("src/test/resources/api/sakura_video.html").readText()
     assert(file.isNotEmpty())
 
     val response = Hson.deserializeKData<VideoResponse>(file)

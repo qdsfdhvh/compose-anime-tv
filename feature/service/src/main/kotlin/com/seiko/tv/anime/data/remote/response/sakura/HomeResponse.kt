@@ -3,14 +3,32 @@ package com.seiko.tv.anime.data.remote.response.sakura
 import moe.tlaster.hson.annotations.HtmlSerializable
 
 internal data class HomeResponse(
-  @HtmlSerializable(".firs div.dtit > h2 > a")
+  @HtmlSerializable(".menu ul.dmx > li")
+  val tabs: List<AnimeTab>,
+  @HtmlSerializable(
+    "div.firs div.dtit > h2 > a",
+    "div.area div.dtit > h2",
+  )
   val titles: List<String>,
-  @HtmlSerializable(".firs div.img")
+  @HtmlSerializable(
+    "div.firs div.img",
+    "div.area div.imgs",
+  )
   val groups: List<AnimeGroup>
 ) {
 
+  data class AnimeTab(
+    @HtmlSerializable("a")
+    val title: String = "",
+    @HtmlSerializable("a", attr = "href")
+    val href: String = "",
+  )
+
   data class AnimeGroup(
-    @HtmlSerializable(".img > ul > li")
+    @HtmlSerializable(
+      ".img > ul > li",
+      "ul > li"
+    )
     val animes: List<Anime> = emptyList(),
   )
 
