@@ -29,16 +29,17 @@ import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.TvLazyRow
 import com.seiko.compose.focuskit.collectFocusIndexAsState
 import com.seiko.compose.focuskit.rememberFocusRequesters
+import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 
 @Composable
 fun TvTabBar(
-  tabList: List<String>,
+  tabList: List<AnimeTab>,
   modifier: Modifier = Modifier,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
   val focusRequesters = rememberFocusRequesters(tabList)
-  val interactionSource = remember { MutableInteractionSource() }
   val focusIndex by interactionSource.collectFocusIndexAsState()
   var isParentFocused by remember { mutableStateOf(false) }
 
@@ -46,13 +47,13 @@ fun TvTabBar(
     modifier = modifier.onFocusChanged { isParentFocused = it.hasFocus || it.isFocused },
     interactionSource = interactionSource,
   ) {
-    itemsIndexed(tabList) { index, title ->
+    itemsIndexed(tabList) { index, tab ->
       val itemInteractionSource = remember { MutableInteractionSource() }
       TvTabBarItem(
         modifier = Modifier
           .focusRequester(focusRequesters[index])
           .focusable(interactionSource = itemInteractionSource),
-        title = title,
+        title = tab.title,
         isFocused = itemInteractionSource.collectIsFocusedAsState().value,
         isSelected = focusIndex == index,
       )
