@@ -2,7 +2,7 @@ package com.seiko.tv.anime.data.remote.response.sakura
 
 import moe.tlaster.hson.annotations.HtmlSerializable
 
-data class HomeResponse(
+internal data class HomeResponse(
   @HtmlSerializable(".firs div.dtit > h2 > a")
   val titles: List<String>,
   @HtmlSerializable(".firs div.img")

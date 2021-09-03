@@ -16,15 +16,15 @@ class YhdmService(
   private val client: OkHttpClient,
 ) {
 
-  suspend fun getHomeResponse(): HomeResponse {
+  internal suspend fun getHomeResponse(): HomeResponse {
     return Hson.deserializeKData(getHtml(""))
   }
 
-  suspend fun getDetailResponse(animeId: Int): DetailResponse {
+  internal suspend fun getDetailResponse(animeId: Int): DetailResponse {
     return Hson.deserializeKData(getHtml("show/$animeId.html"))
   }
 
-  suspend fun getDetailResponse(episode: String): VideoResponse {
+  internal suspend fun getDetailResponse(episode: String): VideoResponse {
     return Hson.deserializeKData(getHtml("v/$episode.html"))
   }
 

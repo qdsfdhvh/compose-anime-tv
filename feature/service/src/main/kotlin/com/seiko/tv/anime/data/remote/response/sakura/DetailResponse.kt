@@ -4,7 +4,7 @@ import com.seiko.tv.anime.util.serializer.TrimSplitStringSerializer
 import com.seiko.tv.anime.util.serializer.TrimStringSerializer
 import moe.tlaster.hson.annotations.HtmlSerializable
 
-data class DetailResponse(
+internal data class DetailResponse(
   @HtmlSerializable("h1")
   val title: String = "",
   @HtmlSerializable("div.thumb > img", attr = "src")
