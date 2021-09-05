@@ -3,13 +3,25 @@ package com.seiko.tv.anime
 import android.app.Application
 import android.util.Log
 import com.seiko.compose.focuskit.TvLogger
+import com.seiko.tv.anime.util.starter.AppStartTaskDispatcher
+import com.seiko.tv.anime.util.starter.BaseAppStarter
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 import timber.log.Timber
 
 @HiltAndroidApp
 class AnimeTvApp : Application() {
+
+  @Inject
+  lateinit var appStarters: Set<@JvmSuppressWildcards BaseAppStarter>
+
   override fun onCreate() {
     super.onCreate()
+    initLogger()
+    initAppStarter()
+  }
+
+  private fun initLogger() {
     if (BuildConfig.DEBUG) {
       Timber.plant(Timber.DebugTree())
 
@@ -25,5 +37,13 @@ class AnimeTvApp : Application() {
         }
       })
     }
+  }
+
+  private fun initAppStarter() {
+    AppStartTaskDispatcher.Builder()
+      .addAppStartTasks(appStarters)
+      .setShowLog(BuildConfig.DEBUG)
+      .build()
+      .start()
   }
 }

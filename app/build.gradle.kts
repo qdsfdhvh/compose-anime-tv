@@ -72,6 +72,7 @@ repositories {
 dependencies {
   implementation(project(":core"))
   implementation(project(":feature:service"))
+  implementation(project(":feature:analytics"))
   ksp(project(":compiler:assistedFactory"))
 
   hilt()

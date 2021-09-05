@@ -8,6 +8,6 @@ pluginManagement {
 rootProject.name = "compose-anime-tv"
 include(":app", ":core")
 include(":compiler:assistedFactory")
-include(":feature:service")
+include(":feature:service", ":feature:analytics")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

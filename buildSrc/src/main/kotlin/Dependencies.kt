@@ -68,6 +68,11 @@ fun DependencyHandlerScope.network() {
   implementation("org.jsoup:jsoup:1.13.1")
 }
 
+fun DependencyHandlerScope.appCenter() {
+  implementation("com.microsoft.appcenter:appcenter-analytics", Versions.appCenter)
+  implementation("com.microsoft.appcenter:appcenter-crashes", Versions.appCenter)
+}
+
 fun DependencyHandlerScope.junit5() {
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
   testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
