@@ -18,7 +18,7 @@ import com.seiko.compose.focuskit.handleTvKey
 fun FocusableButton(
   onClick: () -> Unit,
   modifier: Modifier = Modifier,
-  content: @Composable RowScope.() -> Unit
+  content: @Composable RowScope.(Boolean) -> Unit
 ) {
   val interactionSource = remember { MutableInteractionSource() }
   val isFocused by interactionSource.collectIsFocusedAsState()
@@ -40,6 +40,8 @@ fun FocusableButton(
       }
       .focusable(interactionSource = interactionSource),
     colors = colors,
-    content = content
+    content = {
+      content(isFocused)
+    }
   )
 }

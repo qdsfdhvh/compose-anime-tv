@@ -19,7 +19,6 @@ import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.data.model.anime.AnimeDetail
 import com.seiko.tv.anime.ui.common.ShowProgress
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
-import com.seiko.tv.anime.ui.common.foundation.TvMovieInfo
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 
 @Composable
@@ -44,7 +43,7 @@ fun DetailScene(animeId: Int) {
       interactionSource = interactionSource,
     ) {
       item {
-        TvMovieInfo(
+        DetailAnimeInfo(
           title = detail.title,
           cover = detail.cover,
           releaseTime = detail.releaseTime,

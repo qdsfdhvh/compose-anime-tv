@@ -26,7 +26,6 @@ fun DependencyHandlerScope.compose() {
   implementation("androidx.compose.material:material", Versions.compose)
   implementation("androidx.compose.material:material-icons-core", Versions.compose)
   implementation("androidx.compose.material:material-icons-extended", Versions.compose)
-  implementation("androidx.constraintlayout:constraintlayout-compose", Versions.constraintLayout)
   implementation("androidx.navigation:navigation-compose", Versions.navigation)
   implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
   implementation("com.google.accompanist:accompanist-insets", Versions.accompanist)
