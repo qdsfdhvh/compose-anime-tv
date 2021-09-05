@@ -15,5 +15,4 @@ interface AnalyticsStarterModule {
   @Binds
   @IntoSet
   fun bindAppCenterStarter(starter: AppCenterStarter): BaseAppStarter
-
 }

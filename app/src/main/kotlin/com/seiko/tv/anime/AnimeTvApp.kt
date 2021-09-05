@@ -6,8 +6,8 @@ import com.seiko.compose.focuskit.TvLogger
 import com.seiko.tv.anime.util.starter.AppStartTaskDispatcher
 import com.seiko.tv.anime.util.starter.BaseAppStarter
 import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltAndroidApp
 class AnimeTvApp : Application() {
