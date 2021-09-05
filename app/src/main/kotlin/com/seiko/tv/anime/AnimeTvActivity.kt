@@ -22,6 +22,7 @@ import androidx.navigation.compose.DialogNavigator
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.seiko.compose.focuskit.TvKeyEvent
 import com.seiko.compose.focuskit.handleTvKey
+import com.seiko.tv.anime.ui.composer.assisted.ProvideAssistedMap
 import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
 import com.seiko.tv.anime.ui.composer.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
@@ -54,28 +55,29 @@ class AnimeTvActivity : ComponentActivity() {
     setContent {
       CompositionLocalProvider(
         LocalAppNavigator provides navigator,
-        LocalAssistedFactoryMap provides assistedViewHolder.factory
       ) {
         ProvideWindowInsets {
-          AnimeTvTheme {
-            Box(
-              modifier = Modifier
-                .handleTvKey(TvKeyEvent.Back) {
-                  if (!navigator.pop()) {
-                    ActivityCompat.finishAffinity(this)
-                  }
-                  true
-                }
-            ) {
-              Router(navController)
-
-              Text(
-                text = "${fpsFlow.collectAsState().value}fps",
-                color = Color.Red,
+          ProvideAssistedMap(assistedViewHolder.factory) {
+            AnimeTvTheme {
+              Box(
                 modifier = Modifier
-                  .align(Alignment.TopStart)
-                  .padding(10.dp),
-              )
+                  .handleTvKey(TvKeyEvent.Back) {
+                    if (!navigator.pop()) {
+                      ActivityCompat.finishAffinity(this)
+                    }
+                    true
+                  }
+              ) {
+                Router(navController)
+
+                Text(
+                  text = "${fpsFlow.collectAsState().value}fps",
+                  color = Color.Red,
+                  modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(10.dp),
+                )
+              }
             }
           }
         }
