@@ -41,6 +41,7 @@ import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.Anime
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
+import com.seiko.tv.anime.ui.theme.uiValue
 
 @Composable
 fun TvTitleGroup(
@@ -96,8 +97,11 @@ private fun GroupItem(
   Box(
     modifier = modifier
       .scale(scale)
-      .padding(horizontal = 15.dp, vertical = 10.dp)
-      .shadow(if (isFocused) 5.dp else 0.dp)
+      .padding(
+        horizontal = MaterialTheme.uiValue.paddingHorizontal,
+        vertical = MaterialTheme.uiValue.paddingVertical
+      )
+      .shadow(if (isFocused) MaterialTheme.uiValue.elevation else 0.dp)
       .background(MaterialTheme.colors.surface)
       .border(1.dp, if (isFocused) MaterialTheme.colors.surface else Color.Transparent)
       .size(140.dp, 200.dp)

@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seiko.tv.anime.ui.theme.backgroundColor
+import com.seiko.tv.anime.ui.theme.uiValue
 
 @Composable
 fun RoundIcon(
@@ -47,9 +48,9 @@ fun RoundIcon(
       modifier = modifier
         .scale(scale)
         .padding(16.dp)
-        .shadow(if (isFocused) 5.dp else 0.dp, CircleShape)
+        .shadow(if (isFocused) MaterialTheme.uiValue.elevation else 0.dp, CircleShape)
         .background(background, CircleShape)
-        .padding(10.dp)
+        .padding(MaterialTheme.uiValue.paddingHorizontalSmall)
         .size(40.dp)
     )
     Text(

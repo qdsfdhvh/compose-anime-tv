@@ -5,6 +5,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors()
@@ -31,6 +32,11 @@ fun AnimeTvTheme(
     colors = colors,
     typography = Typography,
     shapes = Shapes,
-    content = content
+    content = {
+      CompositionLocalProvider(
+        LocalUiValue provides UiValue(),
+        content = content
+      )
+    }
   )
 }

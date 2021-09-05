@@ -32,6 +32,7 @@ import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
+import com.seiko.tv.anime.ui.theme.uiValue
 
 @Composable
 fun TvTabBar(
@@ -86,7 +87,7 @@ private fun TvTabBarItem(
     modifier = modifier
       .scale(scale)
       .padding(5.dp)
-      .shadow(if (isFocused) 5.dp else 0.dp, CircleShape)
+      .shadow(if (isFocused) MaterialTheme.uiValue.elevation else 0.dp, CircleShape)
       .background(background, CircleShape)
       .padding(15.dp, 5.dp)
   )

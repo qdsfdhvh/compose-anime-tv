@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -34,6 +33,7 @@ import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
+import com.seiko.tv.anime.ui.theme.uiValue
 
 @Composable
 fun TvEpisodeList(
@@ -52,7 +52,10 @@ fun TvEpisodeList(
     Text(
       text = title,
       style = MaterialTheme.typography.h6,
-      modifier = Modifier.padding(start = 15.dp, top = 10.dp),
+      modifier = Modifier.padding(
+        start = MaterialTheme.uiValue.paddingHorizontal,
+        top = MaterialTheme.uiValue.paddingVertical
+      ),
     )
 
     TvLazyRow(
@@ -92,10 +95,16 @@ private fun EpisodeItem(
     color = MaterialTheme.colors.onSurface,
     modifier = modifier
       .scale(scale)
-      .padding(10.dp)
-      .shadow(if (isFocused) 5.dp else 0.dp, RoundedCornerShape(4.dp))
-      .background(MaterialTheme.colors.surface, RoundedCornerShape(4.dp))
-      .padding(horizontal = 20.dp, vertical = 10.dp),
+      .padding(MaterialTheme.uiValue.paddingHorizontalSmall)
+      .shadow(
+        if (isFocused) MaterialTheme.uiValue.elevation else 0.dp,
+        MaterialTheme.shapes.medium
+      )
+      .background(MaterialTheme.colors.surface, MaterialTheme.shapes.medium)
+      .padding(
+        horizontal = MaterialTheme.uiValue.paddingHorizontal,
+        vertical = MaterialTheme.uiValue.paddingVertical
+      ),
   )
 }
 

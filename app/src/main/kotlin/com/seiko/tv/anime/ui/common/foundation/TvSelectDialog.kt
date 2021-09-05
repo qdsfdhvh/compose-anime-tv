@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -80,7 +79,7 @@ fun TvSelectDialogButton(
     modifier = modifier
       .background(
         if (isFocused) MaterialTheme.colors.primary else Color.Transparent,
-        RoundedCornerShape(2.dp)
+        MaterialTheme.shapes.small
       )
       .padding(horizontal = 12.dp, vertical = 4.dp),
   )

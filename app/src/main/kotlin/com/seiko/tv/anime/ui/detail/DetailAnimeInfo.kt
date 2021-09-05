@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -39,6 +38,7 @@ import com.seiko.tv.anime.ui.common.SpacerWidth
 import com.seiko.tv.anime.ui.common.foundation.FocusableButton
 import com.seiko.tv.anime.ui.common.foundation.NetworkImage
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
+import com.seiko.tv.anime.ui.theme.uiValue
 import com.seiko.tv.anime.util.ToastUtils
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -62,14 +62,14 @@ fun DetailAnimeInfo(
   Row(
     modifier = modifier
       .focusable(interactionSource = interactionSource)
-      .padding(20.dp),
+      .padding(MaterialTheme.uiValue.paddingHorizontal),
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
     Column(
       modifier = Modifier
         .weight(0.7f)
         .wrapContentWidth(),
-      verticalArrangement = Arrangement.spacedBy(15.dp)
+      verticalArrangement = Arrangement.spacedBy(MaterialTheme.uiValue.paddingHorizontal)
     ) {
       DetailAnimeInfoDesc(
         title = title,
@@ -131,7 +131,7 @@ private fun DetailAnimeInfoDesc(
         textAlign = TextAlign.Center,
         modifier = Modifier
           .widthIn(min = 60.dp)
-          .border(1.dp, MaterialTheme.colors.onSurface, RoundedCornerShape(2.dp))
+          .border(1.dp, MaterialTheme.colors.onSurface, MaterialTheme.shapes.small)
           .padding(2.dp),
       )
       SpacerWidth(10.dp)
