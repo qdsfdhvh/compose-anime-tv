@@ -32,3 +32,6 @@ build/
 captures/
 
 /.idea
+
+# hprot
+*.trace
