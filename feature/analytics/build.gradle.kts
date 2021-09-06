@@ -24,4 +24,11 @@ dependencies {
   implementation(project(":core"))
   hilt()
   appCenter()
+
+  // OOM https://github.com/KwaiAppTeam/KOOM
+  val koomVersion = "2.0.0-beta1"
+  implementation("com.kuaishou.koom:koom-native-leak:$koomVersion")
+  implementation("com.kuaishou.koom:koom-monitor-base:$koomVersion")
+  implementation("com.kuaishou.koom:koom-java-leak:$koomVersion")
+  implementation("com.kuaishou.koom:koom-thread-leak:$koomVersion")
 }
