@@ -55,6 +55,10 @@ fun DependencyHandlerScope.kotlinCoroutines() {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android", Versions.Kotlin.coroutines)
 }
 
+fun DependencyHandlerScope.kotlinSerialization() {
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json", Versions.Kotlin.serialization)
+}
+
 fun DependencyHandlerScope.utils() {
   api("com.jakewharton.timber:timber:4.7.1")
 }

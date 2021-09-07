@@ -4,6 +4,7 @@ object Versions {
   object Kotlin {
     const val lang = "1.5.21"
     const val coroutines = "1.5.1"
+    const val serialization = "1.2.2"
   }
 
   object Java {

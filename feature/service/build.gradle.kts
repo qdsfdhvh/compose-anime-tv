@@ -17,6 +17,7 @@ dependencies {
   implementation(project(":core"))
   hilt()
   kotlinCoroutines()
+  kotlinSerialization()
   network()
   junit5()
 }
