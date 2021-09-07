@@ -15,10 +15,9 @@ import com.kwai.performance.overhead.thread.monitor.ThreadMonitorConfig
 import com.microsoft.appcenter.crashes.Crashes
 import com.microsoft.appcenter.crashes.ingestion.models.ErrorAttachmentLog
 import com.seiko.tv.anime.util.exception.AppLeakException
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
-import timber.log.Timber
-
 
 class KOOMStarter @Inject constructor(
   private val application: Application
@@ -39,7 +38,7 @@ class KOOMStarter @Inject constructor(
   private fun initJavaLeak() {
     val config = OOMMonitorConfig.Builder()
       .setEnableHprofDumpAnalysis(true)
-      .setHprofUploader(object: OOMHprofUploader {
+      .setHprofUploader(object : OOMHprofUploader {
         override fun upload(file: File, type: OOMHprofUploader.HprofType) {
           Timber.tag(TAG).i("upload hprof: ${file.name}")
 
@@ -52,7 +51,7 @@ class KOOMStarter @Inject constructor(
           )
         }
       })
-      .setReportUploader(object: OOMReportUploader {
+      .setReportUploader(object : OOMReportUploader {
         override fun upload(file: File, content: String) {
           Timber.tag(TAG).i(content)
           Timber.tag(TAG).i("upload report: ${file.name}")
