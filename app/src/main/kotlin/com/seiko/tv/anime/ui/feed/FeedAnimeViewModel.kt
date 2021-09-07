@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.seiko.tv.anime.data.model.anime.AnimeGroup
 import com.seiko.tv.anime.data.model.anime.AnimeTab
-import com.seiko.tv.anime.data.repository.AnimeHomeRepository
+import com.seiko.tv.anime.data.repository.AnimeRepository
 import com.seiko.tv.anime.ui.composer.assisted.assistedViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -17,10 +17,10 @@ import timber.log.Timber
 
 class FeedAnimeViewModel @AssistedInject constructor(
   @Assisted private val tab: AnimeTab,
-  repository: AnimeHomeRepository,
+  repository: AnimeRepository,
 ) : ViewModel() {
 
-  val animeList: StateFlow<List<AnimeGroup>> = repository.getAnimeList(tab.uri)
+  val animeList: StateFlow<List<AnimeGroup>> = repository.getFeeds(tab.uri)
     .catch { Timber.w(it, "Feed animeList error: ") }
     .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 

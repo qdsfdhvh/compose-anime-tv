@@ -3,7 +3,7 @@ package com.seiko.tv.anime.data.model.anime
 data class Anime(
   val title: String,
   val cover: String,
-  val actionUrl: String
+  val uri: String
 )
 
 data class AnimeTab(
@@ -38,7 +38,7 @@ data class AnimeDetail(
 
 data class AnimeEpisode(
   val title: String,
-  val actionUrl: String,
+  val uri: String,
 )
 
 data class AnimeVideo(

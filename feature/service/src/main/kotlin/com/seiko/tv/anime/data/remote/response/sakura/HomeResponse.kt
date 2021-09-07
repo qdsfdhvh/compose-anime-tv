@@ -38,6 +38,6 @@ internal data class HomeResponse(
     @HtmlSerializable("img", attr = "src")
     val cover: String = "",
     @HtmlSerializable("a", attr = "href")
-    val actionUrl: String = ""
+    val href: String = ""
   )
 }

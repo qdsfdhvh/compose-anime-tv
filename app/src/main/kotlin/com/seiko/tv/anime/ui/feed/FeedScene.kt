@@ -56,7 +56,6 @@ fun FeedScene() {
   val focusRequesters = rememberFocusRequesters(1 + tabs.size)
   var focusIndex by rememberSaveable(stateSaver = Saver) { mutableStateOf(0) }
 
-  val scope = rememberCoroutineScope()
   val tabInteractionSource = remember { MutableInteractionSource() }
 
   Surface(color = MaterialTheme.colors.background) {

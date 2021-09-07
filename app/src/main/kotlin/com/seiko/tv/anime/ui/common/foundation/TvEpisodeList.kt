@@ -31,6 +31,7 @@ import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
+import com.seiko.tv.anime.ui.composer.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 import com.seiko.tv.anime.ui.theme.uiValue
@@ -66,7 +67,7 @@ fun TvEpisodeList(
         val itemInteractionSource = remember { MutableInteractionSource() }
         EpisodeItem(
           modifier = Modifier
-            .focusClick { navController.push(item.actionUrl) }
+            .focusClick { navController.push(Router.Player(item.uri)) }
             .focusRequester(focusRequesters[index])
             .focusable(interactionSource = itemInteractionSource),
           episode = item,

@@ -5,16 +5,16 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NamedNavArgument
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.seiko.tv.anime.ui.detail.DetailScene
 import com.seiko.tv.anime.ui.feed.FeedScene
 import com.seiko.tv.anime.ui.home.HomeScene
 import com.seiko.tv.anime.ui.player.PlayerScene
+import com.seiko.tv.anime.util.decodeUrl
+import com.seiko.tv.anime.util.encodeUrl
 
 @Composable
 fun Router(
@@ -23,11 +23,11 @@ fun Router(
   NavHost(navController, startDestination = initialRoute) {
     composable(Router.Home) { HomeScene() }
     composable(Router.Feed) { FeedScene() }
-    composable(Router.Detail, arguments = Router.Detail.arguments) {
-      DetailScene(Router.Detail.getAnimeId(it))
+    composable(Router.Detail) {
+      DetailScene(Router.Detail.getUri(it))
     }
     composable(Router.Player) {
-      PlayerScene(Router.Player.getEpisode(it))
+      PlayerScene(Router.Player.getUri(it))
     }
   }
 }
@@ -47,16 +47,23 @@ sealed class Router(val route: String) {
 
   object Feed : Router("/feed")
 
-  object Detail : Router("/show/{animeId}.html") {
-    val arguments = listOf(navArgument("animeId") { type = NavType.IntType })
-    fun getAnimeId(entry: NavBackStackEntry): Int {
-      return entry.arguments?.getInt("animeId") ?: 0
+  object Detail : Router("/detail?uri={uri}") {
+    fun getUri(entry: NavBackStackEntry): String {
+      return entry.arguments?.getString("uri")?.decodeUrl() ?: ""
+    }
+
+    operator fun invoke(uri: String): String {
+      return "/detail?uri=${uri.encodeUrl()}"
     }
   }
 
-  object Player : Router("/v/{episode}.html") {
-    fun getEpisode(entry: NavBackStackEntry): String {
-      return entry.arguments?.getString("episode").orEmpty()
+  object Player : Router("/player?uri={uri}") {
+    fun getUri(entry: NavBackStackEntry): String {
+      return entry.arguments?.getString("uri")?.decodeUrl() ?: ""
+    }
+
+    operator fun invoke(uri: String): String {
+      return "/player?uri=${uri.encodeUrl()}"
     }
   }
 }

@@ -39,6 +39,7 @@ import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.Anime
+import com.seiko.tv.anime.ui.composer.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 import com.seiko.tv.anime.ui.theme.uiValue
@@ -70,7 +71,7 @@ fun TvTitleGroup(
         val itemInteractionSource = remember { MutableInteractionSource() }
         GroupItem(
           modifier = Modifier
-            .focusClick { navController.push(item.actionUrl) }
+            .focusClick { navController.push(Router.Detail(item.uri)) }
             .focusRequester(focusRequesters[index])
             .focusable(interactionSource = itemInteractionSource),
           item = item,
@@ -135,7 +136,7 @@ fun GroupItemPreview() {
           Anime(
             title = "妖精的尾巴",
             cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
-            actionUrl = "/show/273.html",
+            uri = "/show/273.html",
           ),
           isFocused = true
         )
@@ -143,7 +144,7 @@ fun GroupItemPreview() {
           Anime(
             title = "妖精的尾巴",
             cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
-            actionUrl = "/show/273.html",
+            uri = "/show/273.html",
           ),
           isFocused = false
         )
@@ -163,12 +164,12 @@ fun TvTitleGroupPreview() {
           Anime(
             title = "妖精的尾巴",
             cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
-            actionUrl = "/show/273.html",
+            uri = "/show/273.html",
           ),
           Anime(
             title = "妖精的尾巴",
             cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
-            actionUrl = "/show/273.html",
+            uri = "/show/273.html",
           )
         )
       )

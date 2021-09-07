@@ -37,7 +37,7 @@ internal data class DetailResponse(
     @HtmlSerializable("a")
     val title: String,
     @HtmlSerializable("a", attr="href")
-    val actionUrl: String,
+    val href: String,
   )
 
   data class Anime(
@@ -46,6 +46,6 @@ internal data class DetailResponse(
     @HtmlSerializable("img", attr = "src")
     val cover: String = "",
     @HtmlSerializable("a", attr = "href")
-    val actionUrl: String = ""
+    val href: String = ""
   )
 }

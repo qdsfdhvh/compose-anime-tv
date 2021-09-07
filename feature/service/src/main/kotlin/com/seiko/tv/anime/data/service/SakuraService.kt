@@ -24,12 +24,12 @@ class SakuraService(
     return Hson.deserializeKData(getHtml(url))
   }
 
-  internal suspend fun getDetailResponse(animeId: Int): DetailResponse {
-    return Hson.deserializeKData(getHtml(wrapUrl("/show/$animeId.html")))
+  internal suspend fun getDetailResponse(url: String): DetailResponse {
+    return Hson.deserializeKData(getHtml(url))
   }
 
-  internal suspend fun getDetailResponse(episode: String): VideoResponse {
-    return Hson.deserializeKData(getHtml(wrapUrl("/v/$episode.html")))
+  internal suspend fun getVideoResponse(url: String): VideoResponse {
+    return Hson.deserializeKData(getHtml(url))
   }
 
   @Suppress("BlockingMethodInNonBlockingContext")

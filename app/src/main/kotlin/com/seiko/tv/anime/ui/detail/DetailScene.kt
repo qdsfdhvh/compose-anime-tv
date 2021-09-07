@@ -22,8 +22,8 @@ import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 
 @Composable
-fun DetailScene(animeId: Int) {
-  val viewModel = detailViewModel(animeId)
+fun DetailScene(uri: String) {
+  val viewModel = detailViewModel(uri)
   val detail by viewModel.detail.collectAsState()
 
   if (detail === AnimeDetail.Empty) {
