@@ -89,6 +89,7 @@ dependencies {
   compose()
   android()
   kotlinCoroutines()
+  room()
 
   junit5()
   test()

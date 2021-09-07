@@ -29,5 +29,6 @@ object Versions {
   const val navigation = "2.4.0-alpha08"
   const val accompanist = "0.17.0"
   const val okhttp = "4.9.1"
+  const val room = "2.4.0-alpha04"
   const val appCenter = "4.1.0"
 }

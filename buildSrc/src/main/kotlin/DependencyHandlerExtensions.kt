@@ -17,6 +17,9 @@ internal fun DependencyHandler.implementation(name: String, version: String? = n
 internal fun DependencyHandler.kapt(name: String, version: String? = null) =
   add("kapt", name, version)
 
+internal fun DependencyHandler.ksp(name: String, version: String? = null) =
+  add("ksp", name, version)
+
 internal fun DependencyHandler.testRuntimeOnly(name: String, version: String? = null) =
   add("testRuntimeOnly", name, version)
 

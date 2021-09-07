@@ -28,6 +28,7 @@ fun DependencyHandlerScope.compose() {
   implementation("androidx.compose.material:material-icons-extended", Versions.compose)
   implementation("androidx.navigation:navigation-compose", Versions.navigation)
   implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+  implementation("androidx.paging:paging-compose:1.0.0-alpha12")
   implementation("com.google.accompanist:accompanist-insets", Versions.accompanist)
   implementation("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
   implementation("com.github.qdsfdhvh.compose-focuskit:focuskit:0.0.5")
@@ -70,6 +71,18 @@ fun DependencyHandlerScope.network() {
   implementation("com.github.Tlaster:Hson:0.1.4")
   // parse html https://github.com/jhy/jsoup/
   implementation("org.jsoup:jsoup:1.13.1")
+}
+
+fun DependencyHandlerScope.room() {
+  implementation("androidx.room:room-runtime", Versions.room)
+  implementation("androidx.room:room-ktx", Versions.room)
+  implementation("androidx.room:room-paging", Versions.room)
+  ksp("androidx.room:room-compiler", Versions.room)
+  androidTestImplementation("androidx.room:room-testing", Versions.room)
+}
+
+fun DependencyHandlerScope.paging() {
+  implementation("androidx.paging:paging-common-ktx:3.1.0-alpha03")
 }
 
 fun DependencyHandlerScope.appCenter() {
