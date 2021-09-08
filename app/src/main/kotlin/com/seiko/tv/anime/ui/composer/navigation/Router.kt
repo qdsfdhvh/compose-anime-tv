@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.seiko.tv.anime.ui.detail.DetailScene
+import com.seiko.tv.anime.ui.favorite.FavoriteScene
 import com.seiko.tv.anime.ui.feed.FeedScene
 import com.seiko.tv.anime.ui.home.HomeScene
 import com.seiko.tv.anime.ui.player.PlayerScene
@@ -29,6 +30,7 @@ fun Router(
     composable(Router.Player) {
       PlayerScene(Router.Player.getUri(it))
     }
+    composable(Router.Favorite) { FavoriteScene() }
   }
 }
 
@@ -66,6 +68,8 @@ sealed class Router(val route: String) {
       return "/player?uri=${uri.encodeUrl()}"
     }
   }
+
+  object Favorite : Router("/favorite")
 }
 
 private val initialRoute = Router.Home.route

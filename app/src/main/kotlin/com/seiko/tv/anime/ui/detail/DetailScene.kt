@@ -16,7 +16,6 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.TvLazyColumn
 import com.seiko.compose.focuskit.collectFocusIndexAsState
 import com.seiko.compose.focuskit.rememberFocusRequesters
-import com.seiko.tv.anime.data.model.anime.AnimeDetail
 import com.seiko.tv.anime.ui.common.ShowProgress
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
@@ -24,15 +23,15 @@ import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 @Composable
 fun DetailScene(uri: String) {
   val viewModel = detailViewModel(uri)
-  val detail by viewModel.detail.collectAsState()
+  val viewState by viewModel.viewState.collectAsState()
 
-  if (detail === AnimeDetail.Empty) {
+  if (viewState === DetailViewState.Empty) {
     ShowProgress()
     return
   }
 
   val focusRequesters = rememberFocusRequesters(3)
-  val interactionSource = remember(detail) { MutableInteractionSource() }
+  val interactionSource = remember(viewState) { MutableInteractionSource() }
   val focusIndex by interactionSource.collectFocusIndexAsState()
 
   Surface(color = MaterialTheme.colors.background) {
@@ -44,20 +43,24 @@ fun DetailScene(uri: String) {
     ) {
       item {
         DetailAnimeInfo(
-          title = detail.title,
-          cover = detail.cover,
-          releaseTime = detail.releaseTime,
-          state = detail.state,
-          tags = detail.tags,
-          description = detail.description,
+          title = viewState.anime.title,
+          cover = viewState.anime.cover,
+          releaseTime = viewState.anime.releaseTime,
+          state = viewState.anime.state,
+          tags = viewState.anime.tags,
+          description = viewState.anime.description,
+          isFavorite = viewState.isFavorite,
           modifier = Modifier.focusRequester(focusRequesters[0]),
+          onFavoriteClick = {
+            viewModel.send(DetailViewAction.ToggleFavorite)
+          }
         )
       }
 
       item {
         TvEpisodeList(
           title = "播放列表",
-          list = detail.episodeList,
+          list = viewState.anime.episodeList,
           modifier = Modifier.focusRequester(focusRequesters[1]),
         )
       }
@@ -65,7 +68,7 @@ fun DetailScene(uri: String) {
       item {
         TvTitleGroup(
           title = "相关推荐",
-          list = detail.relatedList,
+          list = viewState.anime.relatedList,
           modifier = Modifier.focusRequester(focusRequesters[2]),
         )
       }

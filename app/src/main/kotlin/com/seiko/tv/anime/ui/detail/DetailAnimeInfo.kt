@@ -18,7 +18,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,7 +39,6 @@ import com.seiko.tv.anime.ui.common.foundation.FocusableButton
 import com.seiko.tv.anime.ui.common.foundation.NetworkImage
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.uiValue
-import com.seiko.tv.anime.util.ToastUtils
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -51,9 +50,9 @@ fun DetailAnimeInfo(
   state: String = "",
   tags: List<String> = emptyList(),
   description: String = "",
+  isFavorite: Boolean = false,
+  onFavoriteClick: () -> Unit = {}
 ) {
-  val context = LocalContext.current
-
   val interactionSource = remember { MutableInteractionSource() }
   val isFocused by interactionSource.collectIsFocusedAsState()
 
@@ -80,12 +79,15 @@ fun DetailAnimeInfo(
       )
 
       FocusableButton(
-        modifier = Modifier
-          .focusRequester(btnStarFocusRequester),
-        onClick = { ToastUtils.showToast(context, "收藏") }
+        modifier = Modifier.focusRequester(btnStarFocusRequester),
+        onClick = onFavoriteClick
       ) {
-        val imagePainter = rememberVectorPainter(image = Icons.Filled.Star)
-        Icon(imagePainter, contentDescription = null)
+        Icon(
+          painter = rememberVectorPainter(
+            image = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder
+          ),
+          contentDescription = null
+        )
       }
     }
 

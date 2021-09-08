@@ -10,7 +10,7 @@ import com.seiko.tv.anime.data.local.db.model.DbAnime
 @Dao
 interface AnimeDao {
 
-  @Query("SELECT * FROM anime")
+  @Query("SELECT * FROM anime ORDER BY createAt DESC")
   fun findAll(): PagingSource<Int, DbAnime>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -18,4 +18,7 @@ interface AnimeDao {
 
   @Query("SELECT COUNT(1) FROM anime WHERE uri=:uri LIMIT 1")
   suspend fun contains(uri: String): Int
+
+  @Query("DELETE FROM anime WHERE uri=:uri")
+  suspend fun delete(uri: String): Int
 }

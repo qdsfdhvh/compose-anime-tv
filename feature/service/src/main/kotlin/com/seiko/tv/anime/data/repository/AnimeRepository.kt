@@ -1,6 +1,7 @@
 package com.seiko.tv.anime.data.repository
 
 import com.seiko.tv.anime.data.local.db.AnimeDataBase
+import com.seiko.tv.anime.data.local.db.model.DbAnime
 import com.seiko.tv.anime.data.model.anime.Anime
 import com.seiko.tv.anime.data.model.anime.AnimeDetail
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
@@ -13,6 +14,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -59,38 +61,37 @@ class AnimeRepository @Inject constructor(
     }.flowOn(ioDispatcher)
   }
 
-  fun getDetail(url: String): Flow<AnimeDetail> {
-    return flow {
+  suspend fun getDetail(url: String): AnimeDetail {
+    return withContext(ioDispatcher) {
       val response = service.getDetailResponse(url)
-      emit(
-        AnimeDetail(
-          title = response.title,
-          cover = response.cover,
-          alias = response.alias,
-          rating = response.rating,
-          releaseTime = response.releaseTime,
-          area = response.area,
-          types = response.types,
-          tags = response.tags,
-          indexes = response.indexes,
-          state = response.state,
-          description = response.description,
-          episodeList = response.episodeList.map { episode ->
-            AnimeEpisode(
-              title = episode.title,
-              uri = service.wrapUrl(episode.href),
-            )
-          },
-          relatedList = response.relatedList.map { anime ->
-            Anime(
-              title = anime.title,
-              cover = anime.cover,
-              uri = service.wrapUrl(anime.href)
-            )
-          }
-        )
+      AnimeDetail(
+        title = response.title,
+        cover = response.cover,
+        alias = response.alias,
+        rating = response.rating,
+        releaseTime = response.releaseTime,
+        area = response.area,
+        types = response.types,
+        tags = response.tags,
+        indexes = response.indexes,
+        state = response.state,
+        description = response.description,
+        episodeList = response.episodeList.map { episode ->
+          AnimeEpisode(
+            title = episode.title,
+            uri = service.wrapUrl(episode.href),
+          )
+        },
+        relatedList = response.relatedList.map { anime ->
+          Anime(
+            title = anime.title,
+            cover = anime.cover,
+            uri = service.wrapUrl(anime.href)
+          )
+        },
+        uri = url,
       )
-    }.flowOn(ioDispatcher)
+    }
   }
 
   fun getVideo(url: String): Flow<AnimeVideo> {
@@ -103,4 +104,35 @@ class AnimeRepository @Inject constructor(
       )
     }.flowOn(ioDispatcher)
   }
+
+  suspend fun isFavoriteAnime(uri: String): Boolean {
+    return withContext(ioDispatcher) {
+      dbAnime.contains(uri) > 0
+    }
+  }
+
+  suspend fun insertFavoriteAnime(anime: AnimeDetail): Boolean {
+    return withContext(ioDispatcher) {
+      val current = System.currentTimeMillis()
+      dbAnime.insert(
+        DbAnime(
+          id = 0,
+          title = anime.title,
+          cover = anime.cover,
+          uri = anime.uri,
+          updateAt = current,
+          createAt = current
+        )
+      )
+      true
+    }
+  }
+
+  suspend fun removeFavoriteAnime(uri: String): Boolean {
+    return withContext(ioDispatcher) {
+      dbAnime.delete(uri) > 0
+    }
+  }
+
+  fun getFavorites() = dbAnime.findAll()
 }

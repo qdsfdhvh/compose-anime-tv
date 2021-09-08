@@ -89,7 +89,7 @@ fun TvTitleGroup(
 }
 
 @Composable
-private fun GroupItem(
+fun GroupItem(
   item: Anime,
   isFocused: Boolean,
   modifier: Modifier = Modifier,
