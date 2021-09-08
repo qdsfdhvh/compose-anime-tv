@@ -1,4 +1,6 @@
 plugins {
+  id("com.android.application") apply false
+  id("com.android.library") apply false
   id("com.diffplug.spotless").version(Versions.spotless)
   id("com.gradleup.auto.manifest").version("1.0.4")
 }
@@ -10,7 +12,6 @@ buildscript {
   }
   dependencies {
     classpath(kotlin("gradle-plugin", version = Versions.Kotlin.lang))
-    classpath("com.android.tools.build:gradle:7.1.0-alpha11")
     classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
     classpath("de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1")
   }
