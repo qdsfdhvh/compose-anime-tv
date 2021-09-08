@@ -6,22 +6,17 @@ plugins {
   id("de.mannodermaus.android-junit5")
 }
 
+ksp {
+  arg("room.schemaLocation", "$projectDir/schemas")
+  arg("room.incremental", "true")
+  arg("room.expandProjection", "true")
+}
+
 android {
   compileSdk = AndroidSdk.compile
   compileOptions {
     sourceCompatibility = Versions.Java.java
     targetCompatibility = Versions.Java.java
-  }
-  defaultConfig {
-    javaCompileOptions {
-      annotationProcessorOptions {
-        arguments += mapOf(
-          "room.schemaLocation" to "$projectDir/schemas",
-          "room.incremental" to "true",
-          "room.expandProjection" to "true"
-        )
-      }
-    }
   }
 }
 
