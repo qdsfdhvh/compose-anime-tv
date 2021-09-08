@@ -31,6 +31,7 @@ fun DependencyHandlerScope.compose() {
   implementation("androidx.paging:paging-compose:1.0.0-alpha12")
   implementation("com.google.accompanist:accompanist-insets", Versions.accompanist)
   implementation("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
+  implementation("com.google.accompanist:accompanist-pager", Versions.accompanist)
   implementation("com.github.qdsfdhvh.compose-focuskit:focuskit:0.0.5")
   implementation("com.github.qdsfdhvh.compose-focuskit:player:0.0.5")
 }
