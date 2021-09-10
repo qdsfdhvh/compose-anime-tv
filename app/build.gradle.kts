@@ -7,6 +7,16 @@ plugins {
   id("de.mannodermaus.android-junit5")
 }
 
+kapt {
+  correctErrorTypes = true
+  mapDiagnosticLocations = true
+  arguments {
+    arg("dagger.formatGeneratedSource", "disabled")
+    arg("dagger.fastInit", "enabled")
+    arg("dagger.experimentalDaggerErrorMessages", "enabled")
+  }
+}
+
 android {
   compileSdk = AndroidSdk.compile
   buildToolsVersion = AndroidSdk.buildTools

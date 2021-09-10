@@ -12,6 +12,16 @@ ksp {
   arg("room.expandProjection", "true")
 }
 
+kapt {
+  correctErrorTypes = true
+  mapDiagnosticLocations = true
+  arguments {
+    arg("dagger.formatGeneratedSource", "disabled")
+    arg("dagger.fastInit", "enabled")
+    arg("dagger.experimentalDaggerErrorMessages", "enabled")
+  }
+}
+
 android {
   compileSdk = AndroidSdk.compile
   compileOptions {
