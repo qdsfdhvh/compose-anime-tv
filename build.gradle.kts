@@ -41,7 +41,6 @@ allprojects {
         "bin/**/*.kt",
         "buildSrc/**/*.kt",
         "**/*Response.kt",
-        "feature/focuskit/**/*.kts"
       )
       ktlint(Versions.ktlint).userData(
         mapOf(
@@ -53,17 +52,15 @@ allprojects {
     }
     kotlinGradle {
       target("*.gradle.kts")
+      targetExclude(
+        "feature/focuskit/**"
+      )
       ktlint(Versions.ktlint).userData(
         mapOf(
           "indent_size" to "2",
           "continuation_indent_size" to "2"
         )
       )
-    }
-    java {
-      target("**/*.java")
-      targetExclude("$buildDir/**/*.java", "bin/**/*.java")
-      // licenseHeaderFile(rootProject.file("spotless/license"))
     }
   }
 
@@ -73,7 +70,7 @@ allprojects {
   }
 }
 
-// Ctrl+C From https://github.com/LSPosed/LSPosed/blob/master/build.gradle.kts
+// Fork https://github.com/LSPosed/LSPosed/blob/master/build.gradle.kts
 val androidCompileSdkVersion by extra(AndroidSdk.compile)
 val androidBuildToolsVersion by extra(AndroidSdk.buildTools)
 val androidTargetSdkVersion by extra(AndroidSdk.target)
