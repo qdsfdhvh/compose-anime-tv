@@ -1,20 +1,21 @@
 package com.seiko.tv.anime.ui.detail
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import com.google.accompanist.insets.statusBarsPadding
-import com.seiko.compose.focuskit.TvLazyColumn
 import com.seiko.compose.focuskit.collectFocusIndexAsState
+import com.seiko.compose.focuskit.focusScrollVertical
 import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.ui.common.ShowProgress
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
@@ -31,15 +32,17 @@ fun DetailScene(uri: String) {
   }
 
   val focusRequesters = rememberFocusRequesters(3)
-  val interactionSource = remember(viewState) { MutableInteractionSource() }
-  val focusIndex by interactionSource.collectFocusIndexAsState()
+  val listState = rememberLazyListState()
+  val focusIndex by listState.interactionSource.collectFocusIndexAsState()
 
   Surface(color = MaterialTheme.colors.background) {
-    TvLazyColumn(
+    LazyColumn(
       modifier = Modifier
+        .focusScrollVertical(listState)
+        .focusable()
         .fillMaxSize()
         .statusBarsPadding(),
-      interactionSource = interactionSource,
+      state = listState,
     ) {
       item {
         DetailAnimeInfo(

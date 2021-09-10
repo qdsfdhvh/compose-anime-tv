@@ -40,7 +40,8 @@ allprojects {
         "$buildDir/**/*.kt",
         "bin/**/*.kt",
         "buildSrc/**/*.kt",
-        "**/*Response.kt"
+        "**/*Response.kt",
+        "feature/focuskit/**/*.kts"
       )
       ktlint(Versions.ktlint).userData(
         mapOf(

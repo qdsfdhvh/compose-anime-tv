@@ -1,9 +1,11 @@
 package com.seiko.tv.anime.ui.feed
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -25,8 +27,8 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.seiko.compose.focuskit.FocusIndexInteraction
 import com.seiko.compose.focuskit.TvKeyEvent
-import com.seiko.compose.focuskit.TvLazyColumn
 import com.seiko.compose.focuskit.collectFocusIndexAsState
+import com.seiko.compose.focuskit.focusScrollVertical
 import com.seiko.compose.focuskit.onTvKeyEvent
 import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.data.model.anime.AnimeTab
@@ -55,7 +57,7 @@ fun FeedScene() {
   val focusRequesters = rememberFocusRequesters(1 + tabs.size)
   var focusIndex by rememberSaveable(stateSaver = Saver) { mutableStateOf(0) }
 
-  val tabInteractionSource = remember { MutableInteractionSource() }
+  val tabListState = rememberLazyListState()
 
   Surface(color = MaterialTheme.colors.background) {
     Column(
@@ -103,7 +105,7 @@ fun FeedScene() {
       TvTabBar(
         tabList = tabs,
         modifier = Modifier.focusRequester(focusRequesters[0]),
-        interactionSource = tabInteractionSource
+        listState = tabListState
       )
 
       HorizontalPager(state = pagerState) { index ->
@@ -113,7 +115,7 @@ fun FeedScene() {
   }
 
   LaunchedEffect(Unit) {
-    tabInteractionSource.interactions
+    tabListState.interactionSource.interactions
       .filter { focusIndex == 0 }
       .collect { interaction ->
         if (interaction is FocusIndexInteraction) {
@@ -142,15 +144,18 @@ fun FeedAnimePage(tab: AnimeTab, modifier: Modifier = Modifier) {
   val animeList by viewModel.animeList.collectAsState()
 
   val focusRequesters = rememberFocusRequesters(animeList.size)
-  val interactionSource = remember { MutableInteractionSource() }
-  val focusIndex by interactionSource.collectFocusIndexAsState()
+
+  val listState = rememberLazyListState()
+  val focusIndex by listState.interactionSource.collectFocusIndexAsState()
   var isParentFocused by remember { mutableStateOf(false) }
 
-  TvLazyColumn(
+  LazyColumn(
     modifier = modifier
       .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
+      .focusScrollVertical(listState)
+      .focusable()
       .fillMaxSize(),
-    interactionSource = interactionSource,
+    state = listState,
   ) {
     itemsIndexed(animeList) { index, item ->
       TvTitleGroup(

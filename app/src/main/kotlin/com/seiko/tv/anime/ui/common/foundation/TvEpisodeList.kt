@@ -8,7 +8,9 @@ import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -25,9 +27,9 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.seiko.compose.focuskit.TvLazyRow
 import com.seiko.compose.focuskit.collectFocusIndexAsState
 import com.seiko.compose.focuskit.focusClick
+import com.seiko.compose.focuskit.focusScrollHorizontal
 import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
@@ -45,8 +47,8 @@ fun TvEpisodeList(
   val navController = LocalAppNavigator.current
 
   val focusRequesters = rememberFocusRequesters(list)
-  val interactionSource = remember { MutableInteractionSource() }
-  val focusIndex by interactionSource.collectFocusIndexAsState()
+  val listState = rememberLazyListState()
+  val focusIndex by listState.interactionSource.collectFocusIndexAsState()
   var isParentFocused by remember { mutableStateOf(false) }
 
   Column {
@@ -59,9 +61,12 @@ fun TvEpisodeList(
       ),
     )
 
-    TvLazyRow(
-      modifier = modifier.onFocusChanged { isParentFocused = it.hasFocus || it.isFocused },
-      interactionSource = interactionSource,
+    LazyRow(
+      modifier = modifier
+        .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
+        .focusScrollHorizontal(listState)
+        .focusable(),
+      state = listState,
     ) {
       itemsIndexed(list) { index, item ->
         val itemInteractionSource = remember { MutableInteractionSource() }
