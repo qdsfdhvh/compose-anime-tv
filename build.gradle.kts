@@ -72,6 +72,18 @@ allprojects {
   }
 }
 
+// Ctrl+C From https://github.com/LSPosed/LSPosed/blob/master/build.gradle.kts
+val androidCompileSdkVersion by extra(AndroidSdk.compile)
+val androidBuildToolsVersion by extra(AndroidSdk.buildTools)
+val androidTargetSdkVersion by extra(AndroidSdk.target)
+val androidMinSdkVersion by extra(AndroidSdk.min)
+val androidSourceCompatibility by extra(Versions.Java.java)
+val androidTargetCompatibility by extra(Versions.Java.java)
+val jvmTargetVersion by extra("1.8")
+val composeVersion by extra(Versions.compose)
+val activityComposeVersion by extra(Versions.activity)
+val isUploadBintray by extra(false)
+
 autoManifest {
   packageName.set(Package.applicationId)
 }
