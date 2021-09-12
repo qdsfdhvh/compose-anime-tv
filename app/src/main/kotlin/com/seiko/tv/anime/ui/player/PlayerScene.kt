@@ -8,12 +8,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.seiko.compose.focuskit.TvKeyEvent
 import com.seiko.compose.focuskit.handleTvKey
 import com.seiko.compose.player.TvVideoPlayer
 import com.seiko.compose.player.rememberPlayer
 import com.seiko.compose.player.rememberVideoPlayerController
 import com.seiko.tv.anime.LocalAppNavigator
+import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvSelectDialog
 import com.seiko.tv.anime.util.video.HlsVideoPlayerFactory
 
@@ -22,7 +24,10 @@ fun PlayerScene(episode: String) {
   val viewModel = playerViewModel(episode)
   val source by viewModel.video.collectAsState()
 
-  if (source == null) return
+  if (source == null) {
+    LoadingState(backgroundColor = Color.Black)
+    return
+  }
 
   val player = rememberPlayer(source!!, HlsVideoPlayerFactory)
   val controller = rememberVideoPlayerController(player)

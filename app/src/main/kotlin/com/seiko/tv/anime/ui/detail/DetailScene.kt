@@ -17,7 +17,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.collectFocusIndexAsState
 import com.seiko.compose.focuskit.focusScrollVertical
 import com.seiko.compose.focuskit.rememberFocusRequesters
-import com.seiko.tv.anime.ui.common.ShowProgress
+import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 
@@ -27,7 +27,7 @@ fun DetailScene(uri: String) {
   val viewState by viewModel.viewState.collectAsState()
 
   if (viewState === DetailViewState.Empty) {
-    ShowProgress()
+    LoadingState()
     return
   }
 

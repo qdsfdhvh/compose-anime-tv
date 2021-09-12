@@ -33,7 +33,7 @@ import com.seiko.compose.focuskit.onTvKeyEvent
 import com.seiko.compose.focuskit.rememberFocusRequesters
 import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.common.SetSystemBarColor
-import com.seiko.tv.anime.ui.common.ShowProgress
+import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvTabBar
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 import kotlinx.coroutines.flow.collect
@@ -48,7 +48,7 @@ fun FeedScene() {
   val tabs by viewModel.tabs.collectAsState()
 
   if (tabs.isEmpty()) {
-    ShowProgress()
+    LoadingState()
     return
   }
 
