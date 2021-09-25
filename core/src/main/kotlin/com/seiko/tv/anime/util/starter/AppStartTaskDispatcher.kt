@@ -104,6 +104,8 @@ class AppStartTaskDispatcher private constructor(
    * 重新排列Task任务
    */
   private fun getSortResult(): List<AppStartTask> {
+    val startTime = System.currentTimeMillis()
+
     val deque = ArrayDeque<TaskKey>()
 
     // 先循环每个Task，确定深度、放入Map、创建childList
@@ -156,7 +158,7 @@ class AppStartTaskDispatcher private constructor(
       throw RuntimeException("出现坏环")
     }
 
-    logSortTask(sortTaskList)
+    logSortTask(sortTaskList, startTime)
     return sortTaskList
   }
 
@@ -195,11 +197,12 @@ class AppStartTaskDispatcher private constructor(
     }
   }
 
-  private fun logSortTask(sortTaskList: List<AppStartTask>) {
+  private fun logSortTask(sortTaskList: List<AppStartTask>, startTime: Long) {
     if (isShowLog) {
       log(
         sortTaskList.joinToString(
           prefix = "Task Sort ",
+          postfix = ", costTime: ${System.currentTimeMillis() - startTime}ms",
           separator = "-->"
         ) { it.taskKey.simpleName!! }
       )
