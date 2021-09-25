@@ -13,6 +13,8 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
+import coil.ImageLoader
+import coil.compose.LocalImageLoader
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.seiko.compose.focuskit.TvKeyEvent
 import com.seiko.compose.focuskit.handleTvKey
@@ -33,6 +35,9 @@ class AnimeTvActivity : ComponentActivity() {
 
   @Inject
   lateinit var smallScreeners: Set<@JvmSuppressWildcards SmallScreener>
+
+  @Inject
+  lateinit var imageLoader: ImageLoader
 
   private var lastClickTime = 0L
 
@@ -70,6 +75,7 @@ class AnimeTvActivity : ComponentActivity() {
 
         CompositionLocalProvider(
           LocalAppNavigator provides AppNavigator(navController),
+          LocalImageLoader provides imageLoader,
         ) {
           ProvideWindowInsets {
             ProvideAssistedMap(assistedViewHolder.factory) {
