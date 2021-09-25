@@ -39,7 +39,7 @@ fun DependencyHandlerScope.android() {
   implementation("androidx.core:core-ktx:1.6.0")
   implementation("androidx.activity:activity-ktx", Versions.activity)
   implementation("androidx.activity:activity-compose", Versions.activity)
-  implementation("io.coil-kt:coil-compose:1.3.2")
+  implementation("io.coil-kt:coil-compose", Versions.coil)
 }
 
 fun DependencyHandlerScope.lifecycle() {
@@ -47,7 +47,7 @@ fun DependencyHandlerScope.lifecycle() {
   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx", Versions.lifecycle)
   implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate", Versions.lifecycle)
   implementation("androidx.lifecycle:lifecycle-common-java8", Versions.lifecycle)
-  implementation("androidx.lifecycle:lifecycle-viewmodel-compose", Versions.lifecycle_compose)
+  implementation("androidx.lifecycle:lifecycle-viewmodel-compose", Versions.lifecycle)
 }
 
 fun DependencyHandlerScope.kotlinCoroutines() {
