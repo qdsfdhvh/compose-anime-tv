@@ -110,4 +110,7 @@ dependencies {
   // fix not javax.annotation.processing.Generated with dagger2
   // https://github.com/pengrad/jdk9-deps
   compileOnly("com.github.pengrad:jdk9-deps:1.0")
+
+  // hidden api by pass https://github.com/tiann/FreeReflection
+  implementation("com.github.tiann:FreeReflection:3.1.0")
 }
