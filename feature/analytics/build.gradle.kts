@@ -31,4 +31,7 @@ dependencies {
   implementation("com.kuaishou.koom:koom-monitor-base:$koomVersion")
   implementation("com.kuaishou.koom:koom-java-leak:$koomVersion")
   implementation("com.kuaishou.koom:koom-thread-leak:$koomVersion")
+
+  // AppStart https://github.com/square/tart
+  implementation("com.squareup.tart:tart:0.1")
 }
