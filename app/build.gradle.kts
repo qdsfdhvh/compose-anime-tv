@@ -49,7 +49,7 @@ android {
     }
   }
   sourceSets {
-    getByName("main") {
+    getByName("debug") {
       java.srcDir(File("build/generated/ksp/debug/kotlin"))
     }
   }
