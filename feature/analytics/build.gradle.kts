@@ -41,4 +41,7 @@ dependencies {
 
   // AppStart https://github.com/square/tart
   implementation("com.squareup.tart:tart:0.1")
+
+  // Leak https://github.com/square/leakcanary
+  debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 }
