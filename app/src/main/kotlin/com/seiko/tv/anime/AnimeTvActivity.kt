@@ -3,6 +3,7 @@ package com.seiko.tv.anime
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
+import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -27,6 +28,7 @@ import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
 import com.seiko.tv.anime.ui.composer.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.FpsHelper
+import com.seiko.tv.anime.util.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -35,6 +37,8 @@ class AnimeTvActivity : ComponentActivity() {
 
   @Inject
   lateinit var assistedViewHolder: AnimeTvActivityAssistedViewHolder
+
+  private var lastClickTime = 0L
 
   private val navController by lazy {
     NavHostController(this).apply {
@@ -49,6 +53,16 @@ class AnimeTvActivity : ComponentActivity() {
     WindowCompat.setDecorFitsSystemWindows(window, false)
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
+    onBackPressedDispatcher.addCallback(this) {
+      val current = System.currentTimeMillis()
+      if (current - lastClickTime >= 2000L) {
+        lastClickTime = current
+        ToastUtils.showToast(applicationContext, "再按一次退出")
+      } else {
+        ActivityCompat.finishAffinity(this@AnimeTvActivity)
+      }
+    }
+
     val navigator = AppNavigator(navController)
     val fpsFlow = FpsHelper.getFlow(lifecycleScope)
 
@@ -62,9 +76,7 @@ class AnimeTvActivity : ComponentActivity() {
               Box(
                 modifier = Modifier
                   .handleTvKey(TvKeyEvent.Back) {
-                    if (!navigator.pop()) {
-                      ActivityCompat.finishAffinity(this)
-                    }
+                    onBackPressed()
                     true
                   }
               ) {
