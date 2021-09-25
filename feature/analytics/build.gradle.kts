@@ -13,6 +13,12 @@ android {
     sourceCompatibility = Versions.Java.java
     targetCompatibility = Versions.Java.java
   }
+  buildFeatures {
+    compose = true
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion = Versions.compose
+  }
   sourceSets {
     getByName("debug") {
       java.srcDirs("src/debug/kotlin")
@@ -24,6 +30,7 @@ dependencies {
   implementation(project(":core"))
   hilt()
   appCenter()
+  compose()
 
   // OOM https://github.com/KwaiAppTeam/KOOM
   val koomVersion = "2.0.0-beta1"

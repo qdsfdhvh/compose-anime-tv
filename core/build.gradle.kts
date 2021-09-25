@@ -10,6 +10,12 @@ android {
     sourceCompatibility = Versions.Java.java
     targetCompatibility = Versions.Java.java
   }
+  buildFeatures {
+    compose = true
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion = Versions.compose
+  }
 }
 
 dependencies {
@@ -17,4 +23,5 @@ dependencies {
   android()
   kotlinCoroutines()
   utils()
+  compose()
 }
