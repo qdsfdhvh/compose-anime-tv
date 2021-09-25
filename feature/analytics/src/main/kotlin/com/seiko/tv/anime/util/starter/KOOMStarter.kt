@@ -22,6 +22,9 @@ import javax.inject.Inject
 class KOOMStarter @Inject constructor(
   private val application: Application
 ) : BaseAppStarter() {
+
+  override val runType: RunType = RunType.IDLE
+
   override fun run() {
     val commonConfig = CommonConfig.Builder()
       .setApplication(application) // Set application

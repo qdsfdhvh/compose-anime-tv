@@ -1,6 +1,5 @@
 package com.seiko.tv.anime.util.starter
 
-import android.app.Application
 import tart.AppLaunch
 import tart.PreLaunchState.ACTIVITY_WAS_STOPPED
 import tart.PreLaunchState.NO_ACTIVITY_BUT_SAVED_STATE
@@ -12,9 +11,7 @@ import tart.PreLaunchState.PROCESS_WAS_LAUNCHING_IN_BACKGROUND
 import timber.log.Timber
 import javax.inject.Inject
 
-class TartStarter @Inject constructor(
-  private val application: Application
-) : BaseAppStarter() {
+class TartStarter @Inject constructor() : BaseAppStarter() {
   override fun run() {
     AppLaunch.onAppLaunchListeners += { appLaunch ->
       val startType = when (appLaunch.preLaunchState) {

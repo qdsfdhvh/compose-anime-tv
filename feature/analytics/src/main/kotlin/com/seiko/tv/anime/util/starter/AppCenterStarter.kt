@@ -9,6 +9,9 @@ import javax.inject.Inject
 class AppCenterStarter @Inject constructor(
   private val application: Application
 ) : BaseAppStarter() {
+
+  override val runType: RunType = RunType.IDLE
+
   override fun run() {
     AppCenter.start(
       application,

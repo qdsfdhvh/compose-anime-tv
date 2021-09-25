@@ -1,11 +1,13 @@
 package com.seiko.tv.anime.util.starter
 
+import android.annotation.SuppressLint
 import android.os.Process
 import android.os.Process.THREAD_PRIORITY_FOREGROUND
 import android.os.Process.THREAD_PRIORITY_LOWEST
 import android.util.Log
 import androidx.annotation.IntRange
 import androidx.annotation.MainThread
+import com.seiko.tv.anime.util.Global
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
@@ -71,13 +73,15 @@ class AppStartTaskDispatcher private constructor(
     dispatchAppStartTask(getSortResult())
 
     // 阻塞等待
-    try {
-      countDownLatch.await(allTaskWaitTimeOut, TimeUnit.MILLISECONDS)
-    } catch (e: InterruptedException) {
-      e.printStackTrace()
+    if (countDownLatch.count > 0) {
+      try {
+        countDownLatch.await(allTaskWaitTimeOut, TimeUnit.MILLISECONDS)
+      } catch (e: InterruptedException) {
+        e.printStackTrace()
+      }
     }
 
-    log("Finish all await Tasks, costTime: ${System.currentTimeMillis() - startTime}ms")
+    log { "Finish all await Tasks, costTime: ${System.currentTimeMillis() - startTime}ms" }
   }
 
   /**
@@ -86,11 +90,18 @@ class AppStartTaskDispatcher private constructor(
   private fun dispatchAppStartTask(sortTaskList: List<AppStartTask>) {
     val mainThreadTasks = ArrayList<AppStartTask>(sortTaskList.size)
     sortTaskList.forEach { task ->
-      if (task.isRunOnMainThread()) {
-        mainThreadTasks.add(task)
-      } else {
-        // 启动子线程的任务
-        task.runOnExecutor().execute(task.toProxy())
+      when (task.runType) {
+        RunType.MAIN -> {
+          mainThreadTasks.add(task)
+        }
+        RunType.IDLE -> {
+          // 主线程空闲时运行
+          Global.doOnIdle(task.toProxy(isLater = true))
+        }
+        RunType.EXECUTE -> {
+          // 启动子线程的任务
+          task.runOnExecutor().execute(task.toProxy())
+        }
       }
     }
     // 启动主线程的任务
@@ -105,6 +116,12 @@ class AppStartTaskDispatcher private constructor(
    */
   private fun getSortResult(): List<AppStartTask> {
     val startTime = System.currentTimeMillis()
+
+    // 如果都没有依赖直接返回
+    if (startTaskList.all { it.dependsTaskList.isEmpty() }) {
+      logSortTask(startTaskList, startTime)
+      return startTaskList
+    }
 
     val deque = ArrayDeque<TaskKey>()
 
@@ -128,8 +145,8 @@ class AppStartTaskDispatcher private constructor(
 
     // 再次循环每个Task，并放入其需要依赖的Task的childList中
     for (childTask in startTaskList) {
-      if (childTask.getDependsTaskList().isEmpty()) continue
-      childTask.getDependsTaskList().forEach { taskKey ->
+      if (childTask.dependsTaskList.isEmpty()) continue
+      childTask.dependsTaskList.forEach { taskKey ->
         taskChildListMap[taskKey]!!.add(childTask.taskKey)
       }
     }
@@ -164,8 +181,8 @@ class AppStartTaskDispatcher private constructor(
 
   private fun finishTask(task: AppStartTask) {
     // notify children
-    taskChildListMap[task.taskKey]!!.forEach { childTaskKey ->
-      taskMap[childTaskKey]!!.notifyNow()
+    taskChildListMap[task.taskKey]?.forEach { childTaskKey ->
+      taskMap[childTaskKey]?.notifyNow()
     }
     // needWait -1
     if (task.ifNeedWait) {
@@ -173,84 +190,99 @@ class AppStartTaskDispatcher private constructor(
     }
   }
 
-  private fun AppStartTask.toProxy() = AppStartTaskProxy(
+  private fun AppStartTask.toProxy(isLater: Boolean = false) = AppStartTaskProxy(
     appStartTask = this,
-    dispatcher = this@AppStartTaskDispatcher
+    isLater = isLater
   )
 
-  private class AppStartTaskProxy(
+  private inner class AppStartTaskProxy(
     private val appStartTask: AppStartTask,
-    private val dispatcher: AppStartTaskDispatcher
+    private val isLater: Boolean,
   ) : Runnable {
 
     override fun run() {
-      Process.setThreadPriority(appStartTask.priority())
-      // 尝试等待前置的Task完成
+      val start = System.currentTimeMillis()
+
+      Process.setThreadPriority(appStartTask.priority)
       appStartTask.waitToNotify()
-
-      var costTime = System.currentTimeMillis()
       appStartTask.run()
-      dispatcher.finishTask(appStartTask)
-      costTime = System.currentTimeMillis() - costTime
+      finishTask(appStartTask)
 
-      dispatcher.log("Finish Task[${appStartTask.taskKey.simpleName}], costTime: ${costTime}ms")
+      log { "Finish ${if (isLater) "Later" else ""}Task[${appStartTask.taskKey.simpleName}], costTime: ${System.currentTimeMillis() - start}ms" }
     }
   }
 
   private fun logSortTask(sortTaskList: List<AppStartTask>, startTime: Long) {
     if (isShowLog) {
-      log(
+      log {
         sortTaskList.joinToString(
           prefix = "Task Sort ",
           postfix = ", costTime: ${System.currentTimeMillis() - startTime}ms",
           separator = "-->"
         ) { it.taskKey.simpleName!! }
-      )
+      }
     }
   }
 
-  private fun log(msg: String) {
+  @SuppressLint("LogNotTimber")
+  private fun log(msg: () -> String) {
     if (isShowLog) {
-      Log.i("AppStartTask", msg)
+      Log.i("AppStartTask", msg())
     }
   }
 }
 
+enum class RunType {
+  MAIN,
+  IDLE,
+  EXECUTE
+}
+
 interface TaskInterface : Runnable {
 
-  @IntRange(from = THREAD_PRIORITY_FOREGROUND.toLong(), to = THREAD_PRIORITY_LOWEST.toLong())
-  fun priority(): Int = Process.THREAD_PRIORITY_DEFAULT
+  val priority: Int
+    @IntRange(from = THREAD_PRIORITY_FOREGROUND.toLong(), to = THREAD_PRIORITY_LOWEST.toLong())
+    get() = Process.THREAD_PRIORITY_DEFAULT
 
-  fun getDependsTaskList(): List<KClass<out TaskInterface>> = emptyList() // List<TaskKey>
+  val dependsTaskList: List<KClass<out TaskInterface>>
+    get() = emptyList() // List<TaskKey>
 
-  fun isRunOnMainThread(): Boolean = true
+  val runType: RunType
+    get() = RunType.MAIN
 
-  fun isNeedWait(): Boolean = false
+  val isNeedWait: Boolean
+    get() = false
 
   fun runOnExecutor(): Executor
 }
 
 private inline val TaskInterface.ifNeedWait: Boolean
-  get() = !isRunOnMainThread() && isNeedWait()
+  get() = runType == RunType.EXECUTE && isNeedWait
 
 private inline val TaskInterface.dependsSize: Int
-  get() = getDependsTaskList().size
+  get() = dependsTaskList.size
 
 private class AppStartTask(task: TaskInterface) : TaskInterface by task {
 
   val taskKey: TaskKey = task::class
 
-  private val depends by lazy { CountDownLatch(task.dependsSize) }
+  val dependsSize = task.dependsSize
+
+  private val depends by lazy { CountDownLatch(dependsSize) }
 
   fun waitToNotify() {
-    try {
-      depends.await()
-    } catch (e: InterruptedException) {
-      e.printStackTrace()
+    if (dependsSize > 0) {
+      try {
+        depends.await()
+      } catch (e: InterruptedException) {
+        e.printStackTrace()
+      }
     }
   }
 
   fun notifyNow() {
-    depends.countDown()
+    if (dependsSize > 0) {
+      depends.countDown()
+    }
   }
 }
