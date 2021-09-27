@@ -5,6 +5,7 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.addCallback
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
 import com.seiko.tv.anime.ui.composer.navigation.Router
 import com.seiko.tv.anime.ui.composer.screener.SmallScreener
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
+import com.seiko.tv.anime.util.NoRippleIndication
 import com.seiko.tv.anime.util.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -72,14 +74,14 @@ class AnimeTvActivity : ComponentActivity() {
             true
           }
       ) {
-
-        CompositionLocalProvider(
-          LocalAppNavigator provides AppNavigator(navController),
-          LocalImageLoader provides imageLoader,
-        ) {
-          ProvideWindowInsets {
-            ProvideAssistedMap(assistedViewHolder.factory) {
-              AnimeTvTheme {
+        ProvideWindowInsets {
+          ProvideAssistedMap(assistedViewHolder.factory) {
+            AnimeTvTheme {
+              CompositionLocalProvider(
+                LocalAppNavigator provides AppNavigator(navController),
+                LocalImageLoader provides imageLoader,
+                LocalIndication provides NoRippleIndication,
+              ) {
                 Router(navController)
               }
             }
