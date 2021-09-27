@@ -13,9 +13,9 @@ fun Project.configRepository() {
 
 fun DependencyHandlerScope.hilt() {
   implementation("com.google.dagger:hilt-android", Versions.hilt)
-  implementation("androidx.hilt:hilt-work", Versions.androidx_hilt)
+  // implementation("androidx.hilt:hilt-work", Versions.androidx_hilt)
   kapt("com.google.dagger:hilt-android-compiler", Versions.hilt)
-  kapt("androidx.hilt:hilt-compiler", Versions.androidx_hilt)
+  // kapt("androidx.hilt:hilt-compiler", Versions.androidx_hilt)
 }
 
 fun DependencyHandlerScope.compose() {
