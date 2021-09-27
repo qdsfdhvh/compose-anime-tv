@@ -14,7 +14,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
@@ -36,6 +35,7 @@ import com.seiko.tv.anime.ui.common.SetSystemBarColor
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvTabBar
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
+import com.seiko.tv.anime.util.indexSaver
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 
@@ -55,7 +55,9 @@ fun FeedScene() {
   val pagerState = rememberPagerState(pageCount = tabs.size)
 
   val focusRequesters = rememberFocusRequesters(1 + tabs.size)
-  var focusIndex by rememberSaveable(stateSaver = Saver) { mutableStateOf(0) }
+  var focusIndex by rememberSaveable(stateSaver = indexSaver) {
+    mutableStateOf(0)
+  }
 
   val tabListState = rememberLazyListState()
 
@@ -173,8 +175,3 @@ fun FeedAnimePage(tab: AnimeTab, modifier: Modifier = Modifier) {
     }
   }
 }
-
-private val Saver = mapSaver(
-  save = { mapOf("index" to it) },
-  restore = { it["index"] as? Int ?: 0 }
-)
