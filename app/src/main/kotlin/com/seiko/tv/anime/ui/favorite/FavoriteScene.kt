@@ -12,10 +12,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -34,6 +34,7 @@ import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
 import com.seiko.tv.anime.ui.common.foundation.LazyGridFor
 import com.seiko.tv.anime.ui.composer.navigation.Router
+import com.seiko.tv.anime.util.indexSaver
 
 private const val FavoriteColumnNum = 5
 
@@ -62,8 +63,12 @@ fun FavoriteScene() {
       state = listState
     ) { anime, index ->
       val interactionSource = remember { MutableInteractionSource() }
-      val moveIndex = remember { if (index < FavoriteColumnNum) 0 else index / FavoriteColumnNum + 1 }
       val focusRequester = remember { FocusRequester() }
+      val moveIndex by remember {
+        derivedStateOf {
+          if (index < FavoriteColumnNum) 0 else index / FavoriteColumnNum + 1
+        }
+      }
 
       GroupItem(
         item = anime,
@@ -125,8 +130,3 @@ private object FavoriteVerticalScroll : ScrollBehaviour {
     }
   }
 }
-
-private val indexSaver = mapSaver(
-  save = { mapOf("index" to it) },
-  restore = { it["index"] as? Int ?: 0 }
-)
