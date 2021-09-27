@@ -1,6 +1,7 @@
 package com.seiko.tv.anime.ui.player
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -8,7 +9,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.seiko.compose.focuskit.TvKeyEvent
 import com.seiko.compose.focuskit.handleTvKey
 import com.seiko.compose.player.TvVideoPlayer
@@ -25,7 +25,7 @@ fun PlayerScene(episode: String) {
   val source by viewModel.video.collectAsState()
 
   if (source == null) {
-    LoadingState(backgroundColor = Color.Black)
+    LoadingState()
     return
   }
 
@@ -58,7 +58,8 @@ fun PlayerScene(episode: String) {
   ) {
     TvVideoPlayer(
       player = player,
-      controller = controller
+      controller = controller,
+      modifier = Modifier.fillMaxSize()
     )
 
     if (openDialog) {
