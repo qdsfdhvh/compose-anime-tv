@@ -22,7 +22,7 @@ import com.seiko.compose.focuskit.handleTvKey
 import com.seiko.tv.anime.ui.composer.assisted.ProvideAssistedMap
 import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
 import com.seiko.tv.anime.ui.composer.navigation.Router
-import com.seiko.tv.anime.ui.composer.screener.SmallScreener
+import com.seiko.tv.anime.ui.composer.screener.SmallScreenWrap
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.NoRippleIndication
 import com.seiko.tv.anime.util.ToastUtils
@@ -36,7 +36,7 @@ class AnimeTvActivity : ComponentActivity() {
   lateinit var assistedViewHolder: AnimeTvActivityAssistedViewHolder
 
   @Inject
-  lateinit var smallScreeners: Set<@JvmSuppressWildcards SmallScreener>
+  lateinit var smallScreenerWraps: Set<@JvmSuppressWildcards SmallScreenWrap>
 
   @Inject
   lateinit var imageLoader: ImageLoader
@@ -88,8 +88,8 @@ class AnimeTvActivity : ComponentActivity() {
           }
         }
 
-        if (smallScreeners.isNotEmpty()) {
-          smallScreeners.forEach {
+        if (smallScreenerWraps.isNotEmpty()) {
+          smallScreenerWraps.forEach {
             it.run { this@Box.Show() }
           }
         }

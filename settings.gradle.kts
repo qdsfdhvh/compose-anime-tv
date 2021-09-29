@@ -1,11 +1,14 @@
 rootProject.name = "compose-anime-tv"
 include(":app", ":core")
-include(":compiler:assistedFactory")
+include(
+  ":compiler:assistedFactory",
+  ":compiler:smallScreen",
+)
 include(
   ":feature:service",
   ":feature:analytics",
   ":focuskit",
-  ":focuskit-player"
+  ":focuskit-player",
 )
 
 val focuskitRoot = "feature${File.separator}focuskit"

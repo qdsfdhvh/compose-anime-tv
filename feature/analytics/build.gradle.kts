@@ -2,6 +2,7 @@ plugins {
   id("com.android.library")
   kotlin("android")
   kotlin("kapt")
+  id("com.google.devtools.ksp").version(Versions.ksp)
 }
 
 android {
@@ -21,7 +22,10 @@ android {
   }
   sourceSets {
     getByName("debug") {
-      java.srcDirs("src/debug/kotlin")
+      java.srcDirs(
+        "src/debug/kotlin",
+        "build/generated/ksp/debug/kotlin"
+      )
     }
   }
 }
@@ -31,6 +35,8 @@ dependencies {
   hilt()
   appCenter()
   compose()
+
+  ksp(project(":compiler:smallScreen"))
 
   // OOM https://github.com/KwaiAppTeam/KOOM
   val koomVersion = "2.0.0-beta1"

@@ -18,43 +18,41 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlin.math.pow
 
-object FpsSmallScreener : SmallScreener {
+@SmallScreen
+@Composable
+fun BoxScope.FpsSmallScreen() {
+  val fps by remember { getFpsFlow() }.collectAsState(0)
+  Text(
+    text = "${fps}fps",
+    color = Color.Red,
+    modifier = Modifier
+      .align(Alignment.TopStart)
+      .padding(10.dp),
+  )
+}
 
-  @Composable
-  override fun BoxScope.Show() {
-    val fps by remember { getFpsFlow() }.collectAsState(0)
-    Text(
-      text = "${fps}fps",
-      color = Color.Red,
-      modifier = Modifier
-        .align(Alignment.TopStart)
-        .padding(10.dp),
-    )
-  }
+@OptIn(ExperimentalCoroutinesApi::class)
+private fun getFpsFlow(): Flow<Int> {
+  return callbackFlow {
+    var lastFrameTimeNanos = 0L
 
-  @OptIn(ExperimentalCoroutinesApi::class)
-  private fun getFpsFlow(): Flow<Int> {
-    return callbackFlow {
-      var lastFrameTimeNanos = 0L
-
-      val frameCallback = object : Choreographer.FrameCallback {
-        override fun doFrame(frameTimeNanos: Long) {
-          if (lastFrameTimeNanos != 0L) {
-            val diffFrameCoast = frameTimeNanos - lastFrameTimeNanos
-            val skipped = (diffFrameCoast - FRAME_INTERVAL_NANOS) / FRAME_INTERVAL_NANOS
-            val fps = (FPS_MAX_DEFAULT - skipped.toInt()).coerceAtLeast(0)
-            trySend(fps)
-          }
-
-          lastFrameTimeNanos = frameTimeNanos
-          Choreographer.getInstance().postFrameCallback(this)
+    val frameCallback = object : Choreographer.FrameCallback {
+      override fun doFrame(frameTimeNanos: Long) {
+        if (lastFrameTimeNanos != 0L) {
+          val diffFrameCoast = frameTimeNanos - lastFrameTimeNanos
+          val skipped = (diffFrameCoast - FRAME_INTERVAL_NANOS) / FRAME_INTERVAL_NANOS
+          val fps = (FPS_MAX_DEFAULT - skipped.toInt()).coerceAtLeast(0)
+          trySend(fps)
         }
-      }
 
-      Choreographer.getInstance().postFrameCallback(frameCallback)
-      awaitClose {
-        Choreographer.getInstance().removeFrameCallback(frameCallback)
+        lastFrameTimeNanos = frameTimeNanos
+        Choreographer.getInstance().postFrameCallback(this)
       }
+    }
+
+    Choreographer.getInstance().postFrameCallback(frameCallback)
+    awaitClose {
+      Choreographer.getInstance().removeFrameCallback(frameCallback)
     }
   }
 }
