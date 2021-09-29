@@ -141,19 +141,21 @@ class AnimeRepository @Inject constructor(
   fun getTimeLine(): Flow<List<AnimeTimeLineGroup>> {
     return flow {
       val response = service.getTimeLineResponse()
-      emit(response.tagAnimesList.mapIndexed { index, tagAnimes ->
-        AnimeTimeLineGroup(
-          title = response.tags[index],
-          animes = tagAnimes.animes.map { anime ->
-            AnimeTimeLine(
-              title = anime.title,
-              uri = service.wrapUrl(anime.href),
-              body = anime.body,
-              bodyUri = service.wrapUrl(anime.bodyHref)
-            )
-          }
-        )
-      })
+      emit(
+        response.tagAnimesList.mapIndexed { index, tagAnimes ->
+          AnimeTimeLineGroup(
+            title = response.tags[index],
+            animes = tagAnimes.animes.map { anime ->
+              AnimeTimeLine(
+                title = anime.title,
+                uri = service.wrapUrl(anime.href),
+                body = anime.body,
+                bodyUri = service.wrapUrl(anime.bodyHref)
+              )
+            }
+          )
+        }
+      )
     }.flowOn(ioDispatcher)
   }
 }
