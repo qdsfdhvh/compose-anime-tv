@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -63,45 +64,47 @@ fun FeedScene() {
 
   Surface(color = MaterialTheme.colors.background) {
     Column(
-      modifier = Modifier.onTvKeyEvent {
-        when (it) {
-          TvKeyEvent.Up -> {
-            if (focusIndex != 0) {
-              focusIndex = 0
+      modifier = Modifier
+        .statusBarsPadding()
+        .onTvKeyEvent {
+          when (it) {
+            TvKeyEvent.Up -> {
+              if (focusIndex != 0) {
+                focusIndex = 0
+                true
+              } else false
+            }
+            TvKeyEvent.Down -> {
+              if (focusIndex == 0) {
+                focusIndex = 1 + pagerState.currentPage
+                true
+              } else false
+            }
+            TvKeyEvent.Left -> {
+              // if (pagerState.currentPage > 0) {
+              //   scope.launch {
+              //     val page = pagerState.currentPage - 1
+              //     pagerState.animateScrollToPage(page)
+              //     focusIndex = 1 + page
+              //   }
+              //   true
+              // } else false
               true
-            } else false
-          }
-          TvKeyEvent.Down -> {
-            if (focusIndex == 0) {
-              focusIndex = 1 + pagerState.currentPage
+            }
+            TvKeyEvent.Right -> {
+              // if (pagerState.currentPage < tabs.size - 1) {
+              //   scope.launch {
+              //     val page = pagerState.currentPage + 1
+              //     pagerState.animateScrollToPage(page)
+              //     focusIndex = 1 + page
+              //   }
+              //   true
+              // } else false
               true
-            } else false
+            }
+            else -> false
           }
-          TvKeyEvent.Left -> {
-            // if (pagerState.currentPage > 0) {
-            //   scope.launch {
-            //     val page = pagerState.currentPage - 1
-            //     pagerState.animateScrollToPage(page)
-            //     focusIndex = 1 + page
-            //   }
-            //   true
-            // } else false
-            true
-          }
-          TvKeyEvent.Right -> {
-            // if (pagerState.currentPage < tabs.size - 1) {
-            //   scope.launch {
-            //     val page = pagerState.currentPage + 1
-            //     pagerState.animateScrollToPage(page)
-            //     focusIndex = 1 + page
-            //   }
-            //   true
-            // } else false
-            true
-          }
-          else -> false
         }
-      }
     ) {
 
       TvTabBar(
