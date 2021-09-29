@@ -23,8 +23,8 @@ android {
   sourceSets {
     getByName("debug") {
       java.srcDirs(
+        "build/generated/ksp/debug/kotlin",
         "src/debug/kotlin",
-        "build/generated/ksp/debug/kotlin"
       )
     }
   }
