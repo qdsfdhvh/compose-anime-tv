@@ -55,7 +55,7 @@ class SmallScreenProcessor(environment: SymbolProcessorEnvironment) : SymbolProc
         |
         |@InstallIn(ActivityComponent::class)
         |@Module
-        |object SmallScreenerModule {
+        |object ${function.simpleName.asString()}Module {
         |  @Provides
         |  @IntoSet
         |  fun provide${function.simpleName.asString()}(): SmallScreenWrap = object : SmallScreenWrap {
