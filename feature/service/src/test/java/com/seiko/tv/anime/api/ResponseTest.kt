@@ -2,12 +2,14 @@ package com.seiko.tv.anime.api
 
 import com.seiko.tv.anime.data.remote.response.sakura.DetailResponse
 import com.seiko.tv.anime.data.remote.response.sakura.HomeResponse
+import com.seiko.tv.anime.data.remote.response.sakura.TimelineResponse
 import com.seiko.tv.anime.data.remote.response.sakura.VideoResponse
 import kotlinx.coroutines.runBlocking
 import moe.tlaster.hson.Hson
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.io.File
+import kotlin.test.assertEquals
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ResponseTest {
@@ -67,5 +69,14 @@ class ResponseTest {
     val response = Hson.deserializeKData<VideoResponse>(file)
     assert(response.playUrl.isNotEmpty())
     assert(response.playUrl.contains("$").not())
+  }
+
+  @Test
+  fun timeLineTest() = runBlocking {
+    val file = File("src/test/resources/api/sakura_home.html").readText()
+    val response = Hson.deserializeKData<TimelineResponse>(file)
+    assert(response.tag.isNotEmpty()) { response }
+    assertEquals(response.tag.size, response.tagAnimesList.size)
+    assert(response.tagAnimesList[0].animes[0].title.isNotEmpty()) { response }
   }
 }
