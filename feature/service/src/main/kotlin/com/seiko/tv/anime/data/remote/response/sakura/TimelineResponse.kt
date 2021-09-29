@@ -4,7 +4,7 @@ import moe.tlaster.hson.annotations.HtmlSerializable
 
 internal data class TimelineResponse(
   @HtmlSerializable("div.side div.tag > span")
-  val tag: List<String> = emptyList(),
+  val tags: List<String> = emptyList(),
   @HtmlSerializable("div.side div.tlist > ul")
   val tagAnimesList: List<TagAnimes> = emptyList(),
 ) {

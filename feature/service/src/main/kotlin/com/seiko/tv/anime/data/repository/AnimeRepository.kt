@@ -7,6 +7,8 @@ import com.seiko.tv.anime.data.model.anime.AnimeDetail
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
 import com.seiko.tv.anime.data.model.anime.AnimeGroup
 import com.seiko.tv.anime.data.model.anime.AnimeTab
+import com.seiko.tv.anime.data.model.anime.AnimeTimeLine
+import com.seiko.tv.anime.data.model.anime.AnimeTimeLineGroup
 import com.seiko.tv.anime.data.model.anime.AnimeVideo
 import com.seiko.tv.anime.data.service.SakuraService
 import com.seiko.tv.anime.di.scope.IoDispatcher
@@ -135,4 +137,23 @@ class AnimeRepository @Inject constructor(
   }
 
   fun getFavorites() = dbAnime.findAll()
+
+  fun getTimeLine(): Flow<List<AnimeTimeLineGroup>> {
+    return flow {
+      val response = service.getTimeLineResponse()
+      emit(response.tagAnimesList.mapIndexed { index, tagAnimes ->
+        AnimeTimeLineGroup(
+          title = response.tags[index],
+          animes = tagAnimes.animes.map { anime ->
+            AnimeTimeLine(
+              title = anime.title,
+              uri = service.wrapUrl(anime.href),
+              body = anime.body,
+              bodyUri = service.wrapUrl(anime.bodyHref)
+            )
+          }
+        )
+      })
+    }.flowOn(ioDispatcher)
+  }
 }

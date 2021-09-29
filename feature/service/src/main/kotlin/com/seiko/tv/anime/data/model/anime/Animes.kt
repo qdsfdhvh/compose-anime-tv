@@ -45,3 +45,15 @@ data class AnimeEpisode(
 data class AnimeVideo(
   val playUrl: String = ""
 )
+
+data class AnimeTimeLineGroup(
+  val title: String,
+  val animes: List<AnimeTimeLine>
+)
+
+data class AnimeTimeLine(
+  val title: String,
+  val uri: String,
+  val body: String,
+  val bodyUri: String,
+)

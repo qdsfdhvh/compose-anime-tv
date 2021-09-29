@@ -75,8 +75,8 @@ class ResponseTest {
   fun timeLineTest() = runBlocking {
     val file = File("src/test/resources/api/sakura_home.html").readText()
     val response = Hson.deserializeKData<TimelineResponse>(file)
-    assert(response.tag.isNotEmpty()) { response }
-    assertEquals(response.tag.size, response.tagAnimesList.size)
+    assert(response.tags.isNotEmpty()) { response }
+    assertEquals(response.tags.size, response.tagAnimesList.size)
     assert(response.tagAnimesList[0].animes[0].title.isNotEmpty()) { response }
   }
 }
