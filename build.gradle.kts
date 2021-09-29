@@ -24,7 +24,7 @@ allprojects {
     kotlinOptions {
       languageVersion = "1.5"
       jvmTarget = Versions.Java.jvmTarget
-      allWarningsAsErrors = true
+      allWarningsAsErrors = false
       freeCompilerArgs = listOf(
         "-Xopt-in=kotlin.RequiresOptIn",
         "-Xallow-unstable-dependencies"
