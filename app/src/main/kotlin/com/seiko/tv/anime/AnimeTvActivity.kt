@@ -9,6 +9,7 @@ import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
@@ -26,7 +27,9 @@ import com.seiko.tv.anime.ui.composer.screener.SmallScreenWrap
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.NoRippleIndication
 import com.seiko.tv.anime.util.ToastUtils
+import com.seiko.tv.anime.util.autoSizeDensity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.MainScope
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -66,6 +69,8 @@ class AnimeTvActivity : ComponentActivity() {
       }
     }
 
+    MainScope()
+
     setContent {
       Box(
         modifier = Modifier
@@ -81,6 +86,7 @@ class AnimeTvActivity : ComponentActivity() {
                 LocalAppNavigator provides AppNavigator(navController),
                 LocalImageLoader provides imageLoader,
                 LocalIndication provides NoRippleIndication,
+                LocalDensity provides autoSizeDensity(this@AnimeTvActivity, 720)
               ) {
                 Router(navController)
               }
