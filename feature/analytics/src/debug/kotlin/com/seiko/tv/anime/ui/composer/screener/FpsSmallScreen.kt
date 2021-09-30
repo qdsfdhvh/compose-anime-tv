@@ -1,8 +1,13 @@
 package com.seiko.tv.anime.ui.composer.screener
 
 import android.view.Choreographer
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -11,24 +16,35 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlin.math.pow
 
+@OptIn(ExperimentalUnitApi::class)
 @SmallScreen
 @Composable
 fun BoxScope.FpsSmallScreen() {
   val fps by remember { getFpsFlow() }.collectAsState(0)
-  Text(
-    text = "${fps}fps",
-    color = Color.Red,
+  Box(
     modifier = Modifier
       .align(Alignment.TopStart)
-      .padding(10.dp),
-  )
+      .statusBarsPadding()
+      .padding(start = 10.dp)
+      .size(40.dp)
+      .background(Color.Gray.copy(alpha = 0.8f), CircleShape),
+    contentAlignment = Alignment.Center,
+  ) {
+    Text(
+      text = "${fps}fps",
+      color = Color.White,
+      style = MaterialTheme.typography.caption
+    )
+  }
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
