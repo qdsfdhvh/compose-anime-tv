@@ -23,13 +23,13 @@ import com.seiko.compose.focuskit.handleTvKey
 import com.seiko.tv.anime.ui.composer.assisted.ProvideAssistedMap
 import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
 import com.seiko.tv.anime.ui.composer.navigation.Router
+import com.seiko.tv.anime.ui.composer.screener.Show
 import com.seiko.tv.anime.ui.composer.screener.SmallScreenWrap
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.NoRippleIndication
 import com.seiko.tv.anime.util.ToastUtils
 import com.seiko.tv.anime.util.autoSizeDensity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.MainScope
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -69,34 +69,28 @@ class AnimeTvActivity : ComponentActivity() {
       }
     }
 
-    MainScope()
-
     setContent {
-      Box(
-        modifier = Modifier
-          .handleTvKey(TvKeyEvent.Back) {
-            onBackPressed()
-            true
-          }
-      ) {
+      AnimeTvTheme {
         ProvideWindowInsets {
           ProvideAssistedMap(assistedViewHolder.factory) {
-            AnimeTvTheme {
-              CompositionLocalProvider(
-                LocalAppNavigator provides AppNavigator(navController),
-                LocalImageLoader provides imageLoader,
-                LocalIndication provides NoRippleIndication,
-                LocalDensity provides autoSizeDensity(this@AnimeTvActivity, 720)
+            CompositionLocalProvider(
+              LocalAppNavigator provides AppNavigator(navController),
+              LocalImageLoader provides imageLoader,
+              LocalIndication provides NoRippleIndication,
+              LocalDensity provides autoSizeDensity(this@AnimeTvActivity, 720)
+            ) {
+              Box(
+                modifier = Modifier
+                  .handleTvKey(TvKeyEvent.Back) {
+                    onBackPressed()
+                    true
+                  }
               ) {
                 Router(navController)
+
+                Show(smallScreenerWraps)
               }
             }
-          }
-        }
-
-        if (smallScreenerWraps.isNotEmpty()) {
-          smallScreenerWraps.forEach {
-            it.run { this@Box.Show() }
           }
         }
       }

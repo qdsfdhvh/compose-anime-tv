@@ -14,3 +14,12 @@ interface SmallScreenWrap {
   @Composable
   fun BoxScope.Show()
 }
+
+@Composable
+fun BoxScope.Show(wraps: Collection<SmallScreenWrap>) {
+  if (wraps.isNotEmpty()) {
+    wraps.forEach { wrap ->
+      wrap.run { this@Show.Show() }
+    }
+  }
+}
