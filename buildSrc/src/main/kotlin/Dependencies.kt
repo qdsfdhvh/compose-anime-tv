@@ -28,7 +28,7 @@ fun DependencyHandlerScope.compose() {
   implementation("androidx.compose.material:material-icons-extended", Versions.compose)
   implementation("androidx.navigation:navigation-compose", Versions.navigation)
   implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
-  implementation("androidx.paging:paging-compose:1.0.0-alpha12")
+  implementation("androidx.paging:paging-compose:1.0.0-alpha13")
   implementation("com.google.accompanist:accompanist-insets", Versions.accompanist)
   implementation("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
   implementation("com.google.accompanist:accompanist-pager", Versions.accompanist)
@@ -36,7 +36,7 @@ fun DependencyHandlerScope.compose() {
 
 fun DependencyHandlerScope.android() {
   lifecycle()
-  implementation("androidx.core:core-ktx:1.6.0")
+  api("androidx.core:core-ktx:1.6.0")
   implementation("androidx.activity:activity-ktx", Versions.activity)
   implementation("androidx.activity:activity-compose", Versions.activity)
   implementation("io.coil-kt:coil-compose", Versions.coil)
