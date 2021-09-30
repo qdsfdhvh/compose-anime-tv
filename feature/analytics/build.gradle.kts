@@ -50,4 +50,7 @@ dependencies {
 
   // Leak https://github.com/square/leakcanary
   debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+
+  // View Tree https://github.com/square/radiography
+  implementation("com.squareup.radiography:radiography:2.4.1")
 }
