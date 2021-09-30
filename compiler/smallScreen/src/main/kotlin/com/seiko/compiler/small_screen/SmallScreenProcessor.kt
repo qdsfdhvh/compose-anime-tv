@@ -17,26 +17,31 @@ class SmallScreenProcessorProvider : SymbolProcessorProvider {
 
 class SmallScreenProcessor(environment: SymbolProcessorEnvironment) : SymbolProcessor {
 
+  private companion object {
+    const val SMALL_SCREEN_NAME = "com.seiko.tv.anime.ui.composer.screener.SmallScreen"
+  }
+
   private val coderGenerator = environment.codeGenerator
+  private val logger = environment.logger
 
   override fun process(resolver: Resolver): List<KSAnnotated> {
-    val symbols = resolver.getSymbolsWithAnnotation(
-      "com.seiko.tv.anime.ui.composer.screener.SmallScreen"
-    )
-    symbols
-      .filter { it is KSFunctionDeclaration }
+    logger.info("finding smallScreen...")
+    resolver.getSymbolsWithAnnotation(SMALL_SCREEN_NAME)
+      .asSequence()
+      .filterIsInstance<KSFunctionDeclaration>()
       .forEach { it.accept(BuilderVisitor(), Unit) }
     return emptyList()
   }
 
   inner class BuilderVisitor : KSVisitorVoid() {
     override fun visitFunctionDeclaration(function: KSFunctionDeclaration, data: Unit) {
+      logger.info("find func ${function.simpleName.asString()}")
 
       val packageName = function.packageName.asString()
       val className = function.simpleName.asString() + "Module"
 
       coderGenerator.createNewFile(
-        dependencies = Dependencies(aggregating = true),
+        dependencies = Dependencies(aggregating = true, function.containingFile!!),
         packageName = packageName,
         fileName = className
       ).use { output ->
