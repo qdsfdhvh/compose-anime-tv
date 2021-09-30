@@ -77,7 +77,7 @@ class AnimeTvActivity : ComponentActivity() {
               LocalAppNavigator provides AppNavigator(navController),
               LocalImageLoader provides imageLoader,
               LocalIndication provides NoRippleIndication,
-              LocalDensity provides autoSizeDensity(this@AnimeTvActivity, 720)
+              LocalDensity provides autoSizeDensity(this@AnimeTvActivity, 480)
             ) {
               Box(
                 modifier = Modifier
