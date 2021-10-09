@@ -20,6 +20,8 @@ import coil.compose.LocalImageLoader
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.seiko.compose.focuskit.TvKeyEvent
 import com.seiko.compose.focuskit.handleTvKey
+import com.seiko.tv.anime.di.scope.AssistedFactoryQualifier
+import com.seiko.tv.anime.ui.composer.assisted.AssistedFactoryMap
 import com.seiko.tv.anime.ui.composer.assisted.ProvideAssistedMap
 import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
 import com.seiko.tv.anime.ui.composer.navigation.Router
@@ -36,7 +38,8 @@ import javax.inject.Inject
 class AnimeTvActivity : ComponentActivity() {
 
   @Inject
-  lateinit var assistedViewHolder: AnimeTvActivityAssistedViewHolder
+  @AssistedFactoryQualifier
+  lateinit var assistedFactoryMap: AssistedFactoryMap
 
   @Inject
   lateinit var smallScreenerWraps: Set<@JvmSuppressWildcards SmallScreenWrap>
@@ -72,7 +75,7 @@ class AnimeTvActivity : ComponentActivity() {
     setContent {
       AnimeTvTheme {
         ProvideWindowInsets {
-          ProvideAssistedMap(assistedViewHolder.factory) {
+          ProvideAssistedMap(assistedFactoryMap) {
             CompositionLocalProvider(
               LocalAppNavigator provides AppNavigator(navController),
               LocalImageLoader provides imageLoader,

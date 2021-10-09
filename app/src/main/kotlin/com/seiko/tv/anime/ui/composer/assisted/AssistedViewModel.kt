@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-typealias AssistedFactoryMap = Map<Class<out Any>, Any>
+typealias AssistedFactoryMap = @JvmSuppressWildcards Map<Class<out Any>, Any>
 
 @Composable
 inline fun <reified AF : Any, reified VM : ViewModel> assistedViewModel(
