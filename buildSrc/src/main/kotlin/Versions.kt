@@ -13,6 +13,7 @@ object Versions {
   }
 
   const val ksp = "${Kotlin.lang}-1.0.0"
+  const val kotlinPoet = "1.10.1"
   const val ktlint = "0.41.0"
   const val spotless = "5.12.5"
 
