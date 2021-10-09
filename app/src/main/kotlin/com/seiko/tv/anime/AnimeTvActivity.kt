@@ -7,6 +7,7 @@ import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -21,12 +22,13 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.seiko.compose.focuskit.TvKeyEvent
 import com.seiko.compose.focuskit.handleTvKey
 import com.seiko.tv.anime.di.scope.AssistedFactoryQualifier
+import com.seiko.tv.anime.di.scope.CollectScreenComponentQualifier
 import com.seiko.tv.anime.ui.composer.assisted.AssistedFactoryMap
 import com.seiko.tv.anime.ui.composer.assisted.ProvideAssistedMap
+import com.seiko.tv.anime.ui.composer.collector.CollectComposeOwner
 import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
 import com.seiko.tv.anime.ui.composer.navigation.Router
-import com.seiko.tv.anime.ui.composer.screener.Show
-import com.seiko.tv.anime.ui.composer.screener.SmallScreenWrap
+import com.seiko.tv.anime.ui.composer.collector.Show
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.NoRippleIndication
 import com.seiko.tv.anime.util.ToastUtils
@@ -42,7 +44,8 @@ class AnimeTvActivity : ComponentActivity() {
   lateinit var assistedFactoryMap: AssistedFactoryMap
 
   @Inject
-  lateinit var smallScreenerWraps: Set<@JvmSuppressWildcards SmallScreenWrap>
+  @CollectScreenComponentQualifier
+  lateinit var collectScreenComponents: Set<@JvmSuppressWildcards CollectComposeOwner<BoxScope>>
 
   @Inject
   lateinit var imageLoader: ImageLoader
@@ -91,7 +94,7 @@ class AnimeTvActivity : ComponentActivity() {
               ) {
                 Router(navController)
 
-                Show(smallScreenerWraps)
+                Show(collectScreenComponents)
               }
             }
           }

@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.ui.composer.screener
+package com.seiko.tv.anime.ui.composer.collector
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,12 +30,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.google.accompanist.insets.statusBarsPadding
+import com.seiko.tv.anime.di.scope.CollectScreenComponentQualifier
 import radiography.Radiography
 
 @OptIn(ExperimentalComposeUiApi::class)
-@SmallScreen
+@CollectCompose(CollectScreenComponentQualifier::class)
 @Composable
-fun BoxScope.RadiographySmallScreen() {
+fun BoxScope.RadiographyScreenComponent() {
   var isShowDialog by remember { mutableStateOf(false) }
 
   Text(

@@ -2,7 +2,7 @@ rootProject.name = "compose-anime-tv"
 include(":app", ":core")
 include(
   ":compiler:assistedFactory",
-  ":compiler:smallScreen",
+  ":compiler:collectCompose",
 )
 include(
   ":feature:service",

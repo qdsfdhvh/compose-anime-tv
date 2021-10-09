@@ -1,4 +1,4 @@
-package com.seiko.compiler.small_screen
+package com.seiko.compiler.collect
 
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.Resolver
@@ -7,26 +7,27 @@ import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
+import com.google.devtools.ksp.symbol.KSType
 import com.google.devtools.ksp.symbol.KSVisitorVoid
 
-class SmallScreenProcessorProvider : SymbolProcessorProvider {
+class CollectComposeProcessorProvider : SymbolProcessorProvider {
   override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-    return SmallScreenProcessor(environment)
+    return CollectComposeProcessor(environment)
   }
 }
 
-class SmallScreenProcessor(environment: SymbolProcessorEnvironment) : SymbolProcessor {
+class CollectComposeProcessor(environment: SymbolProcessorEnvironment) : SymbolProcessor {
 
   private companion object {
-    const val SMALL_SCREEN_NAME = "com.seiko.tv.anime.ui.composer.screener.SmallScreen"
+    const val COLLECT_COMPOSE = "com.seiko.tv.anime.ui.composer.collector.CollectCompose"
   }
 
   private val coderGenerator = environment.codeGenerator
   private val logger = environment.logger
 
   override fun process(resolver: Resolver): List<KSAnnotated> {
-    logger.info("finding smallScreen...")
-    resolver.getSymbolsWithAnnotation(SMALL_SCREEN_NAME)
+    logger.info("collecting compose...")
+    resolver.getSymbolsWithAnnotation(COLLECT_COMPOSE)
       .asSequence()
       .filterIsInstance<KSFunctionDeclaration>()
       .forEach { it.accept(BuilderVisitor(), Unit) }
@@ -38,12 +39,16 @@ class SmallScreenProcessor(environment: SymbolProcessorEnvironment) : SymbolProc
       logger.info("find func ${function.simpleName.asString()}")
 
       val packageName = function.packageName.asString()
-      val className = function.simpleName.asString() + "Module"
+      val fileName = function.simpleName.asString() + "Module"
+
+      val qualifier = function.annotations
+        .find { it.shortName.asString() == "CollectCompose" }!!.arguments
+        .find { it.name!!.asString() == "qualifier" }!!.value as KSType
 
       coderGenerator.createNewFile(
         dependencies = Dependencies(aggregating = true, function.containingFile!!),
         packageName = packageName,
-        fileName = className
+        fileName = fileName
       ).use { output ->
 
         val str = """
@@ -51,21 +56,24 @@ class SmallScreenProcessor(environment: SymbolProcessorEnvironment) : SymbolProc
         |
         |import androidx.compose.foundation.layout.BoxScope
         |import androidx.compose.runtime.Composable
-        |import com.seiko.tv.anime.ui.composer.screener.SmallScreenWrap
         |import dagger.Module
         |import dagger.Provides
         |import dagger.hilt.InstallIn
         |import dagger.hilt.android.components.ActivityComponent
         |import dagger.multibindings.IntoSet
+        |import ${qualifier.declaration.qualifiedName!!.asString()}
         |
         |@InstallIn(ActivityComponent::class)
         |@Module
         |object ${function.simpleName.asString()}Module {
         |  @Provides
         |  @IntoSet
-        |  fun provide${function.simpleName.asString()}(): SmallScreenWrap = object : SmallScreenWrap {
+        |  @${qualifier.declaration.simpleName.asString()}
+        |  fun provide${function.simpleName.asString()}() = object : CollectComposeOwner<BoxScope> {
         |    @Composable
-        |    override fun BoxScope.Show() = ${function.simpleName.asString()}()
+        |    override fun Show(scope: BoxScope) {
+        |      scope.${function.simpleName.asString()}()
+        |    }
         |  }
         |}
         |

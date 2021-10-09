@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.ui.composer.screener
+package com.seiko.tv.anime.ui.composer.collector
 
 import android.view.Choreographer
 import androidx.compose.foundation.background
@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
+import com.seiko.tv.anime.di.scope.CollectScreenComponentQualifier
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -26,9 +27,9 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlin.math.pow
 
 @OptIn(ExperimentalUnitApi::class)
-@SmallScreen
+@CollectCompose(CollectScreenComponentQualifier::class)
 @Composable
-fun BoxScope.FpsSmallScreen() {
+fun BoxScope.FpsScreenComponent() {
   val fps by remember { getFpsFlow() }.collectAsState(0)
   Box(
     modifier = Modifier
