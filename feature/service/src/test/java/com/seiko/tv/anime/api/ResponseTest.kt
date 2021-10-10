@@ -9,6 +9,7 @@ import moe.tlaster.hson.Hson
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.io.File
+import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -49,12 +50,13 @@ class ResponseTest {
     assert(response.title.isNotEmpty())
     assert(response.cover.isNotEmpty())
     assert(response.alias.isNotEmpty())
-    assert(response.rating > 0)
-    assert(response.releaseTime.isNotEmpty())
-    assert(response.area.isNotEmpty())
-    assert(response.types.isNotEmpty())
-    assert(response.tags.isNotEmpty())
-    assert(response.indexes.isNotEmpty())
+    assertEquals(response.rating, 5.0f)
+    assertEquals(response.releaseTime, "2021-07")
+    assertEquals(response.area, "日本")
+    assertEquals(response.types.titles.size, response.types.hrefs.size)
+    assertContentEquals(response.types.titles, listOf("搞笑", "奇幻", "百合", "治愈"))
+    assertContentEquals(response.tags.titles, listOf("日语", "tv"))
+    assertContentEquals(response.indexes.titles, listOf("X动漫"))
     assert(response.state.isNotEmpty())
     assert(response.description.isNotEmpty())
     assert(response.episodeList.isNotEmpty())

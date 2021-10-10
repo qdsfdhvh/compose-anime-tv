@@ -2,12 +2,9 @@ package com.seiko.tv.anime.ui.common.foundation
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.focusable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -17,6 +14,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,14 +22,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.seiko.compose.focuskit.collectFocusIndexAsState
-import com.seiko.compose.focuskit.focusScrollHorizontal
-import com.seiko.compose.focuskit.rememberFocusRequesters
+import com.seiko.compose.focuskit.ScrollBehaviour
+import com.seiko.compose.focuskit.scrollToIndex
 import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
@@ -40,36 +39,47 @@ import com.seiko.tv.anime.ui.theme.uiValue
 @Composable
 fun TvTabBar(
   tabList: List<AnimeTab>,
+  focusIndex: Int,
   modifier: Modifier = Modifier,
-  listState: LazyListState = rememberLazyListState(),
+  onFocusIndexChange: (Int) -> Unit = {}
 ) {
-  val focusRequesters = rememberFocusRequesters(tabList)
-  val focusIndex by listState.interactionSource.collectFocusIndexAsState()
+  val listState = rememberLazyListState()
   var isParentFocused by remember { mutableStateOf(false) }
 
   LazyRow(
     modifier = modifier
       .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
-      .focusScrollHorizontal(listState)
-      .focusable(),
+      .focusTarget(),
     state = listState,
   ) {
     itemsIndexed(tabList) { index, tab ->
-      val itemInteractionSource = remember { MutableInteractionSource() }
+      val focusRequester = remember { FocusRequester() }
+      var isFocused by remember { mutableStateOf(false) }
       TvTabBarItem(
         modifier = Modifier
-          .focusRequester(focusRequesters[index])
-          .focusable(interactionSource = itemInteractionSource),
+          .onFocusChanged {
+            isFocused = it.isFocused
+            if (isFocused) {
+              onFocusIndexChange(index)
+            }
+          }
+          .clickable { focusRequester.requestFocus() }
+          .focusOrder(focusRequester)
+          .focusTarget(),
         title = tab.title,
-        isFocused = itemInteractionSource.collectIsFocusedAsState().value,
+        isFocused = isFocused,
         isSelected = focusIndex == index,
       )
+
+      if (isParentFocused && focusIndex == index) {
+        SideEffect { focusRequester.requestFocus() }
+      }
     }
   }
 
-  LaunchedEffect(focusIndex, isParentFocused) {
-    if (isParentFocused) {
-      focusRequesters.getOrNull(focusIndex)?.requestFocus()
+  if (isParentFocused) {
+    LaunchedEffect(focusIndex) {
+      listState.scrollToIndex(focusIndex, ScrollBehaviour.Horizontal)
     }
   }
 }

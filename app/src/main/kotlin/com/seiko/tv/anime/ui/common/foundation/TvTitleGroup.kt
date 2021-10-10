@@ -3,9 +3,6 @@ package com.seiko.tv.anime.ui.common.foundation
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.focusable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,24 +18,28 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.autoSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.seiko.compose.focuskit.collectFocusIndexAsState
+import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.focusClick
-import com.seiko.compose.focuskit.focusScrollHorizontal
-import com.seiko.compose.focuskit.rememberFocusRequesters
+import com.seiko.compose.focuskit.scrollToIndex
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.Anime
 import com.seiko.tv.anime.ui.composer.navigation.Router
@@ -54,9 +55,8 @@ fun TvTitleGroup(
 ) {
   val navController = LocalAppNavigator.current
 
-  val focusRequesters = rememberFocusRequesters(list)
   val listState = rememberLazyListState()
-  val focusIndex by listState.interactionSource.collectFocusIndexAsState()
+  var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
   var isParentFocused by remember { mutableStateOf(false) }
 
   Column {
@@ -68,26 +68,37 @@ fun TvTitleGroup(
     LazyRow(
       modifier = modifier
         .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
-        .focusScrollHorizontal(listState)
-        .focusable(),
+        .focusTarget(),
       state = listState,
     ) {
       itemsIndexed(list) { index, item ->
-        val itemInteractionSource = remember { MutableInteractionSource() }
+        val focusRequester = remember { FocusRequester() }
+        var isFocused by remember { mutableStateOf(false) }
         GroupItem(
           modifier = Modifier
-            .focusClick { navController.push(Router.Detail(item.uri)) }
-            .focusRequester(focusRequesters[index])
-            .focusable(interactionSource = itemInteractionSource),
+            .onFocusChanged {
+              isFocused = it.isFocused
+              if (isFocused) focusIndex = index
+            }
+            .focusClick {
+              focusRequester.requestFocus()
+              navController.push(Router.Detail(item.uri))
+            }
+            .focusOrder(focusRequester)
+            .focusTarget(),
           item = item,
-          isFocused = itemInteractionSource.collectIsFocusedAsState().value,
+          isFocused = isFocused,
         )
+
+        if (isParentFocused && focusIndex == index) {
+          SideEffect { focusRequester.requestFocus() }
+        }
       }
     }
 
-    LaunchedEffect(focusIndex, isParentFocused) {
-      if (isParentFocused) {
-        focusRequesters.getOrNull(focusIndex)?.requestFocus()
+    if (isParentFocused) {
+      LaunchedEffect(focusIndex) {
+        listState.scrollToIndex(focusIndex, ScrollBehaviour.Horizontal)
       }
     }
   }

@@ -7,6 +7,7 @@ import com.seiko.tv.anime.data.model.anime.AnimeDetail
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
 import com.seiko.tv.anime.data.model.anime.AnimeGroup
 import com.seiko.tv.anime.data.model.anime.AnimeTab
+import com.seiko.tv.anime.data.model.anime.AnimeTag
 import com.seiko.tv.anime.data.model.anime.AnimeTimeLine
 import com.seiko.tv.anime.data.model.anime.AnimeTimeLineGroup
 import com.seiko.tv.anime.data.model.anime.AnimeVideo
@@ -73,9 +74,30 @@ class AnimeRepository @Inject constructor(
         rating = response.rating,
         releaseTime = response.releaseTime,
         area = response.area,
-        types = response.types,
-        tags = response.tags,
-        indexes = response.indexes,
+        types = response.types.run {
+          titles.mapIndexed { index, title ->
+            AnimeTag(
+              title = title,
+              uri = service.wrapUrl(hrefs[index])
+            )
+          }
+        },
+        tags = response.tags.run {
+          titles.mapIndexed { index, title ->
+            AnimeTag(
+              title = title,
+              uri = service.wrapUrl(hrefs[index])
+            )
+          }
+        },
+        indexes = response.indexes.run {
+          titles.mapIndexed { index, title ->
+            AnimeTag(
+              title = title,
+              uri = service.wrapUrl(hrefs[index])
+            )
+          }
+        },
         state = response.state,
         description = response.description,
         episodeList = response.episodeList.map { episode ->

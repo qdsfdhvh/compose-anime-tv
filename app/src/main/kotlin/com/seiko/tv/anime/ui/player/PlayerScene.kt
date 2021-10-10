@@ -9,8 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.seiko.compose.focuskit.TvKeyEvent
-import com.seiko.compose.focuskit.handleTvKey
+import com.seiko.compose.focuskit.handleBack
 import com.seiko.compose.player.TvVideoPlayer
 import com.seiko.compose.player.rememberPlayer
 import com.seiko.compose.player.rememberVideoPlayerController
@@ -47,13 +46,12 @@ fun PlayerScene(episode: String) {
 
   Box(
     modifier = Modifier
-      .handleTvKey(TvKeyEvent.Back) {
+      .handleBack {
         if (!openDialog) {
           openDialog = true
           savePlayState()
           player.pause()
         }
-        true
       }
   ) {
     TvVideoPlayer(

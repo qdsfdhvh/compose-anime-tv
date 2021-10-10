@@ -2,7 +2,7 @@ import org.gradle.api.JavaVersion
 
 object Versions {
   object Kotlin {
-    const val lang = "1.5.30"
+    const val lang = "1.5.31"
     const val coroutines = "1.5.2"
     const val serialization = "1.3.0"
   }
@@ -22,7 +22,7 @@ object Versions {
   const val espressoVersion = "3.4.0-rc01"
 
   const val hilt = "2.38.1"
-  const val compose = "1.0.3"
+  const val compose = "1.1.0-alpha05"
   const val activity = "1.3.1"
   const val lifecycle = "2.4.0-beta01"
   // const val androidx_hilt = "1.0.0"

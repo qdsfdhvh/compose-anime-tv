@@ -19,16 +19,15 @@ import androidx.navigation.compose.DialogNavigator
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.seiko.compose.focuskit.TvKeyEvent
-import com.seiko.compose.focuskit.handleTvKey
+import com.seiko.compose.focuskit.handleBack
 import com.seiko.tv.anime.di.scope.AssistedFactoryQualifier
 import com.seiko.tv.anime.di.scope.CollectScreenComponentQualifier
 import com.seiko.tv.anime.ui.composer.assisted.AssistedFactoryMap
 import com.seiko.tv.anime.ui.composer.assisted.ProvideAssistedMap
 import com.seiko.tv.anime.ui.composer.collector.CollectComposeOwner
+import com.seiko.tv.anime.ui.composer.collector.Show
 import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
 import com.seiko.tv.anime.ui.composer.navigation.Router
-import com.seiko.tv.anime.ui.composer.collector.Show
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.NoRippleIndication
 import com.seiko.tv.anime.util.ToastUtils
@@ -85,13 +84,7 @@ class AnimeTvActivity : ComponentActivity() {
               LocalIndication provides NoRippleIndication,
               LocalDensity provides autoSizeDensity(this@AnimeTvActivity, 480)
             ) {
-              Box(
-                modifier = Modifier
-                  .handleTvKey(TvKeyEvent.Back) {
-                    onBackPressed()
-                    true
-                  }
-              ) {
+              Box(Modifier.handleBack { onBackPressed() }) {
                 Router(navController)
 
                 Show(collectScreenComponents)

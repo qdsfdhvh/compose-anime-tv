@@ -23,9 +23,9 @@ data class AnimeDetail(
   val rating: Float = 0.0f,
   val releaseTime: String = "",
   val area: String = "",
-  val types: List<String> = emptyList(),
-  val tags: List<String> = emptyList(),
-  val indexes: List<String> = emptyList(),
+  val types: List<AnimeTag> = emptyList(),
+  val tags: List<AnimeTag> = emptyList(),
+  val indexes: List<AnimeTag> = emptyList(),
   val state: String = "",
   val description: String = "",
   val episodeList: List<AnimeEpisode> = emptyList(),
@@ -36,6 +36,11 @@ data class AnimeDetail(
     val Empty = AnimeDetail()
   }
 }
+
+data class AnimeTag(
+  val title: String,
+  val uri: String,
+)
 
 data class AnimeEpisode(
   val title: String,

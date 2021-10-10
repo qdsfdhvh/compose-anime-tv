@@ -1,6 +1,5 @@
 package com.seiko.tv.anime.ui.detail
 
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -8,18 +7,27 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.withFrameNanos
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.autoSaver
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusTarget
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.insets.statusBarsPadding
-import com.seiko.compose.focuskit.collectFocusIndexAsState
-import com.seiko.compose.focuskit.focusScrollVertical
-import com.seiko.compose.focuskit.rememberFocusRequesters
+import com.seiko.compose.focuskit.ScrollBehaviour
+import com.seiko.compose.focuskit.scrollToIndex
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
+import com.seiko.tv.anime.util.ToastUtils
 
 @Composable
 fun DetailScene(uri: String) {
@@ -30,56 +38,80 @@ fun DetailScene(uri: String) {
     LoadingState()
     return
   }
+  val context = LocalContext.current
 
-  val focusRequesters = rememberFocusRequesters(3)
   val listState = rememberLazyListState()
-  val focusIndex by listState.interactionSource.collectFocusIndexAsState()
+  var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
 
   Surface(color = MaterialTheme.colors.background) {
     LazyColumn(
       modifier = Modifier
-        .focusScrollVertical(listState)
-        .focusable()
+        .focusTarget()
         .fillMaxSize()
         .statusBarsPadding(),
       state = listState,
     ) {
       item {
+        val focusRequester = remember { FocusRequester() }
         DetailAnimeInfo(
+          modifier = Modifier
+            .onFocusChanged { if (it.isFocused) focusIndex = 0 }
+            .focusOrder(focusRequester),
           title = viewState.anime.title,
           cover = viewState.anime.cover,
           releaseTime = viewState.anime.releaseTime,
           state = viewState.anime.state,
           tags = viewState.anime.tags,
+          types = viewState.anime.types,
+          indexes = viewState.anime.indexes,
           description = viewState.anime.description,
           isFavorite = viewState.isFavorite,
-          modifier = Modifier.focusRequester(focusRequesters[0]),
           onFavoriteClick = {
             viewModel.send(DetailViewAction.ToggleFavorite)
+          },
+          onTagClick = { tag ->
+            ToastUtils.showToast(context, tag.uri)
           }
         )
+
+        if (focusIndex == 0) {
+          SideEffect { focusRequester.requestFocus() }
+        }
       }
 
       item {
+        val focusRequester = remember { FocusRequester() }
         TvEpisodeList(
           title = "播放列表",
           list = viewState.anime.episodeList,
-          modifier = Modifier.focusRequester(focusRequesters[1]),
+          modifier = Modifier
+            .onFocusChanged { if (it.isFocused) focusIndex = 1 }
+            .focusOrder(focusRequester),
         )
+
+        if (focusIndex == 1) {
+          SideEffect { focusRequester.requestFocus() }
+        }
       }
 
       item {
+        val focusRequester = remember { FocusRequester() }
         TvTitleGroup(
           title = "相关推荐",
           list = viewState.anime.relatedList,
-          modifier = Modifier.focusRequester(focusRequesters[2]),
+          modifier = Modifier
+            .onFocusChanged { if (it.isFocused) focusIndex = 2 }
+            .focusOrder(focusRequester),
         )
+
+        if (focusIndex == 2) {
+          SideEffect { focusRequester.requestFocus() }
+        }
       }
     }
   }
 
   LaunchedEffect(focusIndex) {
-    withFrameNanos {}
-    focusRequesters.getOrNull(focusIndex)?.requestFocus()
+    listState.scrollToIndex(focusIndex, ScrollBehaviour.Vertical)
   }
 }

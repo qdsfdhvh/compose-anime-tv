@@ -17,12 +17,12 @@ internal data class DetailResponse(
   val releaseTime: String = "",
   @HtmlSerializable("div.sinfo > span:nth-child(n+3)", serializer = TrimSplitStringSerializer::class)
   val area: String = "",
-  @HtmlSerializable("div.sinfo > span:nth-child(4) > a")
-  val types: List<String> = emptyList(),
-  @HtmlSerializable("div.sinfo > span:nth-child(5) > a")
-  val tags: List<String> = emptyList(),
-  @HtmlSerializable("div.sinfo > span:nth-child(6) > a")
-  val indexes: List<String> = emptyList(),
+  @HtmlSerializable("div.sinfo > span:nth-child(n+4)")
+  val types: Tag = Tag(),
+  @HtmlSerializable("div.sinfo > span:nth-child(n+6)")
+  val tags: Tag = Tag(),
+  @HtmlSerializable("div.sinfo > span:nth-child(n+5)")
+  val indexes: Tag = Tag(),
   @HtmlSerializable("div.sinfo > p:nth-child(n+2)")
   val state: String = "",
   @HtmlSerializable("div.info", serializer = TrimStringSerializer::class)
@@ -33,11 +33,18 @@ internal data class DetailResponse(
   val relatedList: List<Anime> = emptyList(),
 ) {
 
+  data class Tag(
+    @HtmlSerializable("a")
+    val titles: List<String> = emptyList(),
+    @HtmlSerializable("a", attr="href")
+    val hrefs: List<String> = emptyList()
+  )
+
   data class Episode(
     @HtmlSerializable("a")
-    val title: String,
+    val title: String = "",
     @HtmlSerializable("a", attr="href")
-    val href: String,
+    val href: String = ""
   )
 
   data class Anime(
