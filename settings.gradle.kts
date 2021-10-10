@@ -13,7 +13,7 @@ include(
 
 val focuskitRoot = "feature${File.separator}focuskit"
 project(":focuskit").projectDir = file("$focuskitRoot${File.separator}focuskit")
-project(":focuskit-player").projectDir = file("$focuskitRoot${File.separator}player")
+project(":focuskit-player").projectDir = file("$focuskitRoot${File.separator}focuskit-player")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
