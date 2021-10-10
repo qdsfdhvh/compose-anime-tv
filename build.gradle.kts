@@ -13,7 +13,7 @@ buildscript {
   dependencies {
     classpath(kotlin("gradle-plugin", version = Versions.Kotlin.lang))
     classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
-    classpath("de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1")
+    classpath("de.mannodermaus.gradle.plugins:android-junit5:1.8.0.0")
   }
 }
 
