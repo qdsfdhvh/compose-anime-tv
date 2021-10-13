@@ -5,10 +5,8 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.seiko.tv.anime.ui.detail.DetailScene
 import com.seiko.tv.anime.ui.favorite.FavoriteScene
 import com.seiko.tv.anime.ui.feed.FeedScene
@@ -18,10 +16,8 @@ import com.seiko.tv.anime.util.decodeUrl
 import com.seiko.tv.anime.util.encodeUrl
 
 @Composable
-fun Router(
-  navController: NavHostController = rememberNavController()
-) {
-  NavHost(navController, startDestination = initialRoute) {
+fun Router(appNavigator: AppNavigator) {
+  NavHost(appNavigator.navController, startDestination = initialRoute) {
     composable(Router.Home) { HomeScene() }
     composable(Router.Feed) { FeedScene() }
     composable(Router.Detail) {

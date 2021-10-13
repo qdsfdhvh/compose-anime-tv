@@ -13,9 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.ComposeNavigator
-import androidx.navigation.compose.DialogNavigator
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import com.google.accompanist.insets.ProvideWindowInsets
@@ -49,14 +46,10 @@ class AnimeTvActivity : ComponentActivity() {
   @Inject
   lateinit var imageLoader: ImageLoader
 
-  private var lastClickTime = 0L
+  @Inject
+  lateinit var appNavigator: AppNavigator
 
-  private val navController by lazy {
-    NavHostController(this).apply {
-      navigatorProvider.addNavigator(ComposeNavigator())
-      navigatorProvider.addNavigator(DialogNavigator())
-    }
-  }
+  private var lastClickTime = 0L
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -79,13 +72,13 @@ class AnimeTvActivity : ComponentActivity() {
         ProvideWindowInsets {
           ProvideAssistedMap(assistedFactoryMap) {
             CompositionLocalProvider(
-              LocalAppNavigator provides AppNavigator(navController),
+              LocalAppNavigator provides appNavigator,
               LocalImageLoader provides imageLoader,
               LocalIndication provides NoRippleIndication,
               LocalDensity provides autoSizeDensity(this@AnimeTvActivity, 480)
             ) {
               Box(Modifier.handleBack { onBackPressed() }) {
-                Router(navController)
+                Router(appNavigator)
 
                 Show(collectScreenComponents)
               }
