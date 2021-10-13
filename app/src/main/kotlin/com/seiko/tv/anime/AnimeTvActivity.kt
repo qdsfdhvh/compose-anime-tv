@@ -26,6 +26,8 @@ import com.seiko.tv.anime.ui.composer.collector.Show
 import com.seiko.tv.anime.ui.composer.navigation.AppNavigator
 import com.seiko.tv.anime.ui.composer.navigation.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
+import com.seiko.tv.anime.util.DoubleBackPressed
+import com.seiko.tv.anime.util.DoubleBackPressedDelegate
 import com.seiko.tv.anime.util.NoRippleIndication
 import com.seiko.tv.anime.util.ToastUtils
 import com.seiko.tv.anime.util.autoSizeDensity
@@ -33,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AnimeTvActivity : ComponentActivity() {
+class AnimeTvActivity : ComponentActivity(), DoubleBackPressed by DoubleBackPressedDelegate() {
 
   @Inject
   @AssistedFactoryQualifier
@@ -49,8 +51,6 @@ class AnimeTvActivity : ComponentActivity() {
   @Inject
   lateinit var appNavigator: AppNavigator
 
-  private var lastClickTime = 0L
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -58,13 +58,7 @@ class AnimeTvActivity : ComponentActivity() {
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
     onBackPressedDispatcher.addCallback(this) {
-      val current = System.currentTimeMillis()
-      if (current - lastClickTime >= 2000L) {
-        lastClickTime = current
-        ToastUtils.showToast(applicationContext, "再按一次退出")
-      } else {
-        ActivityCompat.finishAffinity(this@AnimeTvActivity)
-      }
+      onDoubleBackPressed()
     }
 
     setContent {
