@@ -22,19 +22,21 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.autoSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.seiko.compose.focuskit.onFocusDirection
 import com.seiko.tv.anime.data.model.anime.AnimeTag
 import com.seiko.tv.anime.ui.common.SpacerWidth
 import com.seiko.tv.anime.ui.common.foundation.FocusableImageButton
@@ -59,12 +61,13 @@ fun DetailAnimeInfo(
   onFavoriteClick: () -> Unit = {},
   onTagClick: (AnimeTag) -> Unit = {},
 ) {
-  var isParentFocused by remember { mutableStateOf(false) }
   val (tagsFocus, btnStarFocus) = FocusRequester.createRefs()
+
+  var parentIsFocused by remember { mutableStateOf(false) }
 
   Row(
     modifier = modifier
-      .onFocusChanged { isParentFocused = it.isFocused }
+      .onFocusChanged { parentIsFocused = it.isFocused }
       .focusTarget()
       .padding(MaterialTheme.uiValue.paddingHorizontal),
     horizontalArrangement = Arrangement.SpaceBetween
@@ -89,7 +92,11 @@ fun DetailAnimeInfo(
         },
       )
       FocusableImageButton(
-        image = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+        image = if (isFavorite) {
+          Icons.Filled.Favorite
+        } else {
+          Icons.Filled.FavoriteBorder
+        },
         onClick = onFavoriteClick,
         modifier = Modifier.focusOrder(btnStarFocus) {
           up = tagsFocus
@@ -111,13 +118,14 @@ fun DetailAnimeInfo(
     }
   }
 
-  if (isParentFocused) {
+  if (parentIsFocused) {
     SideEffect {
       btnStarFocus.requestFocus()
     }
   }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun DetailAnimeInfoDesc(
   title: String,
@@ -141,27 +149,41 @@ private fun DetailAnimeInfoDesc(
     Text(state, style = MaterialTheme.typography.body1)
   }
 
-  var isParentFocused by remember { mutableStateOf(false) }
-  var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
+  var parentIsFocused by remember { mutableStateOf(false) }
+  var focusIndex by rememberSaveable { mutableStateOf(0) }
+
+  val focusManager = LocalFocusManager.current
 
   LazyRow(
     modifier
-      .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
+      .onFocusChanged { parentIsFocused = it.isFocused }
+      .onFocusDirection {
+        when (it) {
+          FocusDirection.Up,
+          FocusDirection.Down -> focusManager.moveFocus(FocusDirection.Out)
+        }
+        false
+      }
       .focusTarget()
   ) {
     itemsIndexed(tags + types + indexes) { index, tag ->
       val focusRequester = remember { FocusRequester() }
+
       FocusableTextButton(
         text = tag.title,
         onClick = { onTagClick(tag) },
         modifier = Modifier
-          .onFocusChanged { if (it.isFocused) focusIndex = index }
+          .onFocusChanged {
+            if (it.isFocused) focusIndex = index
+          }
           .focusOrder(focusRequester)
       )
       SpacerWidth(10.dp)
 
-      if (isParentFocused && focusIndex == index) {
-        SideEffect { focusRequester.requestFocus() }
+      if (parentIsFocused && focusIndex == index) {
+        SideEffect {
+          focusRequester.requestFocus()
+        }
       }
     }
   }

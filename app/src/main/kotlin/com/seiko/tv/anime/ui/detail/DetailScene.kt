@@ -12,7 +12,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.autoSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -41,7 +40,7 @@ fun DetailScene(uri: String) {
   val context = LocalContext.current
 
   val listState = rememberLazyListState()
-  var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
+  var focusIndex by rememberSaveable { mutableStateOf(0) }
 
   Surface(color = MaterialTheme.colors.background) {
     LazyColumn(

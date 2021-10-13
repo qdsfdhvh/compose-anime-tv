@@ -11,7 +11,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.autoSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -30,33 +29,41 @@ fun FeedAnimePage(tab: AnimeTab, modifier: Modifier = Modifier) {
   val animeList by viewModel.animeList.collectAsState()
 
   val listState = rememberLazyListState()
-  var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
-  var isParentFocused by remember { mutableStateOf(false) }
+  var focusIndex by rememberSaveable { mutableStateOf(0) }
+
+  var parentIsFocused by remember { mutableStateOf(false) }
+  var parentHasFocused by remember { mutableStateOf(false) }
 
   LazyColumn(
     modifier = modifier
       .fillMaxSize()
-      .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
+      .onFocusChanged {
+        parentHasFocused = it.hasFocus
+        parentIsFocused = it.isFocused
+      }
       .focusTarget(),
     state = listState,
   ) {
     itemsIndexed(animeList) { index, item ->
       val focusRequester = remember { FocusRequester() }
+
       TvTitleGroup(
         title = item.title,
         list = item.animes,
         modifier = Modifier
-          .onFocusChanged { if (it.isFocused) focusIndex = index }
+          .onFocusChanged {
+            if (it.isFocused) focusIndex = index
+          }
           .focusOrder(focusRequester)
       )
 
-      if (isParentFocused && focusIndex == index) {
+      if (parentIsFocused && focusIndex == index) {
         SideEffect { focusRequester.requestFocus() }
       }
     }
   }
 
-  if (isParentFocused) {
+  if (parentHasFocused) {
     LaunchedEffect(focusIndex) {
       listState.scrollToIndex(focusIndex, ScrollBehaviour.Vertical)
     }

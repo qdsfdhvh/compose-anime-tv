@@ -22,23 +22,26 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.autoSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.focusClick
+import com.seiko.compose.focuskit.onFocusDirection
 import com.seiko.compose.focuskit.scrollToIndex
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.Anime
@@ -47,6 +50,7 @@ import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 import com.seiko.tv.anime.ui.theme.uiValue
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TvTitleGroup(
   title: String,
@@ -56,8 +60,12 @@ fun TvTitleGroup(
   val navController = LocalAppNavigator.current
 
   val listState = rememberLazyListState()
-  var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
-  var isParentFocused by remember { mutableStateOf(false) }
+  var focusIndex by rememberSaveable { mutableStateOf(0) }
+
+  var parentIsFocused by remember { mutableStateOf(false) }
+  var parentHasFocused by remember { mutableStateOf(false) }
+
+  val focusManager = LocalFocusManager.current
 
   Column {
     Text(
@@ -67,7 +75,17 @@ fun TvTitleGroup(
     )
     LazyRow(
       modifier = modifier
-        .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
+        .onFocusDirection {
+          when (it) {
+            FocusDirection.Up,
+            FocusDirection.Down -> focusManager.moveFocus(FocusDirection.Out)
+          }
+          false
+        }
+        .onFocusChanged {
+          parentHasFocused = it.hasFocus
+          parentIsFocused = it.isFocused
+        }
         .focusTarget(),
       state = listState,
     ) {
@@ -90,13 +108,15 @@ fun TvTitleGroup(
           isFocused = isFocused,
         )
 
-        if (isParentFocused && focusIndex == index) {
-          SideEffect { focusRequester.requestFocus() }
+        if (parentIsFocused && focusIndex == index) {
+          SideEffect {
+            focusRequester.requestFocus()
+          }
         }
       }
     }
 
-    if (isParentFocused) {
+    if (parentHasFocused) {
       LaunchedEffect(focusIndex) {
         listState.scrollToIndex(focusIndex, ScrollBehaviour.Horizontal)
       }

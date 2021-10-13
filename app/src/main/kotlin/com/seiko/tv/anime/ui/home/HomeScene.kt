@@ -12,7 +12,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.autoSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,7 +36,7 @@ fun HomeScene() {
   val viewModel: HomeViewModel = hiltViewModel()
   val list by viewModel.list.collectAsState()
 
-  var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
+  var focusIndex by rememberSaveable { mutableStateOf(0) }
 
   Box(
     modifier = Modifier

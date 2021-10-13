@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
@@ -29,7 +28,6 @@ import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.DoubleBackPressed
 import com.seiko.tv.anime.util.DoubleBackPressedDelegate
 import com.seiko.tv.anime.util.NoRippleIndication
-import com.seiko.tv.anime.util.ToastUtils
 import com.seiko.tv.anime.util.autoSizeDensity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

@@ -44,11 +44,16 @@ fun TvTabBar(
   onFocusIndexChange: (Int) -> Unit = {}
 ) {
   val listState = rememberLazyListState()
-  var isParentFocused by remember { mutableStateOf(false) }
+
+  var parentIsFocused by remember { mutableStateOf(false) }
+  var parentHasFocused by remember { mutableStateOf(false) }
 
   LazyRow(
     modifier = modifier
-      .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
+      .onFocusChanged {
+        parentHasFocused = it.hasFocus
+        parentIsFocused = it.isFocused
+      }
       .focusTarget(),
     state = listState,
   ) {
@@ -59,9 +64,7 @@ fun TvTabBar(
         modifier = Modifier
           .onFocusChanged {
             isFocused = it.isFocused
-            if (isFocused) {
-              onFocusIndexChange(index)
-            }
+            if (isFocused) onFocusIndexChange(index)
           }
           .clickable { focusRequester.requestFocus() }
           .focusOrder(focusRequester)
@@ -71,13 +74,15 @@ fun TvTabBar(
         isSelected = focusIndex == index,
       )
 
-      if (isParentFocused && focusIndex == index) {
-        SideEffect { focusRequester.requestFocus() }
+      if (parentIsFocused && focusIndex == index) {
+        SideEffect {
+          focusRequester.requestFocus()
+        }
       }
     }
   }
 
-  if (isParentFocused) {
+  if (parentHasFocused) {
     LaunchedEffect(focusIndex) {
       listState.scrollToIndex(focusIndex, ScrollBehaviour.Horizontal)
     }

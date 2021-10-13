@@ -17,7 +17,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.autoSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -48,8 +47,10 @@ fun TvEpisodeList(
   val navController = LocalAppNavigator.current
 
   val listState = rememberLazyListState()
-  var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
-  var isParentFocused by remember { mutableStateOf(false) }
+  var focusIndex by rememberSaveable { mutableStateOf(0) }
+
+  var parentIsFocused by remember { mutableStateOf(false) }
+  var parentHasFocused by remember { mutableStateOf(false) }
 
   Column {
     Text(
@@ -63,34 +64,42 @@ fun TvEpisodeList(
 
     LazyRow(
       modifier = modifier
-        .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
+        .onFocusChanged {
+          parentHasFocused = it.hasFocus
+          parentIsFocused = it.isFocused
+        }
         .focusTarget(),
       state = listState,
     ) {
       itemsIndexed(list) { index, item ->
         val focusRequester = remember { FocusRequester() }
         var isFocused by remember { mutableStateOf(false) }
+
         EpisodeItem(
           modifier = Modifier
             .onFocusChanged {
               isFocused = it.isFocused
               if (isFocused) focusIndex = index
             }
-            .focusClick { navController.push(Router.Player(item.uri)) }
+            .focusClick {
+              navController.push(Router.Player(item.uri))
+            }
             .focusOrder(focusRequester)
             .focusTarget(),
           episode = item,
           isFocused = isFocused
         )
 
-        if (isParentFocused && focusIndex == index) {
-          SideEffect { focusRequester.requestFocus() }
+        if (parentIsFocused && focusIndex == index) {
+          SideEffect {
+            focusRequester.requestFocus()
+          }
         }
       }
     }
   }
 
-  if (isParentFocused) {
+  if (parentHasFocused) {
     LaunchedEffect(focusIndex) {
       listState.scrollToIndex(focusIndex, ScrollBehaviour.Horizontal)
     }

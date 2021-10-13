@@ -9,7 +9,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.autoSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -39,8 +38,8 @@ fun FeedScene() {
     return
   }
 
-  var isTabFocused by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(true) }
-  var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
+  var isTabFocused by rememberSaveable { mutableStateOf(true) }
+  var focusIndex by rememberSaveable { mutableStateOf(0) }
 
   val tabFocusRequester = remember { FocusRequester() }
 
@@ -51,7 +50,9 @@ fun FeedScene() {
     Column(Modifier.statusBarsPadding()) {
       TvTabBar(
         modifier = Modifier
-          .onFocusChanged { if (it.isFocused) isTabFocused = true }
+          .onFocusChanged {
+            if (it.isFocused) isTabFocused = true
+          }
           .focusOrder(tabFocusRequester),
         tabList = tabs,
         focusIndex = focusIndex,
@@ -62,7 +63,9 @@ fun FeedScene() {
 
       HorizontalPager(
         modifier = Modifier
-          .onFocusChanged { if (it.isFocused) isTabFocused = false }
+          .onFocusChanged {
+            if (it.isFocused) isTabFocused = false
+          }
           .focusTarget(),
         state = pagerState,
         dragEnabled = false
@@ -70,7 +73,9 @@ fun FeedScene() {
         FeedAnimePage(
           tabs[index],
           modifier = Modifier
-            .onFocusChanged { if (it.hasFocus) focusIndex = index }
+            .onFocusChanged {
+              if (it.hasFocus) focusIndex = index
+            }
             .focusOrder(pagerFocusRequesters[index])
         )
       }
