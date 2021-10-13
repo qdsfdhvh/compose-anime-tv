@@ -13,18 +13,8 @@ internal data class DetailResponse(
   val alias: String = "",
   @HtmlSerializable("div.score > em")
   val rating: Float = 0.0f,
-  @HtmlSerializable("div.sinfo > span:nth-child(n+2)", serializer = TrimSplitStringSerializer::class)
-  val releaseTime: String = "",
-  @HtmlSerializable("div.sinfo > span:nth-child(n+3)", serializer = TrimSplitStringSerializer::class)
-  val area: String = "",
-  @HtmlSerializable("div.sinfo > span:nth-child(n+4)")
-  val types: Tag = Tag(),
-  @HtmlSerializable("div.sinfo > span:nth-child(n+6)")
-  val tags: Tag = Tag(),
-  @HtmlSerializable("div.sinfo > span:nth-child(n+5)")
-  val indexes: Tag = Tag(),
-  @HtmlSerializable("div.sinfo > p:nth-child(n+2)")
-  val state: String = "",
+  @HtmlSerializable("div.sinfo > span")
+  val tags: List<Tag> = emptyList(),
   @HtmlSerializable("div.info", serializer = TrimStringSerializer::class)
   val description: String = "",
   @HtmlSerializable("div.movurl > ul > li")
@@ -34,6 +24,8 @@ internal data class DetailResponse(
 ) {
 
   data class Tag(
+    @HtmlSerializable("")
+    val tip: String = "",
     @HtmlSerializable("a")
     val titles: List<String> = emptyList(),
     @HtmlSerializable("a", attr="href")

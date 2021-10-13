@@ -72,33 +72,36 @@ class AnimeRepository @Inject constructor(
         cover = response.cover,
         alias = response.alias,
         rating = response.rating,
-        releaseTime = response.releaseTime,
-        area = response.area,
-        types = response.types.run {
+        releaseTime = response.tags.find { it.tip.startsWith("上映") }?.run {
+          titles.joinToString { it }
+        } ?: "",
+        area = response.tags.find { it.tip.startsWith("地区") }?.run {
+          titles.joinToString { it }
+        } ?: "",
+        types = response.tags.find { it.tip.startsWith("类型") }?.run {
           titles.mapIndexed { index, title ->
             AnimeTag(
               title = title,
               uri = service.wrapUrl(hrefs[index])
             )
           }
-        },
-        tags = response.tags.run {
+        }.orEmpty(),
+        tags = response.tags.find { it.tip.startsWith("标签") }?.run {
           titles.mapIndexed { index, title ->
             AnimeTag(
               title = title,
               uri = service.wrapUrl(hrefs[index])
             )
           }
-        },
-        indexes = response.indexes.run {
+        }.orEmpty(),
+        indexes = response.tags.find { it.tip.startsWith("索引") }?.run {
           titles.mapIndexed { index, title ->
             AnimeTag(
               title = title,
               uri = service.wrapUrl(hrefs[index])
             )
           }
-        },
-        state = response.state,
+        }.orEmpty(),
         description = response.description,
         episodeList = response.episodeList.map { episode ->
           AnimeEpisode(
