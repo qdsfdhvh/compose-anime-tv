@@ -12,6 +12,7 @@ import com.seiko.tv.anime.ui.favorite.FavoriteScene
 import com.seiko.tv.anime.ui.feed.FeedScene
 import com.seiko.tv.anime.ui.home.HomeScene
 import com.seiko.tv.anime.ui.player.PlayerScene
+import com.seiko.tv.anime.ui.tag.TagScene
 import com.seiko.tv.anime.util.decodeUrl
 import com.seiko.tv.anime.util.encodeUrl
 
@@ -27,6 +28,9 @@ fun Router(appNavigator: AppNavigator) {
       PlayerScene(Router.Player.getUri(it))
     }
     composable(Router.Favorite) { FavoriteScene() }
+    composable(Router.TagPage) {
+      TagScene(Router.TagPage.getUri(it))
+    }
   }
 }
 
@@ -66,6 +70,16 @@ sealed class Router(val route: String) {
   }
 
   object Favorite : Router("/favorite")
+
+  object TagPage : Router("/tagpage?uri={uri}") {
+    fun getUri(entry: NavBackStackEntry): String {
+      return entry.arguments?.getString("uri")?.decodeUrl() ?: ""
+    }
+
+    operator fun invoke(uri: String): String {
+      return "/tagpage?uri=${uri.encodeUrl()}"
+    }
+  }
 }
 
 private val initialRoute = Router.Home.route

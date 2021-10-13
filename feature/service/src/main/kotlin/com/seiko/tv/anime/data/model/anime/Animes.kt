@@ -62,3 +62,17 @@ data class AnimeTimeLine(
   val body: String,
   val bodyUri: String,
 )
+
+data class AnimeTagPage(
+  val title: String,
+  val animes: List<AnimeTagPageItem>
+)
+
+data class AnimeTagPageItem(
+  val title: String,
+  val cover: String,
+  val uri: String,
+  val update: String,
+  val tags: List<AnimeTag>,
+  val description: String
+)

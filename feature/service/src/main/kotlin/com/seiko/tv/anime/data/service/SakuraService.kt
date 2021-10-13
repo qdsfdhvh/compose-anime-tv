@@ -2,6 +2,7 @@ package com.seiko.tv.anime.data.service
 
 import com.seiko.tv.anime.data.remote.response.sakura.DetailResponse
 import com.seiko.tv.anime.data.remote.response.sakura.HomeResponse
+import com.seiko.tv.anime.data.remote.response.sakura.TagResponse
 import com.seiko.tv.anime.data.remote.response.sakura.TimelineResponse
 import com.seiko.tv.anime.data.remote.response.sakura.VideoResponse
 import com.seiko.tv.anime.util.extensions.await
@@ -35,6 +36,10 @@ class SakuraService(
 
   internal suspend fun getTimeLineResponse(): TimelineResponse {
     return Hson.deserializeKData(getHtml("/"))
+  }
+
+  internal suspend fun getTagResponse(url: String): TagResponse {
+    return Hson.deserializeKData(getHtml(url))
   }
 
   @Suppress("BlockingMethodInNonBlockingContext")

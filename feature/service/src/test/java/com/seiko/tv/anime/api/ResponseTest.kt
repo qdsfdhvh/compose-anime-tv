@@ -2,6 +2,7 @@ package com.seiko.tv.anime.api
 
 import com.seiko.tv.anime.data.remote.response.sakura.DetailResponse
 import com.seiko.tv.anime.data.remote.response.sakura.HomeResponse
+import com.seiko.tv.anime.data.remote.response.sakura.TagResponse
 import com.seiko.tv.anime.data.remote.response.sakura.TimelineResponse
 import com.seiko.tv.anime.data.remote.response.sakura.VideoResponse
 import kotlinx.coroutines.runBlocking
@@ -79,5 +80,23 @@ class ResponseTest {
     assert(response.tags.isNotEmpty()) { response }
     assertEquals(response.tags.size, response.tagAnimesList.size)
     assert(response.tagAnimesList[0].animes[0].title.isNotEmpty()) { response }
+  }
+
+  @Test
+  fun tagTest() = runBlocking {
+    val file = File("src/test/resources/api/sakura_tag.html").readText()
+    val response = Hson.deserializeKData<TagResponse>(file)
+    assertEquals(response.title, "机战动漫")
+    assert(response.animes.isNotEmpty())
+    val anime = response.animes[0]
+    assertEquals(anime.title, "Muv-Luv Alternative")
+    assertEquals(anime.cover, "http://css.njhzmxx.com/acg/2021/05/27/20210527051205790.jpg")
+    assertEquals(anime.href, "/show/5272.html")
+    assertEquals(anime.update, "更新至1集")
+    assert(anime.tags.titles.isNotEmpty())
+    assertEquals(anime.tags.titles.size, anime.tags.hrefs.size)
+    assertEquals(anime.tags.titles[0], "科幻")
+    assertEquals(anime.tags.hrefs[0], "/75/")
+    assert(anime.description.startsWith("电视动画"))
   }
 }

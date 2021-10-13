@@ -19,14 +19,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.scrollToIndex
+import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
-import com.seiko.tv.anime.util.ToastUtils
+import com.seiko.tv.anime.ui.composer.navigation.Router
 
 @Composable
 fun DetailScene(uri: String) {
@@ -37,7 +37,8 @@ fun DetailScene(uri: String) {
     LoadingState()
     return
   }
-  val context = LocalContext.current
+
+  val navController = LocalAppNavigator.current
 
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
@@ -69,7 +70,7 @@ fun DetailScene(uri: String) {
             viewModel.send(DetailViewAction.ToggleFavorite)
           },
           onTagClick = { tag ->
-            ToastUtils.showToast(context, tag.uri)
+            navController.push(Router.TagPage(tag.uri))
           }
         )
 

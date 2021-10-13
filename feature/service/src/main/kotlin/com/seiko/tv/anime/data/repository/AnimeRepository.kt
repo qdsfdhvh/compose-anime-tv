@@ -8,6 +8,8 @@ import com.seiko.tv.anime.data.model.anime.AnimeEpisode
 import com.seiko.tv.anime.data.model.anime.AnimeGroup
 import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.data.model.anime.AnimeTag
+import com.seiko.tv.anime.data.model.anime.AnimeTagPage
+import com.seiko.tv.anime.data.model.anime.AnimeTagPageItem
 import com.seiko.tv.anime.data.model.anime.AnimeTimeLine
 import com.seiko.tv.anime.data.model.anime.AnimeTimeLineGroup
 import com.seiko.tv.anime.data.model.anime.AnimeVideo
@@ -119,6 +121,30 @@ class AnimeRepository @Inject constructor(
         uri = url,
       )
     }
+  }
+
+  suspend fun getTags(url: String): AnimeTagPage {
+    val response = service.getTagResponse(url)
+    return AnimeTagPage(
+      title = response.title,
+      animes = response.animes.map { anime ->
+        AnimeTagPageItem(
+          title = anime.title,
+          cover = anime.cover,
+          uri = service.wrapUrl(anime.href),
+          update = anime.update,
+          tags = anime.tags.run {
+            titles.mapIndexed { index, title ->
+              AnimeTag(
+                title = title,
+                uri = service.wrapUrl(hrefs[index])
+              )
+            }
+          },
+          description = anime.description
+        )
+      }
+    )
   }
 
   fun getVideo(url: String): Flow<AnimeVideo> {
