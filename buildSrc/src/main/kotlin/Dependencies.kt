@@ -67,7 +67,7 @@ fun DependencyHandlerScope.network() {
   implementation("com.squareup.okhttp3:okhttp", Versions.okhttp)
   implementation("com.squareup.okhttp3:logging-interceptor", Versions.okhttp)
   // 🐂🍺 https://github.com/Tlaster/Hson
-  implementation("com.github.Tlaster:Hson:0.1.4")
+  implementation("com.github.qdsfdhvh:Hson:0.1.5")
   // parse html https://github.com/jhy/jsoup/
   implementation("org.jsoup:jsoup:1.13.1")
 }
