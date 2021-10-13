@@ -24,7 +24,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.seiko.compose.focuskit.ItemScrollBehaviour
-import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.scrollToIndex
 import com.seiko.compose.focuskit.tweenAnimateScrollBy
@@ -32,7 +31,6 @@ import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
 import com.seiko.tv.anime.ui.common.foundation.LazyGridFor
 import com.seiko.tv.anime.ui.composer.navigation.Router
-import kotlinx.coroutines.delay
 
 private const val FavoriteColumnNum = 5
 

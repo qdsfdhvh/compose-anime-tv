@@ -1,6 +1,5 @@
 package com.seiko.tv.anime.ui.detail
 
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -145,9 +144,10 @@ private fun DetailAnimeInfoDesc(
   var isParentFocused by remember { mutableStateOf(false) }
   var focusIndex by rememberSaveable(stateSaver = autoSaver()) { mutableStateOf(0) }
 
-  LazyRow(modifier
-    .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
-    .focusTarget()
+  LazyRow(
+    modifier
+      .onFocusChanged { isParentFocused = it.hasFocus || it.isFocused }
+      .focusTarget()
   ) {
     itemsIndexed(tags + types + indexes) { index, tag ->
       val focusRequester = remember { FocusRequester() }
