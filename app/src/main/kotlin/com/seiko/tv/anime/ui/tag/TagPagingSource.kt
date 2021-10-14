@@ -16,7 +16,7 @@ class TagPagingSource(
     val page = params.key ?: 1
     return try {
       LoadResult.Page(
-        data = repository.getTags(if (page == 1) url else "$url${page}.html").animes,
+        data = repository.getTags(if (page == 1) url else "$url$page.html").animes,
         prevKey = if (page <= 1) null else page - 1,
         nextKey = page + 1
       )
