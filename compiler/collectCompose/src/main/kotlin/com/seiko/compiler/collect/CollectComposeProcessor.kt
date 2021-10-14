@@ -61,6 +61,7 @@ class CollectComposeProcessor(environment: SymbolProcessorEnvironment) : SymbolP
         |import dagger.hilt.InstallIn
         |import dagger.hilt.android.components.ActivityComponent
         |import dagger.multibindings.IntoSet
+        |import com.seiko.tv.anime.ui.composer.collector.CollectComposeOwner
         |import ${qualifier.declaration.qualifiedName!!.asString()}
         |
         |@InstallIn(ActivityComponent::class)

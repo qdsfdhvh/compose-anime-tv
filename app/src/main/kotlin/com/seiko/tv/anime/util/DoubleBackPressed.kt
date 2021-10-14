@@ -17,7 +17,7 @@ class DoubleBackPressedDelegate : DoubleBackPressed {
     val current = System.currentTimeMillis()
     if (current - lastClickTime > CLICK_TIME) {
       lastClickTime = current
-      ToastUtils.showToast(this, "再按一次退出")
+      ToastUtils.showToast("再按一次退出")
     } else {
       ActivityCompat.finishAfterTransition(this)
     }

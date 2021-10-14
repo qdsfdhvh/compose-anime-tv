@@ -35,7 +35,7 @@ dependencies {
   hilt()
   appCenter()
   compose()
-  "ksp"(project(":compiler:collectCompose"))
+  ksp(project(":compiler:collectCompose"))
 
   // OOM https://github.com/KwaiAppTeam/KOOM
   val koomVersion = "2.0.0-beta1"
