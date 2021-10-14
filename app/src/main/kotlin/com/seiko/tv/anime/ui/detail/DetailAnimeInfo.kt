@@ -97,7 +97,10 @@ fun DetailAnimeInfo(
         } else {
           Icons.Filled.FavoriteBorder
         },
-        onClick = onFavoriteClick,
+        onClick = {
+          btnStarFocus.requestFocus()
+          onFavoriteClick()
+        },
         modifier = Modifier.focusOrder(btnStarFocus) {
           up = tagsFocus
         },
@@ -171,7 +174,10 @@ private fun DetailAnimeInfoDesc(
 
       FocusableTextButton(
         text = tag.title,
-        onClick = { onTagClick(tag) },
+        onClick = {
+          focusRequester.requestFocus()
+          onTagClick(tag)
+        },
         modifier = Modifier
           .onFocusChanged {
             if (it.isFocused) focusIndex = index

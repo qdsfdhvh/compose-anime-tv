@@ -64,7 +64,10 @@ fun FavoriteScene() {
             isFocused = it.isFocused
             if (isFocused) focusIndex = index
           }
-          .focusClick { navigator.push(Router.Detail(anime.uri)) }
+          .focusClick {
+            focusRequester.requestFocus()
+            navigator.push(Router.Detail(anime.uri))
+          }
           .focusOrder(focusRequester)
           .focusTarget()
       )

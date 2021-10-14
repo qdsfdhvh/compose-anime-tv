@@ -75,7 +75,9 @@ fun DetailScene(uri: String) {
         )
 
         if (focusIndex == 0) {
-          SideEffect { focusRequester.requestFocus() }
+          SideEffect {
+            focusRequester.requestFocus()
+          }
         }
       }
 
@@ -90,7 +92,9 @@ fun DetailScene(uri: String) {
         )
 
         if (focusIndex == 1) {
-          SideEffect { focusRequester.requestFocus() }
+          SideEffect {
+            focusRequester.requestFocus()
+          }
         }
       }
 
@@ -105,7 +109,9 @@ fun DetailScene(uri: String) {
         )
 
         if (focusIndex == 2) {
-          SideEffect { focusRequester.requestFocus() }
+          SideEffect {
+            focusRequester.requestFocus()
+          }
         }
       }
     }

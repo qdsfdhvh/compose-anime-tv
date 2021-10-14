@@ -54,6 +54,7 @@ fun HomeScene() {
           isFocused = isFocused,
           modifier = Modifier
             .focusClick {
+              focusRequester.requestFocus()
               when (item) {
                 HomeItem.Home -> navigator.push(Router.Feed)
                 HomeItem.Favorite -> navigator.push(Router.Favorite)

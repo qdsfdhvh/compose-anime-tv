@@ -82,6 +82,7 @@ fun TvEpisodeList(
               if (isFocused) focusIndex = index
             }
             .focusClick {
+              focusRequester.requestFocus()
               navController.push(Router.Player(item.uri))
             }
             .focusOrder(focusRequester)
