@@ -29,8 +29,8 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.ScrollBehaviour
+import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
-import com.seiko.compose.focuskit.scrollToIndex
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
 import com.seiko.tv.anime.ui.composer.navigation.Router
@@ -102,7 +102,7 @@ fun TvEpisodeList(
 
   if (parentHasFocused) {
     LaunchedEffect(focusIndex) {
-      listState.scrollToIndex(focusIndex, ScrollBehaviour.Horizontal)
+      listState.animateScrollToItem(focusIndex, ScrollBehaviour.Horizontal)
     }
   }
 }

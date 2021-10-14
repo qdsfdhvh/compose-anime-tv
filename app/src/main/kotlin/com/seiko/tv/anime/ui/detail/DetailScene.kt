@@ -21,7 +21,7 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.ScrollBehaviour
-import com.seiko.compose.focuskit.scrollToIndex
+import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
@@ -118,6 +118,6 @@ fun DetailScene(uri: String) {
   }
 
   LaunchedEffect(focusIndex) {
-    listState.scrollToIndex(focusIndex, ScrollBehaviour.Vertical)
+    listState.animateScrollToItem(focusIndex, ScrollBehaviour.Vertical)
   }
 }

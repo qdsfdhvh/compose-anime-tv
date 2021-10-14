@@ -35,8 +35,8 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.seiko.compose.focuskit.ScrollBehaviour
+import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
-import com.seiko.compose.focuskit.scrollToIndex
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.AnimeTag
 import com.seiko.tv.anime.ui.common.SpacerHeight
@@ -115,7 +115,7 @@ fun TagScene(uri: String) {
   }
 
   LaunchedEffect(focusIndex) {
-    listState.scrollToIndex(focusIndex, ScrollBehaviour.Vertical)
+    listState.animateScrollToItem(focusIndex, ScrollBehaviour.Vertical)
   }
 }
 

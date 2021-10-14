@@ -22,8 +22,8 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import com.seiko.compose.focuskit.ScrollBehaviour
+import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.onFocusDirection
-import com.seiko.compose.focuskit.scrollToIndex
 import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 
@@ -86,7 +86,7 @@ fun FeedAnimePage(tab: AnimeTab, modifier: Modifier = Modifier) {
 
   if (parentHasFocused) {
     LaunchedEffect(focusIndex) {
-      listState.scrollToIndex(focusIndex, ScrollBehaviour.Vertical)
+      listState.animateScrollToItem(focusIndex, ScrollBehaviour.Vertical)
     }
   }
 }

@@ -23,8 +23,8 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.seiko.compose.focuskit.ItemScrollBehaviour
+import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
-import com.seiko.compose.focuskit.scrollToIndex
 import com.seiko.compose.focuskit.tweenAnimateScrollBy
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
@@ -82,7 +82,7 @@ fun FavoriteScene() {
 
   LaunchedEffect(focusIndex) {
     val moveIndex = if (focusIndex < FavoriteColumnNum) 0 else focusIndex / FavoriteColumnNum + 1
-    listState.scrollToIndex(moveIndex, FavoriteVerticalScroll)
+    listState.animateScrollToItem(moveIndex, FavoriteVerticalScroll)
   }
 }
 
