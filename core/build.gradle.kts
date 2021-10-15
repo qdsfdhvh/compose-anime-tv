@@ -20,8 +20,13 @@ android {
   composeOptions {
     kotlinCompilerExtensionVersion = Versions.compose
   }
-  composeOptions {
-    kotlinCompilerExtensionVersion = Versions.compose
+  sourceSets {
+    getByName("debug") {
+      java.srcDirs(
+        "build/generated/ksp/debug/kotlin",
+        "src/debug/kotlin",
+      )
+    }
   }
 }
 
