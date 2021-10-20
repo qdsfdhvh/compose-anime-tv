@@ -26,6 +26,6 @@ pluginManagement {
     arrayOf(
       id("com.android.application"),
       id("com.android.library")
-    ).forEach { it version "7.2.0-alpha01" }
+    ).forEach { it version "7.1.0-beta01" }
   }
 }
