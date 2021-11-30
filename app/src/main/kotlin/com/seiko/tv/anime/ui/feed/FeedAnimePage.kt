@@ -32,6 +32,7 @@ import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 fun FeedAnimePage(tab: AnimeTab, modifier: Modifier = Modifier) {
   val viewModel = feedAnimeViewModel(tab)
   val animeList by viewModel.animeList.collectAsState()
+  if (animeList.isEmpty()) return
 
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
