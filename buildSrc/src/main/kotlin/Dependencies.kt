@@ -27,8 +27,8 @@ fun DependencyHandlerScope.compose() {
   implementation("androidx.compose.material:material-icons-core", Versions.compose)
   implementation("androidx.compose.material:material-icons-extended", Versions.compose)
   implementation("androidx.navigation:navigation-compose", Versions.navigation)
-  implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
-  implementation("androidx.paging:paging-compose:1.0.0-alpha13")
+  implementation("androidx.hilt:hilt-navigation-compose", Versions.navigationCompose)
+  implementation("androidx.paging:paging-compose", Versions.pagingCompose)
   implementation("com.google.accompanist:accompanist-insets", Versions.accompanist)
   implementation("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)
   implementation("com.google.accompanist:accompanist-pager", Versions.accompanist)
@@ -36,7 +36,7 @@ fun DependencyHandlerScope.compose() {
 
 fun DependencyHandlerScope.android() {
   lifecycle()
-  api("androidx.core:core-ktx:1.6.0")
+  api("androidx.core:core-ktx", Versions.coreKtx)
   implementation("androidx.activity:activity-ktx", Versions.activity)
   implementation("androidx.activity:activity-compose", Versions.activity)
   implementation("io.coil-kt:coil-compose", Versions.coil)
@@ -60,7 +60,7 @@ fun DependencyHandlerScope.kotlinSerialization() {
 }
 
 fun DependencyHandlerScope.utils() {
-  api("com.jakewharton.timber:timber:4.7.1")
+  api("com.jakewharton.timber:timber", Versions.timber)
 }
 
 fun DependencyHandlerScope.network() {
@@ -81,7 +81,7 @@ fun DependencyHandlerScope.room() {
 }
 
 fun DependencyHandlerScope.paging() {
-  implementation("androidx.paging:paging-common-ktx:3.1.0-alpha03")
+  implementation("androidx.paging:paging-common-ktx", Versions.paging)
 }
 
 fun DependencyHandlerScope.appCenter() {

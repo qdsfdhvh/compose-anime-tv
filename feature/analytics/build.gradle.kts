@@ -45,7 +45,7 @@ dependencies {
   implementation("com.kuaishou.koom:koom-thread-leak:$koomVersion")
 
   // AppStart https://github.com/square/tart
-  implementation("com.squareup.tart:tart:0.2")
+  implementation("com.squareup.tart:tart:0.4.1")
 
   // Leak https://github.com/square/leakcanary
   debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")

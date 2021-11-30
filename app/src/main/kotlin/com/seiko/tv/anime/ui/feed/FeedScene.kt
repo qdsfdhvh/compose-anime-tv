@@ -1,5 +1,7 @@
 package com.seiko.tv.anime.ui.feed
 
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -16,6 +18,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -43,7 +46,7 @@ fun FeedScene() {
 
   val tabFocusRequester = remember { FocusRequester() }
 
-  val pagerState = rememberPagerState(pageCount = tabs.size)
+  val pagerState = rememberPagerState()
   val pagerFocusRequesters = remember(tabs) { List(tabs.size) { FocusRequester() } }
 
   Surface(color = MaterialTheme.colors.background) {
@@ -62,22 +65,31 @@ fun FeedScene() {
       )
 
       HorizontalPager(
+        count = tabs.size,
         modifier = Modifier
           .onFocusChanged {
             if (it.isFocused) isTabFocused = false
           }
           .focusTarget(),
         state = pagerState,
-        dragEnabled = false
       ) { index ->
-        FeedAnimePage(
-          tabs[index],
+        // ≈ dragEnabled = false
+        // @see https://github.com/google/accompanist/issues/756#issuecomment-953610678
+        Box(
           modifier = Modifier
-            .onFocusChanged {
-              if (it.hasFocus) focusIndex = index
+            .pointerInput(Unit) {
+              detectDragGestures { _, _ -> }
             }
-            .focusOrder(pagerFocusRequesters[index])
-        )
+        ) {
+          FeedAnimePage(
+            tabs[index],
+            modifier = Modifier
+              .onFocusChanged {
+                if (it.hasFocus) focusIndex = index
+              }
+              .focusOrder(pagerFocusRequesters[index])
+          )
+        }
       }
     }
   }
