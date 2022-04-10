@@ -6,7 +6,6 @@ import com.seiko.tv.anime.util.starter.AppStartTaskDispatcher
 import com.seiko.tv.anime.util.starter.BaseAppStarter
 import dagger.hilt.android.HiltAndroidApp
 import me.weishu.reflection.Reflection
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -22,14 +21,7 @@ class AnimeTvApp : Application() {
 
   override fun onCreate() {
     super.onCreate()
-    initLogger()
     initAppStarter()
-  }
-
-  private fun initLogger() {
-    if (BuildConfig.DEBUG) {
-      Timber.plant(Timber.DebugTree())
-    }
   }
 
   private fun initAppStarter() {

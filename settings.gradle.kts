@@ -1,12 +1,10 @@
 rootProject.name = "compose-anime-tv"
-include(":app", ":core")
 include(
+  ":app",
+  ":core",
   ":compiler:assistedFactory",
   ":compiler:collectCompose",
-)
-include(
   ":feature:service",
-  ":feature:analytics",
 )
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
