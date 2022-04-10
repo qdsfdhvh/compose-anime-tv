@@ -24,7 +24,7 @@ internal data class TagResponse(
   )
 
   data class Tag(
-    @HtmlSerializable("label")
+    @HtmlSerializable("a")
     val titles: List<String> = emptyList(),
     @HtmlSerializable("a", attr="href")
     val hrefs: List<String> = emptyList()

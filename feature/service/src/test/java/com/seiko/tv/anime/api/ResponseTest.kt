@@ -5,15 +5,13 @@ import com.seiko.tv.anime.data.remote.response.sakura.HomeResponse
 import com.seiko.tv.anime.data.remote.response.sakura.TagResponse
 import com.seiko.tv.anime.data.remote.response.sakura.TimelineResponse
 import com.seiko.tv.anime.data.remote.response.sakura.VideoResponse
-import kotlinx.coroutines.runBlocking
-import moe.tlaster.hson.Hson
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import java.io.File
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlinx.coroutines.runBlocking
+import moe.tlaster.hson.Hson
+import org.junit.Test
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ResponseTest {
 
   @Test

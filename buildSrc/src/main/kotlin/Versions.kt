@@ -2,9 +2,9 @@ import org.gradle.api.JavaVersion
 
 object Versions {
   object Kotlin {
-    const val lang = "1.5.31"
-    const val coroutines = "1.5.2"
-    const val serialization = "1.3.0"
+    const val lang = "1.6.10"
+    const val coroutines = "1.6.0"
+    const val serialization = "1.3.2"
   }
 
   object Java {
@@ -12,17 +12,12 @@ object Versions {
     val java = JavaVersion.VERSION_11
   }
 
-  const val ksp = "${Kotlin.lang}-1.0.0"
-  const val kotlinPoet = "1.10.1"
+  const val ksp = "${Kotlin.lang}-1.0.4"
   const val ktlint = "0.41.0"
   const val spotless = "5.12.5"
 
-  const val androidx_test = "1.4.0"
-  const val extJUnitVersion = "1.1.3-rc01"
-  const val espressoVersion = "3.4.0-rc01"
-
   const val koin = "3.1.5"
-  const val compose = "1.0.5"
+  const val compose_jb = "1.1.1" // TODO focus error, 1.0.5 ok
   const val activity = "1.4.0"
   const val lifecycle = "2.4.0"
   const val coreKtx = "1.7.0"

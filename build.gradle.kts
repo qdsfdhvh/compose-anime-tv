@@ -1,24 +1,11 @@
 plugins {
-  id("com.android.application") apply false
-  id("com.android.library") apply false
+  id("com.android.application").apply(false)
+  id("com.android.library").apply(false)
+  kotlin("android").apply(false)
   id("com.diffplug.spotless").version(Versions.spotless)
-  id("com.gradleup.auto.manifest").version("1.0.4")
-}
-
-buildscript {
-  repositories {
-    google()
-    mavenCentral()
-  }
-  dependencies {
-    classpath(kotlin("gradle-plugin", version = Versions.Kotlin.lang))
-    classpath("de.mannodermaus.gradle.plugins:android-junit5:1.8.0.0")
-  }
 }
 
 allprojects {
-  configRepository()
-
   tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
       jvmTarget = Versions.Java.jvmTarget
@@ -66,8 +53,4 @@ allprojects {
   configurations.all {
     exclude(group = "androidx.lifecycle", module = "lifecycle-livedata")
   }
-}
-
-autoManifest {
-  packageName.set(Package.applicationId)
 }

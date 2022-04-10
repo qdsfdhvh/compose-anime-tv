@@ -1,9 +1,9 @@
 plugins {
   id("com.android.application")
   kotlin("android")
+  id("org.jetbrains.compose").version(Versions.compose_jb)
   kotlin("plugin.parcelize")
   id("com.google.devtools.ksp").version(Versions.ksp)
-  id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -37,20 +37,9 @@ android {
       )
     }
   }
-  sourceSets {
-    getByName("debug") {
-      java.srcDir(File("build/generated/ksp/debug/kotlin"))
-    }
-  }
   compileOptions {
     sourceCompatibility = Versions.Java.java
     targetCompatibility = Versions.Java.java
-  }
-  buildFeatures {
-    compose = true
-  }
-  composeOptions {
-    kotlinCompilerExtensionVersion = Versions.compose
   }
   packagingOptions {
     resources {
@@ -77,15 +66,6 @@ android {
 dependencies {
   implementation(project(":core"))
   implementation(project(":feature:service"))
-
-  compose()
-  android()
-  kotlinCoroutines()
-  room()
-
-  junit5()
-  test()
-  androidTest()
 
   // hidden api by pass https://github.com/tiann/FreeReflection
   implementation("com.github.tiann:FreeReflection:3.1.0")
