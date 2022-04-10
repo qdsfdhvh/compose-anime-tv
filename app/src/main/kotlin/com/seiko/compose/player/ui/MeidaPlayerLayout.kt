@@ -11,7 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.seiko.compose.player.LocalVideoPlayerController
 
 @Composable
@@ -55,12 +55,12 @@ fun MediaPlayerLayout(player: Player, modifier: Modifier = Modifier) {
 @Composable
 fun PlayerSurface(
   modifier: Modifier = Modifier,
-  onPlayerViewAvailable: (PlayerView) -> Unit = {}
+  onPlayerViewAvailable: (StyledPlayerView) -> Unit = {}
 ) {
   AndroidView(
     modifier = modifier,
     factory = { context ->
-      PlayerView(context).apply {
+      StyledPlayerView(context).apply {
         useController = false
         onPlayerViewAvailable(this)
       }

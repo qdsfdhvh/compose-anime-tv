@@ -74,5 +74,5 @@ dependencies {
   implementation("com.github.tiann:FreeReflection:3.1.0")
 
   // player https://github.com/google/ExoPlayer
-  implementation("com.google.android.exoplayer:exoplayer:2.15.0")
+  implementation("com.google.android.exoplayer:exoplayer:2.17.1")
 }

@@ -9,34 +9,31 @@ import com.seiko.compose.player.VideoSeekDirection
 import com.seiko.compose.player.stateReducer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.scan
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalCoroutinesApi::class)
 internal class DefaultVideoPlayerController(
   private val player: Player,
   private val coroutineScope: CoroutineScope,
   initialState: VideoPlayerState,
 ) : VideoPlayerController {
 
-  private val intents = Channel<VideoPlayerAction>(
-    capacity = Channel.BUFFERED,
+  private val intents = MutableSharedFlow<VideoPlayerAction>(
+    extraBufferCapacity = 20,
     onBufferOverflow = BufferOverflow.SUSPEND
   )
 
-  @OptIn(ExperimentalCoroutinesApi::class)
-  private val _state = intents.receiveAsFlow()
+  private val _state = intents.asSharedFlow()
     .scan(initialState, ::stateReducer)
     .flowOn(Dispatchers.IO)
     .stateIn(coroutineScope, SharingStarted.Lazily, initialState)
@@ -114,11 +111,11 @@ internal class DefaultVideoPlayerController(
   }
 
   override fun showControl() {
-    intents.trySend(VideoPlayerAction.ControlsVisible(true))
+    intents.tryEmit(VideoPlayerAction.ControlsVisible(true))
   }
 
   override fun hideControl() {
-    intents.trySend(VideoPlayerAction.ControlsVisible(false))
+    intents.tryEmit(VideoPlayerAction.ControlsVisible(false))
   }
 
   private var updateProgressJob: Job? = null
@@ -133,7 +130,7 @@ internal class DefaultVideoPlayerController(
   }
 
   private fun updateDurationAndPosition() {
-    intents.trySend(
+    intents.tryEmit(
       VideoPlayerAction.Progress(
         duration = player.duration.coerceAtLeast(0L),
         currentPosition = player.currentPosition.coerceAtLeast(0L),
@@ -143,18 +140,18 @@ internal class DefaultVideoPlayerController(
   }
 
   private fun updatePlaybackState(playbackState: Int) {
-    intents.trySend(VideoPlayerAction.PlaybackState(playbackState))
+    intents.tryEmit(VideoPlayerAction.PlaybackState(playbackState))
   }
 
   private fun updatePlayState(playWhenReady: Boolean) {
-    intents.trySend(VideoPlayerAction.PlayState(playWhenReady))
+    intents.tryEmit(VideoPlayerAction.PlayState(playWhenReady))
   }
 
   private fun updateVideoSize(width: Int, height: Int) {
-    intents.trySend(VideoPlayerAction.VideoSize(width to height))
+    intents.tryEmit(VideoPlayerAction.VideoSize(width to height))
   }
 
   private fun updateSeekAction(seekAction: VideoSeekDirection) {
-    intents.trySend(VideoPlayerAction.SeekDirection(seekAction))
+    intents.tryEmit(VideoPlayerAction.SeekDirection(seekAction))
   }
 }

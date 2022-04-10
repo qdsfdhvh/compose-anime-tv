@@ -15,7 +15,6 @@ import com.seiko.compose.player.rememberPlayer
 import com.seiko.compose.player.rememberVideoPlayerController
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvSelectDialog
-import com.seiko.tv.anime.util.video.HlsVideoPlayerFactory
 import moe.tlaster.precompose.navigation.NavController
 
 @Composable
@@ -31,7 +30,7 @@ fun PlayerScene(
     return
   }
 
-  val player = rememberPlayer(source!!, HlsVideoPlayerFactory)
+  val player = rememberPlayer(source!!)
   val controller = rememberVideoPlayerController(player)
 
   var openDialog by remember { mutableStateOf(false) }
