@@ -1,7 +1,6 @@
 plugins {
   id("com.android.library")
   kotlin("android")
-  kotlin("kapt")
   id("com.google.devtools.ksp").version(Versions.ksp)
 }
 
@@ -31,10 +30,9 @@ android {
 }
 
 dependencies {
-  hilt()
+  koin()
   android()
   kotlinCoroutines()
   utils()
   compose()
-  ksp(project(":compiler:collectCompose"))
 }

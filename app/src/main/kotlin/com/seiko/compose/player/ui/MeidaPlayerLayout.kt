@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerView
 import com.seiko.compose.player.LocalVideoPlayerController
@@ -24,21 +24,23 @@ fun MediaPlayerLayout(player: Player, modifier: Modifier = Modifier) {
   PlayerSurface(modifier) { playerView ->
     playerView.player = player
 
-    lifecycle.addObserver(object : LifecycleObserver {
-      @OnLifecycleEvent(Lifecycle.Event.ON_START)
-      fun onStart() {
-        playerView.keepScreenOn = true
-        playerView.onResume()
-        if (state.isPlaying) {
-          controller.play()
+    lifecycle.addObserver(object : LifecycleEventObserver {
+      override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        when (event) {
+          Lifecycle.Event.ON_START -> {
+            playerView.keepScreenOn = true
+            playerView.onResume()
+            if (state.isPlaying) {
+              controller.play()
+            }
+          }
+          Lifecycle.Event.ON_STOP -> {
+            playerView.keepScreenOn = false
+            playerView.onPause()
+            controller.pause()
+          }
+          else -> Unit
         }
-      }
-
-      @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-      fun onStop() {
-        playerView.keepScreenOn = false
-        playerView.onPause()
-        controller.pause()
       }
     })
   }

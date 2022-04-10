@@ -4,10 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.seiko.tv.anime.data.repository.AnimeRepository
-import com.seiko.tv.anime.di.scope.IoDispatcher
-import com.seiko.tv.anime.ui.composer.assisted.assistedViewModel
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BufferOverflow
@@ -19,11 +15,13 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.scan
 import kotlinx.coroutines.flow.stateIn
+import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-class DetailViewModel @AssistedInject constructor(
-  @Assisted uri: String,
-  @IoDispatcher ioDispatcher: CoroutineDispatcher,
+class DetailViewModel(
+  uri: String,
+  ioDispatcher: CoroutineDispatcher,
   repository: AnimeRepository,
 ) : ViewModel() {
 
@@ -62,15 +60,11 @@ class DetailViewModel @AssistedInject constructor(
     intents.trySend(action)
   }
 
-  @dagger.assisted.AssistedFactory
-  interface AssistedFactory {
-    fun create(uri: String): DetailViewModel
-  }
 }
 
 @Composable
 fun detailViewModel(uri: String): DetailViewModel {
-  return assistedViewModel<DetailViewModel.AssistedFactory, DetailViewModel> { factory ->
-    factory.create(uri)
+  return getViewModel {
+    parametersOf(uri)
   }
 }

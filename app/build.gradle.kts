@@ -1,21 +1,9 @@
 plugins {
   id("com.android.application")
   kotlin("android")
-  kotlin("kapt")
   kotlin("plugin.parcelize")
   id("com.google.devtools.ksp").version(Versions.ksp)
-  id("dagger.hilt.android.plugin")
   id("de.mannodermaus.android-junit5")
-}
-
-kapt {
-  correctErrorTypes = true
-  mapDiagnosticLocations = true
-  arguments {
-    arg("dagger.formatGeneratedSource", "disabled")
-    arg("dagger.fastInit", "enabled")
-    arg("dagger.experimentalDaggerErrorMessages", "enabled")
-  }
 }
 
 android {
@@ -86,16 +74,10 @@ android {
   }
 }
 
-repositories {
-  maven(url = "https://maven.aliyun.com/repository/public")
-}
-
 dependencies {
   implementation(project(":core"))
   implementation(project(":feature:service"))
-  ksp(project(":compiler:assistedFactory"))
 
-  hilt()
   compose()
   android()
   kotlinCoroutines()
@@ -104,10 +86,6 @@ dependencies {
   junit5()
   test()
   androidTest()
-
-  // fix not javax.annotation.processing.Generated with dagger2
-  // https://github.com/pengrad/jdk9-deps
-  compileOnly("com.github.pengrad:jdk9-deps:1.0")
 
   // hidden api by pass https://github.com/tiann/FreeReflection
   implementation("com.github.tiann:FreeReflection:3.1.0")

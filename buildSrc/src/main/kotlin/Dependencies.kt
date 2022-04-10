@@ -11,11 +11,10 @@ fun Project.configRepository() {
   }
 }
 
-fun DependencyHandlerScope.hilt() {
-  implementation("com.google.dagger:hilt-android", Versions.hilt)
-  // implementation("androidx.hilt:hilt-work", Versions.androidx_hilt)
-  kapt("com.google.dagger:hilt-android-compiler", Versions.hilt)
-  // kapt("androidx.hilt:hilt-compiler", Versions.androidx_hilt)
+fun DependencyHandlerScope.koin() {
+  api("io.insert-koin:koin-core:${Versions.koin}")
+  api("io.insert-koin:koin-android:${Versions.koin}")
+  api("io.insert-koin:koin-androidx-compose:${Versions.koin}")
 }
 
 fun DependencyHandlerScope.compose() {
@@ -27,7 +26,6 @@ fun DependencyHandlerScope.compose() {
   implementation("androidx.compose.material:material-icons-core", Versions.compose)
   implementation("androidx.compose.material:material-icons-extended", Versions.compose)
   implementation("androidx.navigation:navigation-compose", Versions.navigation)
-  implementation("androidx.hilt:hilt-navigation-compose", Versions.navigationCompose)
   implementation("androidx.paging:paging-compose", Versions.pagingCompose)
   implementation("com.google.accompanist:accompanist-insets", Versions.accompanist)
   implementation("com.google.accompanist:accompanist-systemuicontroller", Versions.accompanist)

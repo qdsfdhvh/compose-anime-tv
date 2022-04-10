@@ -1,6 +1,5 @@
 package com.seiko.tv.anime.ui.favorite
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListState
@@ -20,7 +19,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.seiko.compose.focuskit.ItemScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
@@ -30,13 +28,13 @@ import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
 import com.seiko.tv.anime.ui.common.foundation.LazyGridFor
 import com.seiko.tv.anime.ui.composer.navigation.Router
+import org.koin.androidx.compose.getViewModel
 
 private const val FavoriteColumnNum = 5
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FavoriteScene() {
-  val viewModel: FavoriteViewModel = hiltViewModel()
+  val viewModel: FavoriteViewModel = getViewModel()
   val list = viewModel.favorites.collectAsLazyPagingItems()
 
   val navigator = LocalAppNavigator.current

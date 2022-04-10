@@ -20,12 +20,12 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.ui.common.SetSystemBarColor
 import com.seiko.tv.anime.ui.common.foundation.RoundIcon
 import com.seiko.tv.anime.ui.composer.navigation.Router
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun HomeScene() {
@@ -33,7 +33,7 @@ fun HomeScene() {
 
   val navigator = LocalAppNavigator.current
 
-  val viewModel: HomeViewModel = hiltViewModel()
+  val viewModel: HomeViewModel = getViewModel()
   val list by viewModel.list.collectAsState()
 
   var focusIndex by rememberSaveable { mutableStateOf(0) }

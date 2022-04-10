@@ -1,7 +1,6 @@
 plugins {
   id("com.android.library")
   kotlin("android")
-  kotlin("kapt")
   id("com.google.devtools.ksp").version(Versions.ksp)
   id("de.mannodermaus.android-junit5")
 }
@@ -10,16 +9,6 @@ ksp {
   arg("room.schemaLocation", "$projectDir/schemas")
   arg("room.incremental", "true")
   arg("room.expandProjection", "true")
-}
-
-kapt {
-  correctErrorTypes = true
-  mapDiagnosticLocations = true
-  arguments {
-    arg("dagger.formatGeneratedSource", "disabled")
-    arg("dagger.fastInit", "enabled")
-    arg("dagger.experimentalDaggerErrorMessages", "enabled")
-  }
 }
 
 android {
@@ -32,7 +21,6 @@ android {
 
 dependencies {
   implementation(project(":core"))
-  hilt()
   kotlinCoroutines()
   kotlinSerialization()
   network()

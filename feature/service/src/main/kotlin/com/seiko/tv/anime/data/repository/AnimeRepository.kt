@@ -14,20 +14,16 @@ import com.seiko.tv.anime.data.model.anime.AnimeTimeLine
 import com.seiko.tv.anime.data.model.anime.AnimeTimeLineGroup
 import com.seiko.tv.anime.data.model.anime.AnimeVideo
 import com.seiko.tv.anime.data.service.SakuraService
-import com.seiko.tv.anime.di.scope.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AnimeRepository @Inject constructor(
+class AnimeRepository(
   private val service: SakuraService,
   private val dataBase: AnimeDataBase,
-  @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+  private val ioDispatcher: CoroutineDispatcher,
 ) {
 
   private val dbAnime by lazy { dataBase.animeDao() }

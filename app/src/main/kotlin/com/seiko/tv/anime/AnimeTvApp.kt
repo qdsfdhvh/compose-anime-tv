@@ -2,17 +2,17 @@ package com.seiko.tv.anime
 
 import android.app.Application
 import android.content.Context
-import com.seiko.tv.anime.util.starter.AppStartTaskDispatcher
-import com.seiko.tv.anime.util.starter.BaseAppStarter
-import dagger.hilt.android.HiltAndroidApp
+import com.seiko.tv.anime.di.appModules
+import com.seiko.tv.anime.di.commonModules
+import com.seiko.tv.anime.di.serviceModules
 import me.weishu.reflection.Reflection
-import javax.inject.Inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
+import timber.log.Timber
 
-@HiltAndroidApp
 class AnimeTvApp : Application() {
-
-  @Inject
-  lateinit var appStarters: Set<@JvmSuppressWildcards BaseAppStarter>
 
   override fun attachBaseContext(base: Context) {
     super.attachBaseContext(base)
@@ -21,14 +21,13 @@ class AnimeTvApp : Application() {
 
   override fun onCreate() {
     super.onCreate()
-    initAppStarter()
-  }
-
-  private fun initAppStarter() {
-    AppStartTaskDispatcher.Builder()
-      .addAppStartTasks(appStarters)
-      .setShowLog(BuildConfig.DEBUG)
-      .build()
-      .start()
+    if (BuildConfig.DEBUG) {
+      Timber.plant(Timber.DebugTree())
+    }
+    startKoin {
+      androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
+      androidContext(this@AnimeTvApp)
+      modules(commonModules + serviceModules + appModules)
+    }
   }
 }

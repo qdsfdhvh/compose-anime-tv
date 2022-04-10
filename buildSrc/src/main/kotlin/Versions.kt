@@ -21,12 +21,11 @@ object Versions {
   const val extJUnitVersion = "1.1.3-rc01"
   const val espressoVersion = "3.4.0-rc01"
 
-  const val hilt = "2.38.1"
+  const val koin = "3.1.5"
   const val compose = "1.0.5"
   const val activity = "1.4.0"
   const val lifecycle = "2.4.0"
   const val coreKtx = "1.7.0"
-  // const val androidx_hilt = "1.0.0"
   const val navigation = "2.4.0-beta02"
   const val navigationCompose = "1.0.0-beta01"
   const val accompanist = "0.20.2"

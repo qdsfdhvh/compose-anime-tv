@@ -1,33 +1,15 @@
 package com.seiko.tv.anime.di.module
 
-import com.seiko.tv.anime.di.scope.DefaultDispatcher
-import com.seiko.tv.anime.di.scope.IoDispatcher
-import com.seiko.tv.anime.di.scope.MainDispatcher
-import com.seiko.tv.anime.di.scope.MainImmediateDispatcher
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
+import com.seiko.tv.anime.di.scope.defaultDispatcher
+import com.seiko.tv.anime.di.scope.ioDispatcher
+import com.seiko.tv.anime.di.scope.mainDispatcher
+import com.seiko.tv.anime.di.scope.mainImmediateDispatcher
 import kotlinx.coroutines.Dispatchers
+import org.koin.dsl.module
 
-@InstallIn(SingletonComponent::class)
-@Module
-object CoroutinesDispatchersModule {
-
-  @DefaultDispatcher
-  @Provides
-  fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
-
-  @IoDispatcher
-  @Provides
-  fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-
-  @MainDispatcher
-  @Provides
-  fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
-
-  @MainImmediateDispatcher
-  @Provides
-  fun providesMainImmediateDispatcher(): CoroutineDispatcher = Dispatchers.Main.immediate
+internal val coroutinesDispatchersModule = module {
+  single(defaultDispatcher) { Dispatchers.Default }
+  single(ioDispatcher) { Dispatchers.IO }
+  single(mainDispatcher) { Dispatchers.Main }
+  single(mainImmediateDispatcher) { Dispatchers.Main.immediate }
 }

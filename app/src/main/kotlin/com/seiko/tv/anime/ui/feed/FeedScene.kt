@@ -19,7 +19,6 @@ import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -27,13 +26,14 @@ import com.google.accompanist.pager.rememberPagerState
 import com.seiko.tv.anime.ui.common.SetSystemBarColor
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvTabBar
+import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun FeedScene() {
   SetSystemBarColor()
 
-  val viewModel: FeedViewModel = hiltViewModel()
+  val viewModel: FeedViewModel = getViewModel()
   val tabs by viewModel.tabs.collectAsState()
 
   if (tabs.isEmpty()) {

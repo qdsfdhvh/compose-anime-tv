@@ -20,8 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import com.seiko.tv.anime.di.scope.CollectScreenComponentQualifier
-import com.seiko.tv.anime.ui.composer.collector.CollectCompose
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -37,7 +35,6 @@ object ToastUtils {
 private val channel = Channel<String>(1)
 
 @OptIn(ExperimentalAnimationApi::class)
-@CollectCompose(CollectScreenComponentQualifier::class)
 @Composable
 fun BoxScope.ToastScreenComponent() {
 
@@ -70,7 +67,7 @@ fun BoxScope.ToastScreenComponent() {
   }
 
   if (isShown) {
-    LaunchedEffect(isShown) {
+    LaunchedEffect(Unit) {
       delay(1500)
       isShown = false
     }

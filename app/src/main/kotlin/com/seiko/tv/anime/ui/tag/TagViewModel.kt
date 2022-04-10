@@ -7,12 +7,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.seiko.tv.anime.data.repository.AnimeRepository
-import com.seiko.tv.anime.ui.composer.assisted.assistedViewModel
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
+import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 
-class TagViewModel @AssistedInject constructor(
-  @Assisted uri: String,
+class TagViewModel(
+  uri: String,
   repository: AnimeRepository,
 ) : ViewModel() {
 
@@ -20,15 +19,11 @@ class TagViewModel @AssistedInject constructor(
     TagPagingSource(uri, repository)
   }.flow.cachedIn(viewModelScope)
 
-  @dagger.assisted.AssistedFactory
-  interface AssistedFactory {
-    fun create(url: String): TagViewModel
-  }
 }
 
 @Composable
 fun tagViewModel(uri: String): TagViewModel {
-  return assistedViewModel<TagViewModel.AssistedFactory, TagViewModel>(uri) { factory ->
-    factory.create(uri)
+  return getViewModel {
+    parametersOf(uri)
   }
 }

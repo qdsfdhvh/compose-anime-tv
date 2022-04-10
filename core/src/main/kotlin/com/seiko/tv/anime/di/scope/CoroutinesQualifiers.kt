@@ -1,19 +1,8 @@
 package com.seiko.tv.anime.di.scope
 
-import javax.inject.Qualifier
+import org.koin.core.qualifier.named
 
-@Retention(AnnotationRetention.RUNTIME)
-@Qualifier
-annotation class DefaultDispatcher
-
-@Retention(AnnotationRetention.RUNTIME)
-@Qualifier
-annotation class IoDispatcher
-
-@Retention(AnnotationRetention.RUNTIME)
-@Qualifier
-annotation class MainDispatcher
-
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class MainImmediateDispatcher
+val defaultDispatcher = named("DefaultDispatcher")
+val ioDispatcher = named("IoDispatcher")
+val mainDispatcher = named("MainDispatcher")
+val mainImmediateDispatcher = named("MainImmediateDispatcher")
