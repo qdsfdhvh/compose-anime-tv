@@ -13,6 +13,9 @@ ksp {
 
 android {
   compileSdk = AndroidSdk.compile
+  defaultConfig {
+    minSdk = AndroidSdk.min
+  }
   compileOptions {
     sourceCompatibility = Versions.Java.java
     targetCompatibility = Versions.Java.java

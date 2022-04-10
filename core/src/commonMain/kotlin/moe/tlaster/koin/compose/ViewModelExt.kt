@@ -26,23 +26,18 @@ import moe.tlaster.precompose.ui.LocalViewModelStoreOwner
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.ViewModelStoreOwner
 import moe.tlaster.precompose.viewmodel.getViewModel
-import org.koin.core.annotation.KoinInternalApi
-import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
-import org.koin.core.scope.Scope
 import kotlin.reflect.KClass
 
-@OptIn(KoinInternalApi::class)
 @Composable
 inline fun <reified T : ViewModel> getViewModel(
   qualifier: Qualifier? = null,
   owner: ViewModelStoreOwner = LocalViewModelStoreOwner.current,
-  scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
   noinline parameters: ParametersDefinition? = null,
 ): T {
-  return remember(qualifier, scope, parameters) {
-    owner.getViewModel(qualifier, scope, parameters)
+  return remember(qualifier, parameters) {
+    owner.getViewModel(qualifier, parameters)
   }
 }
 
@@ -65,26 +60,22 @@ inline fun <reified T : ViewModel> getViewModel(
 //     return lazy(mode) { getViewModel(qualifier, clazz, parameters) }
 // }
 
-@OptIn(KoinInternalApi::class)
 inline fun <reified T : ViewModel> ViewModelStoreOwner.getViewModel(
   qualifier: Qualifier? = null,
-  scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
   noinline parameters: ParametersDefinition? = null,
 ): T {
-  return getViewModel(qualifier, T::class, scope, parameters)
+  return getViewModel(qualifier, T::class, parameters)
 }
 
-@OptIn(KoinInternalApi::class)
 fun <T : ViewModel> ViewModelStoreOwner.getViewModel(
   qualifier: Qualifier? = null,
   clazz: KClass<T>,
-  scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
   parameters: ParametersDefinition? = null,
 ): T {
   return this.viewModelStore.getViewModel(
     key = qualifier?.value ?: (clazz.toString() + parameters?.invoke()),
     clazz = clazz
   ) {
-    scope.get(clazz, qualifier, parameters)
+    getKoin().get(clazz, qualifier, parameters)
   }
 }

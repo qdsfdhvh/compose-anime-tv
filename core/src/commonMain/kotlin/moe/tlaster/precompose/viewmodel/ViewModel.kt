@@ -20,10 +20,8 @@
  */
 package moe.tlaster.precompose.viewmodel
 
-import java.io.Closeable
-
 abstract class ViewModel {
-  @Volatile
+  // TODO @Volatile
   private var disposed = false
   private val bagOfTags = hashMapOf<String, Any>()
 

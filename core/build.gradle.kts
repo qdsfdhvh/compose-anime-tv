@@ -7,6 +7,11 @@ plugins {
 
 kotlin {
   android()
+  jvm("desktop") {
+    compilations.all {
+      kotlinOptions.jvmTarget = Versions.Java.jvmTarget
+    }
+  }
   sourceSets {
     val commonMain by getting {
       dependencies {
@@ -20,6 +25,7 @@ kotlin {
 
         // Di
         api("io.insert-koin:koin-core:${Versions.koin}")
+        api("io.insert-koin:koin-core-jvm:${Versions.koin}")
 
         // Coroutines
         api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.Kotlin.coroutines}")
@@ -48,6 +54,10 @@ kotlin {
 
         // Log
         api("com.jakewharton.timber:timber:${Versions.timber}")
+      }
+    }
+    val desktopMain by getting {
+      dependencies {
       }
     }
   }

@@ -11,7 +11,7 @@ allprojects {
       jvmTarget = Versions.Java.jvmTarget
       allWarningsAsErrors = false
       freeCompilerArgs = listOf(
-        "-Xopt-in=kotlin.RequiresOptIn",
+        "-opt-in=kotlin.RequiresOptIn",
         "-Xallow-unstable-dependencies"
       )
     }
