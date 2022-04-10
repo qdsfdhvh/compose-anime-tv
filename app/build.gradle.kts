@@ -2,6 +2,7 @@ plugins {
   id("com.android.application")
   kotlin("android")
   kotlin("kapt")
+  kotlin("plugin.parcelize")
   id("com.google.devtools.ksp").version(Versions.ksp)
   id("dagger.hilt.android.plugin")
   id("de.mannodermaus.android-junit5")
@@ -93,8 +94,6 @@ dependencies {
   implementation(project(":core"))
   implementation(project(":feature:service"))
   implementation(project(":feature:analytics"))
-  implementation(project(":focuskit"))
-  implementation(project(":focuskit-player"))
   ksp(project(":compiler:assistedFactory"))
 
   hilt()
@@ -113,4 +112,7 @@ dependencies {
 
   // hidden api by pass https://github.com/tiann/FreeReflection
   implementation("com.github.tiann:FreeReflection:3.1.0")
+
+  // player https://github.com/google/ExoPlayer
+  implementation("com.google.android.exoplayer:exoplayer:2.15.0")
 }

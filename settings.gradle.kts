@@ -7,13 +7,7 @@ include(
 include(
   ":feature:service",
   ":feature:analytics",
-  ":focuskit",
-  ":focuskit-player",
 )
-
-val focuskitRoot = "feature${File.separator}focuskit"
-project(":focuskit").projectDir = file("$focuskitRoot${File.separator}focuskit")
-project(":focuskit-player").projectDir = file("$focuskitRoot${File.separator}focuskit-player")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
@@ -26,6 +20,6 @@ pluginManagement {
     arrayOf(
       id("com.android.application"),
       id("com.android.library")
-    ).forEach { it version "7.0.3" }
+    ).forEach { it version "7.0.4" }
   }
 }
