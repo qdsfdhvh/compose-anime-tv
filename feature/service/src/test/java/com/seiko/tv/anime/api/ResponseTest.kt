@@ -5,12 +5,12 @@ import com.seiko.tv.anime.data.remote.response.sakura.HomeResponse
 import com.seiko.tv.anime.data.remote.response.sakura.TagResponse
 import com.seiko.tv.anime.data.remote.response.sakura.TimelineResponse
 import com.seiko.tv.anime.data.remote.response.sakura.VideoResponse
-import java.io.File
-import kotlin.test.assertContentEquals
-import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import moe.tlaster.hson.Hson
 import org.junit.Test
+import java.io.File
+import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 
 class ResponseTest {
 

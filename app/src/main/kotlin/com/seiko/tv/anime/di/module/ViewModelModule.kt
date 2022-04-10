@@ -9,7 +9,7 @@ import com.seiko.tv.anime.ui.feed.FeedViewModel
 import com.seiko.tv.anime.ui.home.HomeViewModel
 import com.seiko.tv.anime.ui.player.PlayerViewModel
 import com.seiko.tv.anime.ui.tag.TagViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import moe.tlaster.koin.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {

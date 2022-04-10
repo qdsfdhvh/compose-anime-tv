@@ -1,6 +1,5 @@
 package com.seiko.tv.anime.ui.favorite
 
-import androidx.lifecycle.ViewModel
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.map
@@ -9,6 +8,7 @@ import com.seiko.tv.anime.data.repository.AnimeRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import moe.tlaster.precompose.viewmodel.ViewModel
 
 class FavoriteViewModel(
   ioDispatcher: CoroutineDispatcher,

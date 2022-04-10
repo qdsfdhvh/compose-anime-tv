@@ -31,15 +31,10 @@ kotlin {
     val androidMain by getting {
       dependencies {
         // Compose
-        api("androidx.navigation:navigation-compose:${Versions.navigation}")
         api("androidx.paging:paging-compose:${Versions.pagingCompose}")
         api("com.google.accompanist:accompanist-insets:${Versions.accompanist}")
         api("com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}")
         api("com.google.accompanist:accompanist-pager:${Versions.accompanist}")
-
-        // Di
-        api("io.insert-koin:koin-android:${Versions.koin}")
-        api("io.insert-koin:koin-androidx-compose:${Versions.koin}")
 
         // Coroutines
         api("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutines}")
@@ -47,15 +42,9 @@ kotlin {
         // android
         api("androidx.core:core-ktx:${Versions.coreKtx}")
         api("androidx.activity:activity-ktx:${Versions.activity}")
-        api("androidx.activity:activity-compose:${Versions.activity}")
-        api("io.coil-kt:coil-compose:${Versions.coil}")
 
-        // Lifecycle
-        api("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
-        api("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
-        api("androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle}")
-        api("androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}")
-        api("androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.lifecycle}")
+        // Image
+        api("io.coil-kt:coil-compose:${Versions.coil}")
 
         // Log
         api("com.jakewharton.timber:timber:${Versions.timber}")

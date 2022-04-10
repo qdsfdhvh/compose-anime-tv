@@ -1,13 +1,13 @@
 package com.seiko.tv.anime.ui.feed
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.data.repository.AnimeRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.stateIn
+import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 import timber.log.Timber
 
 class FeedViewModel(

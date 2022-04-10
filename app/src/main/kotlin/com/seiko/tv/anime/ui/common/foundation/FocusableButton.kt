@@ -38,9 +38,7 @@ fun FocusableButton(
       .onFocusChanged { isFocused = it.isFocused }
       .focusTarget()
       .scale(scale),
-    elevation = ButtonDefaults.elevation(
-      defaultElevation = if (isFocused) MaterialTheme.uiValue.elevation else 0.dp
-    ),
+    elevation = null,
     colors = ButtonDefaults.buttonColors(
       backgroundColor = MaterialTheme.colors.surface
     ),

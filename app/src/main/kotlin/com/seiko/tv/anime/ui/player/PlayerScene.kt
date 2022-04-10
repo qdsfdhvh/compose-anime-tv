@@ -13,14 +13,17 @@ import com.seiko.compose.focuskit.handleBack
 import com.seiko.compose.player.TvVideoPlayer
 import com.seiko.compose.player.rememberPlayer
 import com.seiko.compose.player.rememberVideoPlayerController
-import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvSelectDialog
 import com.seiko.tv.anime.util.video.HlsVideoPlayerFactory
+import moe.tlaster.precompose.navigation.NavController
 
 @Composable
-fun PlayerScene(episode: String) {
-  val viewModel = playerViewModel(episode)
+fun PlayerScene(
+  navController: NavController,
+  uri: String
+) {
+  val viewModel = playerViewModel(uri)
   val source by viewModel.video.collectAsState()
 
   if (source == null) {
@@ -61,12 +64,11 @@ fun PlayerScene(episode: String) {
     )
 
     if (openDialog) {
-      val navController = LocalAppNavigator.current
       TvSelectDialog(
         text = "是否退出播放？",
         onCenterClick = {
           openDialog = false
-          navController.pop()
+          navController.popBackStack()
         },
         onCancelClick = {
           openDialog = false

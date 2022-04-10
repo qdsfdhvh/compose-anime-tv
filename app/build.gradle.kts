@@ -67,6 +67,9 @@ dependencies {
   implementation(project(":core"))
   implementation(project(":feature:service"))
 
+  // Di
+  implementation("io.insert-koin:koin-android:${Versions.koin}")
+
   // hidden api by pass https://github.com/tiann/FreeReflection
   implementation("com.github.tiann:FreeReflection:3.1.0")
 

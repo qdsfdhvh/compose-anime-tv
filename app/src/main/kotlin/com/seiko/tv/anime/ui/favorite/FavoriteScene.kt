@@ -24,20 +24,18 @@ import com.seiko.compose.focuskit.ItemScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.tweenAnimateScrollBy
-import com.seiko.tv.anime.LocalAppNavigator
+import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
 import com.seiko.tv.anime.ui.common.foundation.LazyGridFor
-import com.seiko.tv.anime.ui.composer.navigation.Router
-import org.koin.androidx.compose.getViewModel
+import moe.tlaster.koin.compose.getViewModel
+import moe.tlaster.precompose.navigation.NavController
 
 private const val FavoriteColumnNum = 5
 
 @Composable
-fun FavoriteScene() {
+fun FavoriteScene(navController: NavController) {
   val viewModel: FavoriteViewModel = getViewModel()
   val list = viewModel.favorites.collectAsLazyPagingItems()
-
-  val navigator = LocalAppNavigator.current
 
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
@@ -64,7 +62,8 @@ fun FavoriteScene() {
           }
           .focusClick {
             focusRequester.requestFocus()
-            navigator.push(Router.Detail(anime.uri))
+
+            navController.navigate(Router.Detail(anime.uri))
           }
           .focusOrder(focusRequester)
           .focusTarget()

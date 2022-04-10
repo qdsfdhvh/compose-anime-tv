@@ -28,11 +28,12 @@ import kotlinx.coroutines.flow.receiveAsFlow
 object ToastUtils {
   fun showToast(msg: String?) {
     if (msg == null) return
-    channel.trySend(msg)
+    mutableToast.tryEmit(msg)
   }
 }
 
-private val channel = Channel<String>(1)
+private val mutableToast = MutableSharedFlow<String?>(extraBufferCapacity = 1)
+private val toast = mutableToast.asSharedFlow()
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -42,7 +43,7 @@ fun BoxScope.ToastScreenComponent() {
   var showMsg by remember { mutableStateOf("") }
 
   LaunchedEffect(Unit) {
-    channel.receiveAsFlow().collect {
+    toast.filterNotNull().collect {
       showMsg = it
       isShown = true
     }

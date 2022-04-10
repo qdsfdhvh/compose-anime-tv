@@ -22,14 +22,17 @@ import androidx.compose.ui.focus.onFocusChanged
 import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
-import com.seiko.tv.anime.LocalAppNavigator
+import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
-import com.seiko.tv.anime.ui.composer.navigation.Router
+import moe.tlaster.precompose.navigation.NavController
 
 @Composable
-fun DetailScene(uri: String) {
+fun DetailScene(
+  navController: NavController,
+  uri: String,
+) {
   val viewModel = detailViewModel(uri)
   val viewState by viewModel.viewState.collectAsState()
 
@@ -37,8 +40,6 @@ fun DetailScene(uri: String) {
     LoadingState()
     return
   }
-
-  val navController = LocalAppNavigator.current
 
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
@@ -70,7 +71,7 @@ fun DetailScene(uri: String) {
             viewModel.send(DetailViewAction.ToggleFavorite)
           },
           onTagClick = { tag ->
-            navController.push(Router.TagPage(tag.uri))
+            navController.navigate(Router.TagPage(tag.uri))
           }
         )
 
@@ -84,6 +85,7 @@ fun DetailScene(uri: String) {
       item {
         val focusRequester = remember { FocusRequester() }
         TvEpisodeList(
+          navController = navController,
           title = "播放列表",
           list = viewState.anime.episodeList,
           modifier = Modifier
@@ -101,6 +103,7 @@ fun DetailScene(uri: String) {
       item {
         val focusRequester = remember { FocusRequester() }
         TvTitleGroup(
+          navController = navController,
           title = "相关推荐",
           list = viewState.anime.relatedList,
           modifier = Modifier

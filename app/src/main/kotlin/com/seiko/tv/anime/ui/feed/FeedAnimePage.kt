@@ -26,10 +26,15 @@ import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.onFocusDirection
 import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
+import moe.tlaster.precompose.navigation.NavController
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun FeedAnimePage(tab: AnimeTab, modifier: Modifier = Modifier) {
+fun FeedAnimePage(
+  navController: NavController,
+  tab: AnimeTab,
+  modifier: Modifier = Modifier,
+) {
   val viewModel = feedAnimeViewModel(tab)
   val animeList by viewModel.animeList.collectAsState()
   if (animeList.isEmpty()) return
@@ -65,6 +70,7 @@ fun FeedAnimePage(tab: AnimeTab, modifier: Modifier = Modifier) {
   ) {
     itemsIndexed(animeList) { index, item ->
       TvTitleGroup(
+        navController = navController,
         title = item.title,
         list = item.animes,
         modifier = Modifier

@@ -43,22 +43,22 @@ import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.onFocusDirection
-import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.Anime
-import com.seiko.tv.anime.ui.composer.navigation.Router
+import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 import com.seiko.tv.anime.ui.theme.uiValue
+import moe.tlaster.precompose.navigation.NavController
+import moe.tlaster.precompose.navigation.rememberNavController
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TvTitleGroup(
+  navController: NavController,
   title: String,
   list: List<Anime>,
   modifier: Modifier = Modifier,
 ) {
-  val navController = LocalAppNavigator.current
-
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
 
@@ -100,7 +100,7 @@ fun TvTitleGroup(
             }
             .focusClick {
               focusRequester.requestFocus()
-              navController.push(Router.Detail(item.uri))
+              navController.navigate(Router.Detail(item.uri))
             }
             .focusOrder(focusRequester)
             .focusTarget(),
@@ -195,6 +195,7 @@ fun TvTitleGroupPreview() {
   AnimeTvTheme {
     Surface(color = backgroundColor) {
       TvTitleGroup(
+        navController = rememberNavController(),
         title = "最新更新",
         list = listOf(
           Anime(

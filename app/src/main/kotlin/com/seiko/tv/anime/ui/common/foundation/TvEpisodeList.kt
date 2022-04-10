@@ -31,21 +31,20 @@ import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
-import com.seiko.tv.anime.LocalAppNavigator
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
-import com.seiko.tv.anime.ui.composer.navigation.Router
+import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 import com.seiko.tv.anime.ui.theme.uiValue
+import moe.tlaster.precompose.navigation.NavController
 
 @Composable
 fun TvEpisodeList(
+  navController: NavController,
   title: String,
   list: List<AnimeEpisode>,
   modifier: Modifier = Modifier,
 ) {
-  val navController = LocalAppNavigator.current
-
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
 
@@ -83,7 +82,7 @@ fun TvEpisodeList(
             }
             .focusClick {
               focusRequester.requestFocus()
-              navController.push(Router.Player(item.uri))
+              navController.navigate(Router.Player(item.uri))
             }
             .focusOrder(focusRequester)
             .focusTarget(),
