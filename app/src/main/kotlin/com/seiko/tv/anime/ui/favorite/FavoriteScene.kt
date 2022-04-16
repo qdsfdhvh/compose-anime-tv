@@ -1,36 +1,43 @@
 package com.seiko.tv.anime.ui.favorite
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.seiko.compose.focuskit.ItemScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
+import com.seiko.compose.focuskit.rememberFocusRequesterManager
 import com.seiko.compose.focuskit.tweenAnimateScrollBy
 import com.seiko.tv.anime.ui.Router
+import com.seiko.tv.anime.ui.common.foundation.ErrorState
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
-import com.seiko.tv.anime.ui.common.foundation.LazyGridFor
+import com.seiko.tv.anime.ui.common.foundation.LoadingState
+import com.seiko.tv.anime.ui.common.foundation.itemsGridIndexed
 import moe.tlaster.koin.compose.getViewModel
 import moe.tlaster.precompose.navigation.NavController
 
-private const val FavoriteColumnNum = 5
+private const val FavoriteColumnNum = 6
 
 @Composable
 fun FavoriteScene(navController: NavController) {
@@ -39,39 +46,73 @@ fun FavoriteScene(navController: NavController) {
 
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
+  val focusRequesters = rememberFocusRequesterManager()
 
   Surface(
     color = MaterialTheme.colors.background,
     modifier = Modifier.fillMaxSize(),
   ) {
-    LazyGridFor(
-      pagingItems = list,
-      nColumns = FavoriteColumnNum,
-      title = "收藏夹",
-      state = listState
-    ) { anime, index ->
-      val focusRequester = remember { FocusRequester() }
-      var isFocused by remember { mutableStateOf(false) }
-      GroupItem(
-        item = anime,
-        isFocused = isFocused,
-        modifier = Modifier
-          .onFocusChanged {
-            isFocused = it.isFocused
-            if (isFocused) focusIndex = index
-          }
-          .focusClick {
-            focusRequester.requestFocus()
+    LazyColumn(
+      state = listState,
+    ) {
 
-            navController.navigate(Router.Detail(anime.uri))
-          }
-          .focusOrder(focusRequester)
-          .focusTarget()
-      )
+      item {
+        Box(
+          modifier = Modifier.fillMaxWidth(),
+          contentAlignment = Alignment.Center
+        ) {
+          Text(
+            text = "收藏夹",
+            style = MaterialTheme.typography.h3
+          )
+        }
+      }
 
-      if (focusIndex == index) {
-        SideEffect {
-          focusRequester.requestFocus()
+      itemsGridIndexed(list, FavoriteColumnNum) { index, item ->
+        var isFocused by remember { mutableStateOf(false) }
+        GroupItem(
+          item = item,
+          isFocused = isFocused,
+          modifier = Modifier
+            .onFocusChanged {
+              isFocused = it.isFocused
+              if (isFocused) focusIndex = index
+            }
+            .focusClick {
+              focusRequesters[index].requestFocus()
+
+              navController.navigate(Router.Detail(item.uri))
+            }
+            .focusOrder(focusRequesters[index]) {
+              up = focusRequesters.getOrDefault(index - FavoriteColumnNum)
+              down = focusRequesters.getOrDefault(index + FavoriteColumnNum)
+              left = focusRequesters.getOrDefault(index - 1)
+              right = focusRequesters.getOrDefault(index + 1)
+            }
+            .focusTarget()
+        )
+
+        if (focusIndex == index) {
+          LaunchedEffect(focusIndex) {
+            focusRequesters[focusIndex].requestFocus()
+          }
+        }
+      }
+
+      list.apply {
+        when {
+          loadState.refresh is LoadState.Loading -> {
+            item { LoadingState() }
+          }
+          loadState.append is LoadState.Loading -> {
+            item { LoadingState() }
+          }
+          loadState.refresh is LoadState.Error -> {
+            item { ErrorState { refresh() } }
+          }
+          loadState.append is LoadState.Error -> {
+            item { ErrorState { refresh() } }
+          }
         }
       }
     }
