@@ -1,7 +1,6 @@
 package com.seiko.tv.anime.util
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
@@ -20,10 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.filterNotNull
 
 object ToastUtils {
   fun showToast(msg: String?) {
@@ -35,7 +34,6 @@ object ToastUtils {
 private val mutableToast = MutableSharedFlow<String?>(extraBufferCapacity = 1)
 private val toast = mutableToast.asSharedFlow()
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun BoxScope.ToastScreenComponent() {
 

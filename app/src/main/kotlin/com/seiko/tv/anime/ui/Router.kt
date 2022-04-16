@@ -69,7 +69,7 @@ sealed class Router(val route: String) {
     }
 
     operator fun invoke(uri: String): String {
-      return "/detail?uri=${uri}"
+      return "/detail?uri=$uri"
     }
   }
 
@@ -79,7 +79,7 @@ sealed class Router(val route: String) {
     }
 
     operator fun invoke(uri: String): String {
-      return "/player?uri=${uri}"
+      return "/player?uri=$uri"
     }
   }
 
@@ -91,7 +91,7 @@ sealed class Router(val route: String) {
     }
 
     operator fun invoke(uri: String): String {
-      return "/tagpage?uri=${uri}"
+      return "/tagpage?uri=$uri"
     }
   }
 }
