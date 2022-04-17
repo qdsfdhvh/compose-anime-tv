@@ -28,7 +28,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.seiko.compose.focuskit.ScrollBehaviour
@@ -39,9 +38,8 @@ import com.seiko.tv.anime.data.model.anime.AnimeTag
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.SpacerHeight
 import com.seiko.tv.anime.ui.common.SpacerWidth
-import com.seiko.tv.anime.ui.common.foundation.ErrorState
-import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.NetworkImage
+import com.seiko.tv.anime.ui.common.foundation.screenState
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.uiValue
 import moe.tlaster.precompose.navigation.NavController
@@ -94,22 +92,7 @@ fun TagScene(
         }
       }
 
-      animes.apply {
-        when {
-          loadState.refresh is LoadState.Loading -> {
-            item { LoadingState() }
-          }
-          loadState.append is LoadState.Loading -> {
-            item { LoadingState() }
-          }
-          loadState.refresh is LoadState.Error -> {
-            item { ErrorState { refresh() } }
-          }
-          loadState.append is LoadState.Error -> {
-            item { ErrorState { refresh() } }
-          }
-        }
-      }
+      screenState(animes)
     }
   }
 

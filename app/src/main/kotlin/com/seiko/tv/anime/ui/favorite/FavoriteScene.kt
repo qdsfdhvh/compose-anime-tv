@@ -30,10 +30,9 @@ import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.rememberFocusRequesterManager
 import com.seiko.compose.focuskit.tweenAnimateScrollBy
 import com.seiko.tv.anime.ui.Router
-import com.seiko.tv.anime.ui.common.foundation.ErrorState
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
-import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.itemsGridIndexed
+import com.seiko.tv.anime.ui.common.foundation.screenState
 import moe.tlaster.koin.compose.getViewModel
 import moe.tlaster.precompose.navigation.NavController
 
@@ -99,22 +98,7 @@ fun FavoriteScene(navController: NavController) {
         }
       }
 
-      list.apply {
-        when {
-          loadState.refresh is LoadState.Loading -> {
-            item { LoadingState() }
-          }
-          loadState.append is LoadState.Loading -> {
-            item { LoadingState() }
-          }
-          loadState.refresh is LoadState.Error -> {
-            item { ErrorState { refresh() } }
-          }
-          loadState.append is LoadState.Error -> {
-            item { ErrorState { refresh() } }
-          }
-        }
-      }
+      screenState(list)
     }
   }
 

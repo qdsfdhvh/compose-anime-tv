@@ -3,6 +3,7 @@ package com.seiko.tv.anime.ui.common.foundation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
@@ -14,6 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import com.seiko.tv.anime.R
 
 @Composable
@@ -36,6 +39,25 @@ fun ErrorState(onRetry: () -> Unit = {}) {
         text = stringResource(id = R.string.retry),
         style = TextStyle(color = MaterialTheme.colors.onPrimary, fontSize = 20.sp)
       )
+    }
+  }
+}
+
+fun <T : Any> LazyListScope.screenState(list: LazyPagingItems<T>) {
+  list.apply {
+    when {
+      loadState.refresh is LoadState.Loading -> {
+        item { LoadingState() }
+      }
+      loadState.append is LoadState.Loading -> {
+        item { LoadingState() }
+      }
+      loadState.refresh is LoadState.Error -> {
+        item { ErrorState { refresh() } }
+      }
+      loadState.append is LoadState.Error -> {
+        item { ErrorState { refresh() } }
+      }
     }
   }
 }
