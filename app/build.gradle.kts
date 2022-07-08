@@ -1,9 +1,11 @@
+
+
 plugins {
   id("com.android.application")
   kotlin("android")
-  id("org.jetbrains.compose").version(Versions.compose_jb)
+  id("org.jetbrains.compose")
   kotlin("plugin.parcelize")
-  id("com.google.devtools.ksp").version(Versions.ksp)
+  id("com.google.devtools.ksp")
 }
 
 android {
@@ -67,6 +69,8 @@ dependencies {
   implementation(project(":core"))
   implementation(project(":feature:service"))
 
+  implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
+
   // Di
   implementation("io.insert-koin:koin-android:${Versions.koin}")
 
@@ -74,5 +78,5 @@ dependencies {
   implementation("com.github.tiann:FreeReflection:3.1.0")
 
   // player https://github.com/google/ExoPlayer
-  implementation("com.google.android.exoplayer:exoplayer:2.17.1")
+  implementation("com.google.android.exoplayer:exoplayer:2.18.0")
 }

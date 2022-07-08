@@ -2,7 +2,9 @@ plugins {
   id("com.android.application").apply(false)
   id("com.android.library").apply(false)
   kotlin("android").apply(false)
-  id("com.diffplug.spotless").version(Versions.spotless)
+  id("org.jetbrains.compose") version Versions.compose_jb apply false
+  id("com.google.devtools.ksp") version Versions.ksp apply false
+  id("com.diffplug.spotless") version Versions.spotless
 }
 
 allprojects {
@@ -10,7 +12,7 @@ allprojects {
     kotlinOptions {
       jvmTarget = Versions.Java.jvmTarget
       allWarningsAsErrors = false
-      freeCompilerArgs = listOf(
+      freeCompilerArgs += listOf(
         "-opt-in=kotlin.RequiresOptIn",
         "-Xallow-unstable-dependencies"
       )

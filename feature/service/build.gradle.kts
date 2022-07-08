@@ -1,7 +1,7 @@
 plugins {
   id("com.android.library")
   kotlin("android")
-  id("com.google.devtools.ksp").version(Versions.ksp)
+  id("com.google.devtools.ksp")
   kotlin("plugin.serialization").version(Versions.Kotlin.lang)
 }
 

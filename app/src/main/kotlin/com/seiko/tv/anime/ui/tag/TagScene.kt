@@ -80,7 +80,7 @@ fun TagScene(
             }
             .focusClick {
               focusRequester.requestFocus()
-              navigator.push(Router.Detail(anime.uri))
+              navController.navigate(Router.Detail(anime.uri))
             }
             .focusOrder(focusRequester)
         )

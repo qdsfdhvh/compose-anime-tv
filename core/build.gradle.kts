@@ -1,8 +1,8 @@
 plugins {
   kotlin("multiplatform")
   id("com.android.library")
-  id("org.jetbrains.compose").version(Versions.compose_jb)
-  id("com.google.devtools.ksp").version(Versions.ksp)
+  id("org.jetbrains.compose")
+  id("com.google.devtools.ksp")
 }
 
 kotlin {
@@ -37,8 +37,8 @@ kotlin {
     val androidMain by getting {
       dependencies {
         // Compose
+        api("androidx.compose.material:material:${Versions.compose}")
         api("androidx.paging:paging-compose:${Versions.pagingCompose}")
-        api("com.google.accompanist:accompanist-insets:${Versions.accompanist}")
         api("com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}")
         api("com.google.accompanist:accompanist-pager:${Versions.accompanist}")
 

@@ -28,7 +28,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
-import androidx.savedstate.ViewTreeSavedStateRegistryOwner
 import moe.tlaster.precompose.ui.BackDispatcher
 import moe.tlaster.precompose.ui.BackDispatcherOwner
 import moe.tlaster.precompose.ui.LocalBackDispatcherOwner
@@ -110,9 +109,6 @@ private fun PreComposeActivity.setOwners() {
   val decorView = window.decorView
   if (ViewTreeLifecycleOwner.get(decorView) == null) {
     ViewTreeLifecycleOwner.set(decorView, this)
-  }
-  if (ViewTreeSavedStateRegistryOwner.get(decorView) == null) {
-    ViewTreeSavedStateRegistryOwner.set(decorView, this)
   }
 }
 

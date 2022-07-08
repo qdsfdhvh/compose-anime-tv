@@ -1,6 +1,7 @@
 package com.seiko.tv.anime.ui.detail
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
@@ -19,7 +20,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
-import com.google.accompanist.insets.statusBarsPadding
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.tv.anime.ui.Router

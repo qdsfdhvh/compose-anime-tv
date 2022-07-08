@@ -29,9 +29,9 @@ fun NetworkImage(
       }
     )
   }
-  if (painter is ImagePainter && painter.state is ImagePainter.State.Loading) {
-    placeholder?.invoke()
-  }
+  // if (painter is ImagePainter && painter.state is ImagePainter.State.Loading) {
+  //   placeholder?.invoke()
+  // }
   Image(
     painter = painter,
     modifier = modifier,

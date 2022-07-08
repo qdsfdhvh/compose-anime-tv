@@ -4,7 +4,7 @@ import android.app.Activity
 import androidx.core.app.ActivityCompat
 
 interface DoubleBackPressed {
-  fun Activity.onDoubleBackPressed()
+  fun Activity.onDoubleBackPressed(): Boolean
 }
 
 private const val CLICK_TIME = 2000L
@@ -13,7 +13,7 @@ class DoubleBackPressedDelegate : DoubleBackPressed {
 
   private var lastClickTime: Long = 0
 
-  override fun Activity.onDoubleBackPressed() {
+  override fun Activity.onDoubleBackPressed(): Boolean {
     val current = System.currentTimeMillis()
     if (current - lastClickTime > CLICK_TIME) {
       lastClickTime = current
@@ -21,5 +21,6 @@ class DoubleBackPressedDelegate : DoubleBackPressed {
     } else {
       ActivityCompat.finishAfterTransition(this)
     }
+    return true
   }
 }
