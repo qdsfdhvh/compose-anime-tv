@@ -7,9 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -48,7 +48,7 @@ fun FavoriteScene(navController: NavController) {
   val focusRequesters = rememberFocusRequesterManager()
 
   Surface(
-    color = MaterialTheme.colors.background,
+    color = MaterialTheme.colorScheme.background,
     modifier = Modifier.fillMaxSize()
   ) {
     LazyColumn(
@@ -61,7 +61,7 @@ fun FavoriteScene(navController: NavController) {
         ) {
           Text(
             text = "收藏夹",
-            style = MaterialTheme.typography.h3
+            style = MaterialTheme.typography.titleLarge
           )
         }
       }

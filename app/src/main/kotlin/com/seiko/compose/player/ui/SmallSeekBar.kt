@@ -3,7 +3,7 @@ package com.seiko.compose.player.ui
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -19,7 +19,7 @@ fun SmallSeekBar(
   max: Long,
   modifier: Modifier = Modifier,
   secondaryProgress: Long? = null,
-  color: Color = MaterialTheme.colors.primary,
+  color: Color = MaterialTheme.colorScheme.primary,
   secondaryColor: Color = color.copy(0.6f),
   backgroundColor: Color = Color.White.copy(alpha = 0.4f)
 ) {

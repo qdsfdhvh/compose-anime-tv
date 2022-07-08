@@ -4,10 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +20,7 @@ import androidx.paging.compose.LazyPagingItems
 import com.seiko.tv.anime.R
 
 @Composable
-fun LoadingState(backgroundColor: Color = MaterialTheme.colors.background) {
+fun LoadingState(backgroundColor: Color = MaterialTheme.colorScheme.background) {
   Box(
     modifier = Modifier
       .fillMaxSize()
@@ -37,7 +37,7 @@ fun ErrorState(onRetry: () -> Unit = {}) {
     OutlinedButton(onClick = onRetry) {
       Text(
         text = stringResource(id = R.string.retry),
-        style = TextStyle(color = MaterialTheme.colors.onPrimary, fontSize = 20.sp)
+        style = TextStyle(color = MaterialTheme.colorScheme.onPrimary, fontSize = 20.sp)
       )
     }
   }

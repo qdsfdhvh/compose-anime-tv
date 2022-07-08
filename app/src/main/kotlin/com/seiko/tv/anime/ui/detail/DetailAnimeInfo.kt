@@ -11,12 +11,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -142,15 +142,15 @@ private fun DetailAnimeInfoDesc(
   onTagClick: (AnimeTag) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  Text(title, style = MaterialTheme.typography.h4)
+  Text(title, style = MaterialTheme.typography.titleMedium)
 
   Row(
     modifier = Modifier.fillMaxWidth(),
     verticalAlignment = Alignment.CenterVertically
   ) {
-    Text(releaseTime, style = MaterialTheme.typography.body1)
+    Text(releaseTime, style = MaterialTheme.typography.bodyMedium)
     SpacerWidth(20.dp)
-    Text(state, style = MaterialTheme.typography.body1)
+    Text(state, style = MaterialTheme.typography.bodySmall)
   }
 
   var parentIsFocused by remember { mutableStateOf(false) }
@@ -197,7 +197,7 @@ private fun DetailAnimeInfoDesc(
 
   Text(
     description,
-    style = MaterialTheme.typography.subtitle2,
+    style = MaterialTheme.typography.headlineSmall,
     overflow = TextOverflow.Ellipsis,
     maxLines = 5
   )
@@ -207,7 +207,7 @@ private fun DetailAnimeInfoDesc(
 @Composable
 private fun DetailAnimeInfoPreview() {
   AnimeTvTheme {
-    Surface(color = MaterialTheme.colors.background) {
+    Surface(color = MaterialTheme.colorScheme.background) {
       DetailAnimeInfo(
         title = "魔法纪录 魔法少女小圆外传 第二季 -觉醒前夜-",
         releaseTime = "日本",
@@ -225,7 +225,7 @@ private fun DetailAnimeInfoPreview() {
 @Composable
 private fun DetailAnimeInfoV2Preview() {
   AnimeTvTheme {
-    Surface(color = MaterialTheme.colors.background) {
+    Surface(color = MaterialTheme.colorScheme.background) {
       DetailAnimeInfo(
         title = "境界触发者 第三季",
         releaseTime = "日本",

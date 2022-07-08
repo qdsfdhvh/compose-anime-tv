@@ -20,7 +20,8 @@ kotlin {
         api(compose.uiTooling)
         api(compose.foundation)
         api(compose.animation)
-        api(compose.material)
+        @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+        api(compose.material3)
         api(compose.materialIconsExtended)
 
         // Di
@@ -37,7 +38,8 @@ kotlin {
     val androidMain by getting {
       dependencies {
         // Compose
-        api("androidx.compose.material:material:${Versions.compose}")
+        api("androidx.compose.material3:material3:1.0.0-alpha14")
+        api("androidx.compose.material:material-icons-extended:${Versions.compose}")
         api("androidx.paging:paging-compose:${Versions.pagingCompose}")
         api("com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}")
         api("com.google.accompanist:accompanist-pager:${Versions.accompanist}")

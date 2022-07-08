@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -78,11 +78,11 @@ fun TvSelectDialogButton(
 ) {
   Text(
     text = text,
-    color = if (isFocused) MaterialTheme.colors.onPrimary else Color.Unspecified,
-    style = MaterialTheme.typography.button,
+    color = if (isFocused) MaterialTheme.colorScheme.onPrimary else Color.Unspecified,
+    style = MaterialTheme.typography.labelMedium,
     modifier = modifier
       .background(
-        if (isFocused) MaterialTheme.colors.primary else Color.Transparent,
+        if (isFocused) MaterialTheme.colorScheme.primary else Color.Transparent,
         MaterialTheme.shapes.small
       )
       .padding(horizontal = 12.dp, vertical = 4.dp)

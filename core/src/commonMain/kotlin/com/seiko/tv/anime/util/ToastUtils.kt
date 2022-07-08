@@ -7,8 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -59,7 +59,7 @@ fun BoxScope.ToastScreenComponent() {
       text = showMsg,
       modifier = Modifier
         .shadow(1.dp, CircleShape)
-        .background(MaterialTheme.colors.surface, CircleShape)
+        .background(MaterialTheme.colorScheme.surface, CircleShape)
         .padding(horizontal = 20.dp, vertical = 10.dp)
     )
   }

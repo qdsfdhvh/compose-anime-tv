@@ -4,8 +4,8 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -50,7 +50,7 @@ fun FeedScene(navController: NavController) {
   val pagerState = rememberPagerState()
   val pagerFocusRequesters = remember(tabs) { List(tabs.size) { FocusRequester() } }
 
-  Surface(color = MaterialTheme.colors.background) {
+  Surface(color = MaterialTheme.colorScheme.background) {
     Column(Modifier.statusBarsPadding()) {
       TvTabBar(
         modifier = Modifier

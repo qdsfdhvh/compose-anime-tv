@@ -9,11 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -34,7 +34,7 @@ fun RoundIcon(
   name: String,
   isFocused: Boolean,
   modifier: Modifier = Modifier,
-  background: Color = MaterialTheme.colors.surface,
+  background: Color = MaterialTheme.colorScheme.surface,
   contentDescription: String? = null
 ) {
   val painter = rememberVectorPainter(image = image)
@@ -56,7 +56,7 @@ fun RoundIcon(
     Text(
       modifier = Modifier.padding(top = 4.dp),
       text = name,
-      style = MaterialTheme.typography.button
+      style = MaterialTheme.typography.labelMedium
     )
   }
 }

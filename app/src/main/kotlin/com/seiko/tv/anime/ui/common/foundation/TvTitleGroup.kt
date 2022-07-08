@@ -13,9 +13,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -70,7 +70,7 @@ fun TvTitleGroup(
   Column {
     Text(
       text = title,
-      style = MaterialTheme.typography.h6,
+      style = MaterialTheme.typography.labelSmall,
       modifier = Modifier.padding(start = 15.dp, top = 10.dp)
     )
     LazyRow(
@@ -139,8 +139,8 @@ fun GroupItem(
         vertical = MaterialTheme.uiValue.paddingVertical
       )
       .shadow(if (isFocused) MaterialTheme.uiValue.elevation else 0.dp)
-      .background(MaterialTheme.colors.surface)
-      .border(1.dp, if (isFocused) MaterialTheme.colors.surface else Color.Transparent)
+      .background(MaterialTheme.colorScheme.surface)
+      .border(1.dp, if (isFocused) MaterialTheme.colorScheme.surface else Color.Transparent)
       .size(140.dp, 200.dp)
   ) {
     NetworkImage(
@@ -152,7 +152,7 @@ fun GroupItem(
       text = item.title,
       color = Color.White,
       textAlign = TextAlign.Center,
-      style = MaterialTheme.typography.caption,
+      style = MaterialTheme.typography.labelSmall,
       modifier = Modifier
         .background(Color.Gray.copy(alpha = 0.5f))
         .padding(5.dp)

@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -54,7 +54,7 @@ fun TvEpisodeList(
   Column {
     Text(
       text = title,
-      style = MaterialTheme.typography.h6,
+      style = MaterialTheme.typography.titleSmall,
       modifier = Modifier.padding(
         start = MaterialTheme.uiValue.paddingHorizontal,
         top = MaterialTheme.uiValue.paddingVertical
@@ -115,7 +115,7 @@ private fun EpisodeItem(
   val scale by animateFloatAsState(if (isFocused) 1.2f else 1f)
   Text(
     text = episode.title,
-    color = MaterialTheme.colors.onSurface,
+    color = MaterialTheme.colorScheme.onSurface,
     modifier = modifier
       .scale(scale)
       .padding(MaterialTheme.uiValue.paddingHorizontalSmall)
@@ -123,7 +123,7 @@ private fun EpisodeItem(
         if (isFocused) MaterialTheme.uiValue.elevation else 0.dp,
         MaterialTheme.shapes.medium
       )
-      .background(MaterialTheme.colors.surface, MaterialTheme.shapes.medium)
+      .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.medium)
       .padding(
         horizontal = MaterialTheme.uiValue.paddingHorizontal,
         vertical = MaterialTheme.uiValue.paddingVertical

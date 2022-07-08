@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -44,7 +44,7 @@ fun DetailScene(
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
 
-  Surface(color = MaterialTheme.colors.background) {
+  Surface(color = MaterialTheme.colorScheme.background) {
     LazyColumn(
       modifier = Modifier
         .focusTarget()

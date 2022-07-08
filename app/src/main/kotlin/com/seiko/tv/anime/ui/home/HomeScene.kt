@@ -1,11 +1,11 @@
 package com.seiko.tv.anime.ui.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
@@ -27,6 +27,7 @@ import com.seiko.tv.anime.ui.common.foundation.RoundIcon
 import moe.tlaster.koin.compose.getViewModel
 import moe.tlaster.precompose.navigation.NavController
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScene(
   navController: NavController
@@ -36,42 +37,39 @@ fun HomeScene(
   val viewModel: HomeViewModel = getViewModel()
   val list by viewModel.list.collectAsState()
 
-  var focusIndex by rememberSaveable { mutableStateOf(0) }
+  Scaffold { innerPadding ->
+    Box(Modifier.padding(innerPadding).fillMaxSize(), Alignment.Center) {
+      var focusIndex by rememberSaveable { mutableStateOf(0) }
+      Row {
+        list.forEachIndexed { index, item ->
+          val focusRequester = remember { FocusRequester() }
+          var isFocused by remember { mutableStateOf(false) }
 
-  Box(
-    modifier = Modifier
-      .fillMaxSize()
-      .background(MaterialTheme.colors.background)
-  ) {
-    LazyRow(Modifier.align(Alignment.Center)) {
-      itemsIndexed(list) { index, item ->
-        val focusRequester = remember { FocusRequester() }
-        var isFocused by remember { mutableStateOf(false) }
-
-        RoundIcon(
-          image = item.icon,
-          name = item.name,
-          isFocused = isFocused,
-          modifier = Modifier
-            .focusClick {
-              focusRequester.requestFocus()
-              when (item) {
-                HomeItem.Home -> navController.navigate(Router.Feed.route)
-                HomeItem.Favorite -> navController.navigate(Router.Favorite.route)
-                else -> Unit
+          RoundIcon(
+            image = item.icon,
+            name = item.name,
+            isFocused = isFocused,
+            modifier = Modifier
+              .focusClick {
+                focusRequester.requestFocus()
+                when (item) {
+                  HomeItem.Home -> navController.navigate(Router.Feed.route)
+                  HomeItem.Favorite -> navController.navigate(Router.Favorite.route)
+                  else -> Unit
+                }
               }
-            }
-            .onFocusChanged {
-              isFocused = it.isFocused
-              if (isFocused) focusIndex = index
-            }
-            .focusRequester(focusRequester)
-            .focusTarget()
-        )
+              .onFocusChanged {
+                isFocused = it.isFocused
+                if (isFocused) focusIndex = index
+              }
+              .focusRequester(focusRequester)
+              .focusTarget()
+          )
 
-        if (focusIndex == index) {
-          SideEffect {
-            focusRequester.requestFocus()
+          if (focusIndex == index) {
+            SideEffect {
+              focusRequester.requestFocus()
+            }
           }
         }
       }

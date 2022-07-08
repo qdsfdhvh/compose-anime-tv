@@ -2,11 +2,11 @@ package com.seiko.tv.anime.ui.common.foundation
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,7 +38,7 @@ fun FocusableButton(
       .scale(scale),
     elevation = null,
     colors = ButtonDefaults.buttonColors(
-      backgroundColor = MaterialTheme.colors.surface
+      containerColor = MaterialTheme.colorScheme.surface
     ),
     content = {
       content(isFocused)

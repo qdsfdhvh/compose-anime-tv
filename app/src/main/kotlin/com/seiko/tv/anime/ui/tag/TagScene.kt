@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -57,7 +57,7 @@ fun TagScene(
   var focusIndex by rememberSaveable { mutableStateOf(0) }
 
   Surface(
-    color = MaterialTheme.colors.background,
+    color = MaterialTheme.colorScheme.background,
     modifier = Modifier.fillMaxSize()
   ) {
     LazyColumn(state = listState) {
@@ -117,7 +117,7 @@ fun TagItem(
       .padding(10.dp)
       .shadow(if (isFocused) MaterialTheme.uiValue.elevation else 0.dp, MaterialTheme.shapes.small)
       .background(
-        if (isFocused) MaterialTheme.colors.surface else Color.Transparent,
+        if (isFocused) MaterialTheme.colorScheme.surface else Color.Transparent,
         MaterialTheme.shapes.medium
       )
       .padding(10.dp)
@@ -130,25 +130,25 @@ fun TagItem(
     Column {
       Text(
         title,
-        style = MaterialTheme.typography.subtitle1
+        style = MaterialTheme.typography.titleMedium
       )
       SpacerHeight(height = 5.dp)
       Text(
         update,
         color = Color.Red,
-        style = MaterialTheme.typography.caption
+        style = MaterialTheme.typography.labelMedium
       )
       SpacerHeight(height = 5.dp)
       Text(
         "类型：${tags.joinToString { it.title }}",
         color = Color.Gray,
-        style = MaterialTheme.typography.caption
+        style = MaterialTheme.typography.labelMedium
       )
       SpacerHeight(height = 10.dp)
       Text(
         description,
         color = Color.DarkGray,
-        style = MaterialTheme.typography.body2,
+        style = MaterialTheme.typography.bodyMedium,
         maxLines = 2
       )
     }
@@ -159,7 +159,7 @@ fun TagItem(
 @Composable
 fun TagItemPreview() {
   AnimeTvTheme {
-    Column(Modifier.background(MaterialTheme.colors.background)) {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
       TagItem(
         title = "Muv-Luv Alternative",
         cover = "http://css.njhzmxx.com/acg/2021/05/27/20210527051205790.jpg",

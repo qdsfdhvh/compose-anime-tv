@@ -9,9 +9,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -97,14 +97,14 @@ private fun TvTabBarItem(
   modifier: Modifier = Modifier
 ) {
   val scale by animateFloatAsState(if (isFocused) 1.1f else 1f)
-  val background = if (isSelected) MaterialTheme.colors.surface else Color.Transparent
+  val background = if (isSelected) MaterialTheme.colorScheme.surface else Color.Transparent
   Text(
     text = title,
     color = when {
       isFocused -> Color.Black
       else -> Color.Unspecified
     },
-    style = MaterialTheme.typography.body1,
+    style = MaterialTheme.typography.labelMedium,
     modifier = modifier
       .scale(scale)
       .padding(5.dp)
