@@ -68,11 +68,11 @@ fun MediaControlKeyEvent(modifier: Modifier = Modifier) {
         }
       }
       .focusRequester(focusRequester)
-      .focusTarget(),
+      .focusTarget()
   ) {
     VideoSeekAnimation(
       modifier = Modifier.matchParentSize(),
-      seekDirection = state.seekDirection,
+      seekDirection = state.seekDirection
     )
   }
 
@@ -84,7 +84,7 @@ fun MediaControlKeyEvent(modifier: Modifier = Modifier) {
 @Composable
 fun VideoSeekAnimation(
   seekDirection: VideoSeekDirection,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   Box(modifier = modifier) {
     when (seekDirection) {

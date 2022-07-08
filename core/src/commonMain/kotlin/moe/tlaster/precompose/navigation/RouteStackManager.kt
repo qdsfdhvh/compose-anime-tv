@@ -39,7 +39,7 @@ import kotlin.coroutines.suspendCoroutine
 @Stable
 internal class RouteStackManager(
   private val stateHolder: SaveableStateHolder,
-  private val routeGraph: RouteGraph,
+  private val routeGraph: RouteGraph
 ) : LifecycleObserver, BackHandler {
   // FIXME: 2021/4/1 Temp workaround for deeplink
   private var pendingNavigation: String? = null
@@ -126,7 +126,7 @@ internal class RouteStackManager(
         queryString = query.takeIf { it.isNotEmpty() }?.let {
           QueryString(it)
         },
-        viewModel = vm,
+        viewModel = vm
       )
       when (matchResult.route) {
         is SceneRoute -> {
@@ -134,7 +134,7 @@ internal class RouteStackManager(
             RouteStack(
               id = routeStackId++,
               stacks = mutableStateListOf(entry),
-              navTransition = matchResult.route.navTransition,
+              navTransition = matchResult.route.navTransition
             )
           )
         }
@@ -160,7 +160,7 @@ internal class RouteStackManager(
   fun goBack(
     route: String? = null,
     inclusive: Boolean = false,
-    result: Any? = null,
+    result: Any? = null
   ) {
     if (!canGoBack) {
       backDispatcher?.onBackPress()

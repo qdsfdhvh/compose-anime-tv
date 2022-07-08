@@ -32,7 +32,6 @@ fun MediaControlLayout(modifier: Modifier = Modifier) {
   val duration = remember(state.duration) { getDurationString(state.duration) }
 
   Box(modifier = modifier) {
-
     Column(
       modifier = Modifier
         .fillMaxWidth()
@@ -51,7 +50,7 @@ fun MediaControlLayout(modifier: Modifier = Modifier) {
           .fillMaxWidth(),
         secondaryProgress = state.bufferedPosition,
         progress = state.currentPosition,
-        max = state.duration,
+        max = state.duration
       )
     }
 

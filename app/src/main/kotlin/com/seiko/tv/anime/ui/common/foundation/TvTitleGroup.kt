@@ -31,7 +31,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
@@ -57,7 +57,7 @@ fun TvTitleGroup(
   navController: NavController,
   title: String,
   list: List<Anime>,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
@@ -71,7 +71,7 @@ fun TvTitleGroup(
     Text(
       text = title,
       style = MaterialTheme.typography.h6,
-      modifier = Modifier.padding(start = 15.dp, top = 10.dp),
+      modifier = Modifier.padding(start = 15.dp, top = 10.dp)
     )
     LazyRow(
       modifier = modifier
@@ -87,7 +87,7 @@ fun TvTitleGroup(
           parentIsFocused = it.isFocused
         }
         .focusTarget(),
-      state = listState,
+      state = listState
     ) {
       itemsIndexed(list) { index, item ->
         val focusRequester = remember { FocusRequester() }
@@ -102,10 +102,10 @@ fun TvTitleGroup(
               focusRequester.requestFocus()
               navController.navigate(Router.Detail(item.uri))
             }
-            .focusOrder(focusRequester)
+            .focusRequester(focusRequester)
             .focusTarget(),
           item = item,
-          isFocused = isFocused,
+          isFocused = isFocused
         )
 
         if (parentIsFocused && focusIndex == index) {
@@ -128,7 +128,7 @@ fun TvTitleGroup(
 fun GroupItem(
   item: Anime,
   isFocused: Boolean,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   val scale by animateFloatAsState(if (isFocused) 1.1f else 1f)
   Box(
@@ -172,7 +172,7 @@ fun GroupItemPreview() {
           Anime(
             title = "妖精的尾巴",
             cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
-            uri = "/show/273.html",
+            uri = "/show/273.html"
           ),
           isFocused = true
         )
@@ -180,7 +180,7 @@ fun GroupItemPreview() {
           Anime(
             title = "妖精的尾巴",
             cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
-            uri = "/show/273.html",
+            uri = "/show/273.html"
           ),
           isFocused = false
         )
@@ -201,12 +201,12 @@ fun TvTitleGroupPreview() {
           Anime(
             title = "妖精的尾巴",
             cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
-            uri = "/show/273.html",
+            uri = "/show/273.html"
           ),
           Anime(
             title = "妖精的尾巴",
             cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
-            uri = "/show/273.html",
+            uri = "/show/273.html"
           )
         )
       )

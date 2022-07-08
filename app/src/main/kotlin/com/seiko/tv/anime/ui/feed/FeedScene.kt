@@ -16,7 +16,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.input.pointer.pointerInput
@@ -57,7 +57,7 @@ fun FeedScene(navController: NavController) {
           .onFocusChanged {
             if (it.isFocused) isTabFocused = true
           }
-          .focusOrder(tabFocusRequester),
+          .focusRequester(tabFocusRequester),
         tabList = tabs,
         focusIndex = focusIndex,
         onFocusIndexChange = { index ->
@@ -72,7 +72,7 @@ fun FeedScene(navController: NavController) {
             if (it.isFocused) isTabFocused = false
           }
           .focusTarget(),
-        state = pagerState,
+        state = pagerState
       ) { index ->
         // ≈ dragEnabled = false
         // @see https://github.com/google/accompanist/issues/756#issuecomment-953610678
@@ -89,7 +89,7 @@ fun FeedScene(navController: NavController) {
               .onFocusChanged {
                 if (it.hasFocus) focusIndex = index
               }
-              .focusOrder(pagerFocusRequesters[index])
+              .focusRequester(pagerFocusRequesters[index])
           )
         }
       }

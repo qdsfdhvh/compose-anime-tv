@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 internal class DefaultVideoPlayerController(
   private val player: Player,
   private val coroutineScope: CoroutineScope,
-  initialState: VideoPlayerState,
+  initialState: VideoPlayerState
 ) : VideoPlayerController {
 
   private val intents = MutableSharedFlow<VideoPlayerAction>(
@@ -134,7 +134,7 @@ internal class DefaultVideoPlayerController(
       VideoPlayerAction.Progress(
         duration = player.duration.coerceAtLeast(0L),
         currentPosition = player.currentPosition.coerceAtLeast(0L),
-        bufferedPosition = player.bufferedPosition.coerceAtLeast(0L),
+        bufferedPosition = player.bufferedPosition.coerceAtLeast(0L)
       )
     )
   }

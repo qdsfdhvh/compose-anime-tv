@@ -16,7 +16,7 @@ import timber.log.Timber
 
 class FeedAnimeViewModel(
   tab: AnimeTab,
-  repository: AnimeRepository,
+  repository: AnimeRepository
 ) : ViewModel() {
 
   val animeList: StateFlow<List<AnimeGroup>> = repository.getFeeds(tab.uri)

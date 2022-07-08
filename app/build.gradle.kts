@@ -48,7 +48,7 @@ android {
       excludes.addAll(
         listOf(
           "META-INF/AL2.0",
-          "META-INF/LGPL2.1",
+          "META-INF/LGPL2.1"
         )
       )
     }
@@ -58,7 +58,7 @@ android {
           "lib/arm64-v8a/libc++_shared.so",
           "lib/armeabi-v7a/libc++_shared.so",
           "lib/x86/libc++_shared.so",
-          "lib/x86_64/libc++_shared.so",
+          "lib/x86_64/libc++_shared.so"
         )
       )
     }

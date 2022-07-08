@@ -32,7 +32,7 @@ class BackStackEntry internal constructor(
   val route: ComposeRoute,
   val pathMap: Map<String, String>,
   val queryString: QueryString? = null,
-  internal val viewModel: NavControllerViewModel,
+  internal val viewModel: NavControllerViewModel
 ) : ViewModelStoreOwner, LifecycleOwner {
   private var destroyAfterTransition = false
 

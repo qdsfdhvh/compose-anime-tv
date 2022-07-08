@@ -16,7 +16,7 @@ import timber.log.Timber
 
 class PlayerViewModel(
   uri: String,
-  repository: AnimeRepository,
+  repository: AnimeRepository
 ) : ViewModel() {
 
   val video: StateFlow<VideoPlayerSource?> = repository.getVideo(uri)

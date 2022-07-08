@@ -23,7 +23,7 @@ package moe.tlaster.precompose.viewmodel
 import kotlin.reflect.KClass
 
 inline fun <reified T : ViewModel> ViewModelStore.getViewModel(
-  noinline creator: () -> T,
+  noinline creator: () -> T
 ): T {
   val key = T::class.qualifiedName.toString()
   return getViewModel(key, T::class, creator)
@@ -32,7 +32,7 @@ inline fun <reified T : ViewModel> ViewModelStore.getViewModel(
 fun <T : ViewModel> ViewModelStore.getViewModel(
   key: String,
   clazz: KClass<T>,
-  creator: () -> T,
+  creator: () -> T
 ): T {
   val existing = get(key)
   if (existing != null && clazz.isInstance(existing)) {

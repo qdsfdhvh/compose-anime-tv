@@ -32,7 +32,7 @@ inline fun <reified VM : ViewModel> viewModel(
     "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
   },
   key: String? = null,
-  noinline creator: () -> VM,
+  noinline creator: () -> VM
 ): VM = viewModelStoreOwner.viewModelStore.let {
   if (key == null) {
     it.getViewModel(creator)

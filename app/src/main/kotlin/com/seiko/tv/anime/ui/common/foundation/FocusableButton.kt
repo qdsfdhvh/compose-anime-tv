@@ -18,9 +18,7 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.handleEnter
-import com.seiko.tv.anime.ui.theme.uiValue
 
 @Composable
 fun FocusableButton(
@@ -53,11 +51,11 @@ fun FocusableImageButton(
   image: ImageVector,
   onClick: () -> Unit,
   modifier: Modifier = Modifier,
-  contentDescription: String? = null,
+  contentDescription: String? = null
 ) {
   FocusableButton(
     modifier = modifier,
-    onClick = onClick,
+    onClick = onClick
   ) {
     Icon(
       painter = rememberVectorPainter(image),
@@ -70,11 +68,11 @@ fun FocusableImageButton(
 fun FocusableTextButton(
   text: String,
   onClick: () -> Unit,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   FocusableButton(
     modifier = modifier,
-    onClick = onClick,
+    onClick = onClick
   ) {
     Text(text)
   }

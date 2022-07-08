@@ -12,7 +12,7 @@ import org.koin.core.parameter.parametersOf
 
 class TagViewModel(
   uri: String,
-  repository: AnimeRepository,
+  repository: AnimeRepository
 ) : ViewModel() {
 
   val animes = Pager(PagingConfig(pageSize = 20)) {

@@ -29,7 +29,7 @@ import moe.tlaster.precompose.navigation.transition.NavTransition
 internal class RouteStack(
   val id: Long,
   val stacks: SnapshotStateList<BackStackEntry> = mutableStateListOf(),
-  val navTransition: NavTransition? = null,
+  val navTransition: NavTransition? = null
 ) {
   private var destroyAfterTransition = false
   val currentEntry: BackStackEntry?

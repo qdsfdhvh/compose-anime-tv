@@ -46,7 +46,6 @@ internal fun AnimatedDialogRoute(
   dialogTransition: DialogTransition = remember { DialogTransition() },
   content: @Composable (BackStackEntry) -> Unit
 ) {
-
   val items = remember { mutableStateListOf<AnimatedRouteItem<BackStackEntry>>() }
   val stacks = stack.stacks
   val targetState = remember(stack.stacks.size) {

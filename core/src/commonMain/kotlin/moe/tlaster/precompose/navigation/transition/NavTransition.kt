@@ -73,5 +73,5 @@ data class NavTransition(
   /**
    * Transition the scene that about to show from the back stack, similar to activity onResume, factor from 0.0 to 1.0
    */
-  val resumeTransition: GraphicsLayerScope.(factor: Float) -> Unit = fadeScaleResumeTransition,
+  val resumeTransition: GraphicsLayerScope.(factor: Float) -> Unit = fadeScaleResumeTransition
 )

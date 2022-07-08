@@ -34,7 +34,7 @@ import kotlin.reflect.KClass
 inline fun <reified T : ViewModel> getViewModel(
   qualifier: Qualifier? = null,
   owner: ViewModelStoreOwner = LocalViewModelStoreOwner.current,
-  noinline parameters: ParametersDefinition? = null,
+  noinline parameters: ParametersDefinition? = null
 ): T {
   return remember(qualifier, parameters) {
     owner.getViewModel(qualifier, parameters)
@@ -62,7 +62,7 @@ inline fun <reified T : ViewModel> getViewModel(
 
 inline fun <reified T : ViewModel> ViewModelStoreOwner.getViewModel(
   qualifier: Qualifier? = null,
-  noinline parameters: ParametersDefinition? = null,
+  noinline parameters: ParametersDefinition? = null
 ): T {
   return getViewModel(qualifier, T::class, parameters)
 }
@@ -70,7 +70,7 @@ inline fun <reified T : ViewModel> ViewModelStoreOwner.getViewModel(
 fun <T : ViewModel> ViewModelStoreOwner.getViewModel(
   qualifier: Qualifier? = null,
   clazz: KClass<T>,
-  parameters: ParametersDefinition? = null,
+  parameters: ParametersDefinition? = null
 ): T {
   return this.viewModelStore.getViewModel(
     key = qualifier?.value ?: (clazz.toString() + parameters?.invoke()),

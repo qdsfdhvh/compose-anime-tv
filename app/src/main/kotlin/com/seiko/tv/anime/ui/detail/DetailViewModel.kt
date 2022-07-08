@@ -22,7 +22,7 @@ import timber.log.Timber
 class DetailViewModel(
   uri: String,
   ioDispatcher: CoroutineDispatcher,
-  repository: AnimeRepository,
+  repository: AnimeRepository
 ) : ViewModel() {
 
   private val intents = Channel<DetailViewAction>(

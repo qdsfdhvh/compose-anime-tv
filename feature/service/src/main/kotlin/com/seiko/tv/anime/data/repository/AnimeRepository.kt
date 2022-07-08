@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
 class AnimeRepository(
   private val service: SakuraService,
   private val dataBase: AnimeDataBase,
-  private val ioDispatcher: CoroutineDispatcher,
+  private val ioDispatcher: CoroutineDispatcher
 ) {
 
   private val dbAnime by lazy { dataBase.animeDao() }
@@ -104,7 +104,7 @@ class AnimeRepository(
         episodeList = response.episodeList.map { episode ->
           AnimeEpisode(
             title = episode.title,
-            uri = service.wrapUrl(episode.href),
+            uri = service.wrapUrl(episode.href)
           )
         },
         relatedList = response.relatedList.map { anime ->
@@ -114,7 +114,7 @@ class AnimeRepository(
             uri = service.wrapUrl(anime.href)
           )
         },
-        uri = url,
+        uri = url
       )
     }
   }

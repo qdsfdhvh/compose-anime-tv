@@ -14,7 +14,7 @@ import androidx.paging.compose.LazyPagingItems
 fun <T : Any> LazyListScope.itemsGridIndexed(
   data: LazyPagingItems<T>,
   rowSize: Int,
-  itemContent: @Composable BoxScope.(Int, T) -> Unit,
+  itemContent: @Composable BoxScope.(Int, T) -> Unit
 ) {
   val rows = (data.itemCount + rowSize - 1) / rowSize
   items(rows) { rowIndex ->

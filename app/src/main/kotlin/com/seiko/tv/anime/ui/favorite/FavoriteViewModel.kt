@@ -12,7 +12,7 @@ import moe.tlaster.precompose.viewmodel.ViewModel
 
 class FavoriteViewModel(
   ioDispatcher: CoroutineDispatcher,
-  animeRepository: AnimeRepository,
+  animeRepository: AnimeRepository
 ) : ViewModel() {
   val favorites = Pager(config = PagingConfig(pageSize = 20)) {
     animeRepository.getFavorites()
@@ -21,7 +21,7 @@ class FavoriteViewModel(
       Anime(
         title = item.title,
         cover = item.cover,
-        uri = item.uri,
+        uri = item.uri
       )
     }
   }.flowOn(ioDispatcher)

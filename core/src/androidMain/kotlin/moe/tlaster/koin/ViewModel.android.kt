@@ -37,7 +37,7 @@ actual inline fun <reified T : ViewModel> Module.viewModel(
 
 @KoinReflectAPI
 actual inline fun <reified T : ViewModel> Module.viewModel(
-  qualifier: Qualifier?,
+  qualifier: Qualifier?
 ): Pair<Module, InstanceFactory<T>> {
   return factory(qualifier) { newInstance(T::class, it) }
 }

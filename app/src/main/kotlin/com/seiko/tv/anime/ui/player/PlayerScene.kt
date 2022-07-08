@@ -72,7 +72,7 @@ fun PlayerScene(
         onCancelClick = {
           openDialog = false
           restorePlayState()
-        },
+        }
       )
     }
   }

@@ -25,13 +25,12 @@ import com.google.android.exoplayer2.Player
 fun PlayToggleButton(
   modifier: Modifier = Modifier,
   isPlaying: Boolean,
-  playbackState: Int,
+  playbackState: Int
 ) {
   IconButton(
     modifier = modifier,
-    onClick = { /* nothing to do */ },
+    onClick = { /* nothing to do */ }
   ) {
-
     when (playbackState) {
       Player.STATE_READY -> {
         if (isPlaying) {
@@ -56,7 +55,7 @@ fun PlayToggleButton(
 fun ShadowedIcon(
   icon: ImageVector,
   modifier: Modifier = Modifier,
-  iconSize: Dp = 48.dp,
+  iconSize: Dp = 48.dp
 ) {
   Box(modifier = modifier) {
     Icon(

@@ -29,7 +29,7 @@ internal class RouteParser {
     val rexPat: String = "",
     val tail: Char = 0.toChar(),
     val startIndex: Int = 0,
-    val endIndex: Int = 0,
+    val endIndex: Int = 0
   )
 
   private data class Node(
@@ -39,7 +39,7 @@ internal class RouteParser {
     var tail: Char = 0.toChar(),
     var rex: Regex? = null,
     var paramsKey: String? = null,
-    var route: Route? = null,
+    var route: Route? = null
   ) : Comparable<Node> {
 
     // subroutes on the leaf node
@@ -445,7 +445,10 @@ internal class RouteParser {
       val ws = pattern.indexOf('*')
       if (ps < 0 && ws < 0) {
         return Segment(
-          ntStatic, "", ZERO_CHAR, 0,
+          ntStatic,
+          "",
+          ZERO_CHAR,
+          0,
           pattern.length
         ) // we return the entire thing
       }
@@ -556,7 +559,7 @@ internal class RouteParser {
   companion object {
     fun pathKeys(
       pattern: String,
-      onItem: (key: String, value: String?) -> Unit = { _, _ -> },
+      onItem: (key: String, value: String?) -> Unit = { _, _ -> }
     ): List<String> {
       val result = arrayListOf<String>()
       var start = -1

@@ -21,7 +21,7 @@
 package moe.tlaster.precompose.navigation
 
 data class QueryString(
-  private val rawInput: String,
+  private val rawInput: String
 ) {
   val map by lazy {
     rawInput

@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun TimeTextBar(
   position: String,
   duration: String,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   Row(
     modifier = modifier.fillMaxWidth(),
@@ -30,7 +30,7 @@ fun TimeText(text: String) {
   Text(
     text = text,
     color = Color.White,
-    style = MaterialTheme.typography.subtitle1,
+    style = MaterialTheme.typography.subtitle1
   )
 }
 

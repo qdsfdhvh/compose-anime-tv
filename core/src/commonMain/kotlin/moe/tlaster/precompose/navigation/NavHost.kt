@@ -54,7 +54,7 @@ fun NavHost(
   initialRoute: String,
   navTransition: NavTransition = remember { NavTransition() },
   dialogTransition: DialogTransition = remember { DialogTransition() },
-  builder: RouteBuilder.() -> Unit,
+  builder: RouteBuilder.() -> Unit
 ) {
   val stateHolder = rememberSaveableStateHolder()
   val manager = remember {
@@ -88,7 +88,7 @@ fun NavHost(
     AnimatedRoute(
       currentStack,
       navTransition = navTransition,
-      manager = manager,
+      manager = manager
     ) { routeStack ->
       LaunchedEffect(routeStack) {
         routeStack.onActive()
@@ -111,12 +111,12 @@ fun NavHost(
       }
       AnimatedDialogRoute(
         stack = routeStack,
-        dialogTransition = dialogTransition,
+        dialogTransition = dialogTransition
       ) {
         stateHolder.SaveableStateProvider(it.id) {
           CompositionLocalProvider(
             LocalViewModelStoreOwner provides it,
-            LocalLifecycleOwner provides it,
+            LocalLifecycleOwner provides it
           ) {
             it.route.content.invoke(it)
           }

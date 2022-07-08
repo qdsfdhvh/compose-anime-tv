@@ -26,7 +26,7 @@ class HomeViewModel : ViewModel() {
 
 sealed class HomeItem(
   val icon: ImageVector,
-  val name: String,
+  val name: String
 ) {
   object Home : HomeItem(Icons.Filled.Home, "热门")
   object Favorite : HomeItem(Icons.Filled.Favorite, "收藏")

@@ -37,5 +37,5 @@ data class DialogTransition(
   /**
    * Transition the scene that about to disappear forever, similar to activity onDestroy, factor from 1.0 to 0.0
    */
-  val destroyTransition: GraphicsLayerScope.(factor: Float) -> Unit = fadeDestroyTransition,
+  val destroyTransition: GraphicsLayerScope.(factor: Float) -> Unit = fadeDestroyTransition
 )

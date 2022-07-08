@@ -34,5 +34,5 @@ data class NavOptions(
    * should be popped from the back stack.
    * @see [PopUpTo]
    */
-  val popUpTo: PopUpTo? = null,
+  val popUpTo: PopUpTo? = null
 )

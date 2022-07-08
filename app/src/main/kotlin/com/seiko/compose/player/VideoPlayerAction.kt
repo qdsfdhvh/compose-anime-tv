@@ -4,7 +4,7 @@ sealed class VideoPlayerAction {
   data class Progress(
     val duration: Long,
     val currentPosition: Long,
-    val bufferedPosition: Long,
+    val bufferedPosition: Long
   ) : VideoPlayerAction()
 
   data class ControlsVisible(val isVisible: Boolean) : VideoPlayerAction()

@@ -15,7 +15,7 @@ private const val USER_AGENT =
 
 class SakuraService(
   private val baseUrl: String,
-  private val client: OkHttpClient,
+  private val client: OkHttpClient
 ) {
 
   internal fun wrapUrl(href: String): String {

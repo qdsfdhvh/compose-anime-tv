@@ -24,5 +24,5 @@ import moe.tlaster.precompose.navigation.route.Route
 
 internal data class RouteMatchResult(
   val route: Route,
-  val pathMap: Map<String, String> = emptyMap(),
+  val pathMap: Map<String, String> = emptyMap()
 )

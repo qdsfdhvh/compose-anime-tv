@@ -14,5 +14,5 @@ data class VideoPlayerState constructor(
   val bufferedPosition: Long = 1L,
   val videoSize: Pair<Int, Int> = 1920 to 1080,
   val playbackState: Int = Player.STATE_IDLE,
-  val seekDirection: VideoSeekDirection = VideoSeekDirection.NONE,
+  val seekDirection: VideoSeekDirection = VideoSeekDirection.NONE
 ) : Parcelable

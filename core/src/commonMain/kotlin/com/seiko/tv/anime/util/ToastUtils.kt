@@ -36,7 +36,6 @@ private val toast = mutableToast.asSharedFlow()
 
 @Composable
 fun BoxScope.ToastScreenComponent() {
-
   var isShown by remember { mutableStateOf(false) }
   var showMsg by remember { mutableStateOf("") }
 

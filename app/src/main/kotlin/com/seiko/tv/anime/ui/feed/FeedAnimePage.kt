@@ -17,7 +17,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusProperties
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
@@ -33,7 +34,7 @@ import moe.tlaster.precompose.navigation.NavController
 fun FeedAnimePage(
   navController: NavController,
   tab: AnimeTab,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   val viewModel = feedAnimeViewModel(tab)
   val animeList by viewModel.animeList.collectAsState()
@@ -66,7 +67,7 @@ fun FeedAnimePage(
         parentIsFocused = it.isFocused
       }
       .focusTarget(),
-    state = listState,
+    state = listState
   ) {
     itemsIndexed(animeList) { index, item ->
       TvTitleGroup(
@@ -77,7 +78,7 @@ fun FeedAnimePage(
           .onFocusChanged {
             if (it.isFocused) focusIndex = index
           }
-          .focusOrder(focusRequesters[index]) {
+          .focusRequester(focusRequesters[index]).focusProperties {
             focusRequesters.getOrNull(index - 1)?.let { up = it }
             focusRequesters.getOrNull(index + 1)?.let { down = it }
           }

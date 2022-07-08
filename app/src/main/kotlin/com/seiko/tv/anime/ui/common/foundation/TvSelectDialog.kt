@@ -16,7 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
@@ -32,7 +32,7 @@ fun TvSelectDialog(
   centerText: String = "确认",
   cancelText: String = "取消",
   onCenterClick: () -> Unit = {},
-  onCancelClick: () -> Unit = {},
+  onCancelClick: () -> Unit = {}
 ) {
   val focusRequester = remember { FocusRequester() }
 
@@ -48,7 +48,7 @@ fun TvSelectDialog(
           .focusClick { onCancelClick() }
           .focusTarget(),
         text = cancelText,
-        isFocused = isFocused,
+        isFocused = isFocused
       )
     },
     dismissButton = {
@@ -57,10 +57,10 @@ fun TvSelectDialog(
         modifier = Modifier
           .onFocusChanged { isFocused = it.isFocused }
           .focusClick { onCenterClick() }
-          .focusOrder(focusRequester)
+          .focusRequester(focusRequester)
           .focusTarget(),
         text = centerText,
-        isFocused = isFocused,
+        isFocused = isFocused
       )
     }
   )
@@ -74,7 +74,7 @@ fun TvSelectDialog(
 fun TvSelectDialogButton(
   modifier: Modifier = Modifier,
   text: String = "",
-  isFocused: Boolean = false,
+  isFocused: Boolean = false
 ) {
   Text(
     text = text,
@@ -85,7 +85,7 @@ fun TvSelectDialogButton(
         if (isFocused) MaterialTheme.colors.primary else Color.Transparent,
         MaterialTheme.shapes.small
       )
-      .padding(horizontal = 12.dp, vertical = 4.dp),
+      .padding(horizontal = 12.dp, vertical = 4.dp)
   )
 }
 

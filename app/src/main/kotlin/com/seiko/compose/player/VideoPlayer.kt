@@ -37,7 +37,8 @@ fun rememberPlayer(
 fun rememberVideoPlayerController(player: Player): VideoPlayerController {
   val coroutineScope = rememberCoroutineScope()
   return rememberSaveable(
-    player, coroutineScope,
+    player,
+    coroutineScope,
     saver = object : Saver<DefaultVideoPlayerController, VideoPlayerState> {
       override fun restore(value: VideoPlayerState): DefaultVideoPlayerController {
         return DefaultVideoPlayerController(
@@ -65,14 +66,14 @@ fun rememberVideoPlayerController(player: Player): VideoPlayerController {
 fun TvVideoPlayer(
   source: VideoPlayerSource,
   modifier: Modifier = Modifier,
-  playerFactory: VideoPlayerFactory = VideoPlayerFactory,
+  playerFactory: VideoPlayerFactory = VideoPlayerFactory
 ) {
   val player = rememberPlayer(source, playerFactory)
   val controller = rememberVideoPlayerController(player)
   TvVideoPlayer(
     player = player,
     controller = controller,
-    modifier = modifier,
+    modifier = modifier
   )
 }
 
@@ -80,7 +81,7 @@ fun TvVideoPlayer(
 fun TvVideoPlayer(
   player: Player,
   controller: VideoPlayerController,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   CompositionLocalProvider(
     LocalVideoPlayerController provides controller

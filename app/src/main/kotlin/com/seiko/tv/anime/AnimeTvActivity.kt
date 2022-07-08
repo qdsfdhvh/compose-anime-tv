@@ -39,7 +39,7 @@ class AnimeTvActivity : PreComposeActivity(), DoubleBackPressed by DoubleBackPre
         ) {
           Box(Modifier.handleBack { onBackPressed() }) {
             Router(
-              navController = rememberNavController(),
+              navController = rememberNavController()
             )
 
             ToastScreenComponent()

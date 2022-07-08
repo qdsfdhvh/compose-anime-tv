@@ -121,12 +121,12 @@ private fun PreComposeActivity.ContentInternal(content: @Composable () -> Unit) 
 
 @Composable
 private fun PreComposeActivity.ProvideAndroidCompositionLocals(
-  content: @Composable () -> Unit,
+  content: @Composable () -> Unit
 ) {
   CompositionLocalProvider(
     LocalLifecycleOwner provides this,
     LocalViewModelStoreOwner provides this,
-    LocalBackDispatcherOwner provides this,
+    LocalBackDispatcherOwner provides this
   ) {
     content.invoke()
   }

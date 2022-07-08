@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,7 +43,7 @@ fun TvEpisodeList(
   navController: NavController,
   title: String,
   list: List<AnimeEpisode>,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
@@ -58,7 +58,7 @@ fun TvEpisodeList(
       modifier = Modifier.padding(
         start = MaterialTheme.uiValue.paddingHorizontal,
         top = MaterialTheme.uiValue.paddingVertical
-      ),
+      )
     )
 
     LazyRow(
@@ -68,7 +68,7 @@ fun TvEpisodeList(
           parentIsFocused = it.isFocused
         }
         .focusTarget(),
-      state = listState,
+      state = listState
     ) {
       itemsIndexed(list) { index, item ->
         val focusRequester = remember { FocusRequester() }
@@ -84,7 +84,7 @@ fun TvEpisodeList(
               focusRequester.requestFocus()
               navController.navigate(Router.Player(item.uri))
             }
-            .focusOrder(focusRequester)
+            .focusRequester(focusRequester)
             .focusTarget(),
           episode = item,
           isFocused = isFocused
@@ -110,7 +110,7 @@ fun TvEpisodeList(
 private fun EpisodeItem(
   episode: AnimeEpisode,
   isFocused: Boolean,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   val scale by animateFloatAsState(if (isFocused) 1.2f else 1f)
   Text(
@@ -127,7 +127,7 @@ private fun EpisodeItem(
       .padding(
         horizontal = MaterialTheme.uiValue.paddingHorizontal,
         vertical = MaterialTheme.uiValue.paddingVertical
-      ),
+      )
   )
 }
 

@@ -35,12 +35,12 @@ fun RoundIcon(
   isFocused: Boolean,
   modifier: Modifier = Modifier,
   background: Color = MaterialTheme.colors.surface,
-  contentDescription: String? = null,
+  contentDescription: String? = null
 ) {
   val painter = rememberVectorPainter(image = image)
   val scale by animateFloatAsState(if (isFocused) 1.2f else 1f)
   Column(
-    horizontalAlignment = Alignment.CenterHorizontally,
+    horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Icon(
       painter = painter,

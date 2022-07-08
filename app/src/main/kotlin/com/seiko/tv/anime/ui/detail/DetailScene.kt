@@ -17,7 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import com.seiko.compose.focuskit.ScrollBehaviour
@@ -31,7 +31,7 @@ import moe.tlaster.precompose.navigation.NavController
 @Composable
 fun DetailScene(
   navController: NavController,
-  uri: String,
+  uri: String
 ) {
   val viewModel = detailViewModel(uri)
   val viewState by viewModel.viewState.collectAsState()
@@ -50,14 +50,14 @@ fun DetailScene(
         .focusTarget()
         .fillMaxSize()
         .statusBarsPadding(),
-      state = listState,
+      state = listState
     ) {
       item {
         val focusRequester = remember { FocusRequester() }
         DetailAnimeInfo(
           modifier = Modifier
             .onFocusChanged { if (it.isFocused) focusIndex = 0 }
-            .focusOrder(focusRequester),
+            .focusRequester(focusRequester),
           title = viewState.anime.title,
           cover = viewState.anime.cover,
           releaseTime = viewState.anime.releaseTime,
@@ -90,7 +90,7 @@ fun DetailScene(
           list = viewState.anime.episodeList,
           modifier = Modifier
             .onFocusChanged { if (it.isFocused) focusIndex = 1 }
-            .focusOrder(focusRequester),
+            .focusRequester(focusRequester)
         )
 
         if (focusIndex == 1) {
@@ -108,7 +108,7 @@ fun DetailScene(
           list = viewState.anime.relatedList,
           modifier = Modifier
             .onFocusChanged { if (it.isFocused) focusIndex = 2 }
-            .focusOrder(focusRequester),
+            .focusRequester(focusRequester)
         )
 
         if (focusIndex == 2) {

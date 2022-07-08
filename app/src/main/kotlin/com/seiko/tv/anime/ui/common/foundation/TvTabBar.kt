@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
@@ -55,7 +55,7 @@ fun TvTabBar(
         parentIsFocused = it.isFocused
       }
       .focusTarget(),
-    state = listState,
+    state = listState
   ) {
     itemsIndexed(tabList) { index, tab ->
       val focusRequester = remember { FocusRequester() }
@@ -67,11 +67,11 @@ fun TvTabBar(
             if (isFocused) onFocusIndexChange(index)
           }
           .clickable { focusRequester.requestFocus() }
-          .focusOrder(focusRequester)
+          .focusRequester(focusRequester)
           .focusTarget(),
         title = tab.title,
         isFocused = isFocused,
-        isSelected = focusIndex == index,
+        isSelected = focusIndex == index
       )
 
       if (parentIsFocused && focusIndex == index) {
@@ -94,7 +94,7 @@ private fun TvTabBarItem(
   title: String,
   isFocused: Boolean,
   isSelected: Boolean,
-  modifier: Modifier = Modifier,
+  modifier: Modifier = Modifier
 ) {
   val scale by animateFloatAsState(if (isFocused) 1.1f else 1f)
   val background = if (isSelected) MaterialTheme.colors.surface else Color.Transparent

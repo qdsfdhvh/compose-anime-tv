@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import com.seiko.tv.anime.R
 
@@ -17,7 +16,7 @@ fun NetworkImage(
   data: Any,
   modifier: Modifier = Modifier,
   contentScale: ContentScale = ContentScale.Crop,
-  placeholder: @Composable (() -> Unit)? = null,
+  placeholder: @Composable (() -> Unit)? = null
 ) {
   val painter = if (data is Painter) {
     data

@@ -21,7 +21,7 @@ fun SmallSeekBar(
   secondaryProgress: Long? = null,
   color: Color = MaterialTheme.colors.primary,
   secondaryColor: Color = color.copy(0.6f),
-  backgroundColor: Color = Color.White.copy(alpha = 0.4f),
+  backgroundColor: Color = Color.White.copy(alpha = 0.4f)
 ) {
   Canvas(modifier = modifier.height(4.dp)) {
     drawRoundRect(backgroundColor, 1f)
@@ -46,6 +46,6 @@ fun SmallSeekBarPreview() {
     modifier = Modifier.fillMaxWidth(),
     progress = 10,
     secondaryProgress = 30,
-    max = 100,
+    max = 100
   )
 }

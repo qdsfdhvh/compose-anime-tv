@@ -23,7 +23,7 @@ rootProject.name = "compose-anime-tv"
 include(
   ":app",
   ":core",
-  ":feature:service",
+  ":feature:service"
 )
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

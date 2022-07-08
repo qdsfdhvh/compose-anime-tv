@@ -19,10 +19,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusProperties
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.seiko.compose.focuskit.ItemScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
@@ -49,12 +49,11 @@ fun FavoriteScene(navController: NavController) {
 
   Surface(
     color = MaterialTheme.colors.background,
-    modifier = Modifier.fillMaxSize(),
+    modifier = Modifier.fillMaxSize()
   ) {
     LazyColumn(
-      state = listState,
+      state = listState
     ) {
-
       item {
         Box(
           modifier = Modifier.fillMaxWidth(),
@@ -82,7 +81,7 @@ fun FavoriteScene(navController: NavController) {
 
               navController.navigate(Router.Detail(item.uri))
             }
-            .focusOrder(focusRequesters[index]) {
+            .focusRequester(focusRequesters[index]).focusProperties {
               up = focusRequesters.getOrDefault(index - FavoriteColumnNum)
               down = focusRequesters.getOrDefault(index + FavoriteColumnNum)
               left = focusRequesters.getOrDefault(index - 1)

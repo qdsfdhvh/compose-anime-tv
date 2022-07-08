@@ -29,7 +29,7 @@ internal class SceneRoute(
   route: String,
   val navTransition: NavTransition?,
   val deepLinks: List<String>,
-  content: @Composable (BackStackEntry) -> Unit,
+  content: @Composable (BackStackEntry) -> Unit
 ) : ComposeRoute(route, content) {
   override val pathKeys by lazy {
     (

@@ -27,27 +27,30 @@ allprojects {
         "$buildDir/**/*.kt",
         "bin/**/*.kt",
         "buildSrc/**/*.kt",
-        "**/*Response.kt",
+        "**/*Response.kt"
       )
-      ktlint(Versions.ktlint).userData(
+      ktlint(Versions.ktlint).editorConfigOverride(
         mapOf(
           "indent_size" to "2",
           "continuation_indent_size" to "2"
         )
       )
-      // licenseHeaderFile(rootProject.file("spotless/license"))
+      trimTrailingWhitespace()
+      endWithNewline()
     }
     kotlinGradle {
       target("*.gradle.kts")
       targetExclude(
         "feature/focuskit/**"
       )
-      ktlint(Versions.ktlint).userData(
+      ktlint(Versions.ktlint).editorConfigOverride(
         mapOf(
           "indent_size" to "2",
           "continuation_indent_size" to "2"
         )
       )
+      trimTrailingWhitespace()
+      endWithNewline()
     }
   }
 

@@ -24,13 +24,13 @@ fun Router(navController: NavController) {
     scene(Router.Detail) {
       DetailScene(
         navController = navController,
-        uri = Router.Detail.getUri(it),
+        uri = Router.Detail.getUri(it)
       )
     }
     scene(Router.Player) {
       PlayerScene(
         navController = navController,
-        uri = Router.Player.getUri(it),
+        uri = Router.Player.getUri(it)
       )
     }
     scene(Router.Favorite) {
@@ -39,7 +39,7 @@ fun Router(navController: NavController) {
     scene(Router.TagPage) {
       TagScene(
         navController = navController,
-        uri = Router.TagPage.getUri(it),
+        uri = Router.TagPage.getUri(it)
       )
     }
   }

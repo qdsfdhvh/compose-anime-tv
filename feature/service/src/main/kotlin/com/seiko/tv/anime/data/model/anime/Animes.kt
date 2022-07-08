@@ -30,7 +30,7 @@ data class AnimeDetail(
   val description: String = "",
   val episodeList: List<AnimeEpisode> = emptyList(),
   val relatedList: List<Anime> = emptyList(),
-  val uri: String = "",
+  val uri: String = ""
 ) {
   companion object {
     val Empty = AnimeDetail()
@@ -39,12 +39,12 @@ data class AnimeDetail(
 
 data class AnimeTag(
   val title: String,
-  val uri: String,
+  val uri: String
 )
 
 data class AnimeEpisode(
   val title: String,
-  val uri: String,
+  val uri: String
 )
 
 data class AnimeVideo(
@@ -60,7 +60,7 @@ data class AnimeTimeLine(
   val title: String,
   val uri: String,
   val body: String,
-  val bodyUri: String,
+  val bodyUri: String
 )
 
 data class AnimeTagPage(

@@ -15,5 +15,5 @@ data class DbAnime(
   val cover: String,
   val uri: String,
   val updateAt: Long,
-  val createAt: Long,
+  val createAt: Long
 )
