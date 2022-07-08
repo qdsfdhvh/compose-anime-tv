@@ -74,9 +74,6 @@ dependencies {
   // Di
   implementation("io.insert-koin:koin-android:${Versions.koin}")
 
-  // hidden api by pass https://github.com/tiann/FreeReflection
-  implementation("com.github.tiann:FreeReflection:3.1.0")
-
   // player https://github.com/google/ExoPlayer
   implementation("com.google.android.exoplayer:exoplayer:2.18.0")
 }
