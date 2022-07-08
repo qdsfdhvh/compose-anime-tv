@@ -26,11 +26,11 @@ import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
-import moe.tlaster.precompose.navigation.NavController
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
 fun DetailScene(
-  navController: NavController,
+  navigator: Navigator,
   uri: String
 ) {
   val viewModel = detailViewModel(uri)
@@ -71,7 +71,7 @@ fun DetailScene(
             viewModel.send(DetailViewAction.ToggleFavorite)
           },
           onTagClick = { tag ->
-            navController.navigate(Router.TagPage(tag.uri))
+            navigator.navigate(Router.TagPage(tag.uri))
           }
         )
 
@@ -85,7 +85,7 @@ fun DetailScene(
       item {
         val focusRequester = remember { FocusRequester() }
         TvEpisodeList(
-          navController = navController,
+          navigator = navigator,
           title = "播放列表",
           list = viewState.anime.episodeList,
           modifier = Modifier
@@ -103,7 +103,7 @@ fun DetailScene(
       item {
         val focusRequester = remember { FocusRequester() }
         TvTitleGroup(
-          navController = navController,
+          navigator = navigator,
           title = "相关推荐",
           list = viewState.anime.relatedList,
           modifier = Modifier

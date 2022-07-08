@@ -14,7 +14,8 @@ allprojects {
       allWarningsAsErrors = false
       freeCompilerArgs += listOf(
         "-opt-in=kotlin.RequiresOptIn",
-        "-Xallow-unstable-dependencies"
+        "-Xallow-unstable-dependencies",
+        "-Xskip-prerelease-check"
       )
     }
   }

@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
   android()
-  jvm("desktop") {
+  jvm {
     compilations.all {
       kotlinOptions.jvmTarget = Versions.Java.jvmTarget
     }
@@ -23,6 +23,9 @@ kotlin {
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
         api(compose.material3)
         api(compose.materialIconsExtended)
+
+        // Navigator
+        api("moe.tlaster:precompose:1.2.3")
 
         // Di
         api("io.insert-koin:koin-core:${Versions.koin}")
@@ -58,7 +61,7 @@ kotlin {
         api("com.jakewharton.timber:timber:${Versions.timber}")
       }
     }
-    val desktopMain by getting {
+    val jvmMain by getting {
       dependencies {
       }
     }

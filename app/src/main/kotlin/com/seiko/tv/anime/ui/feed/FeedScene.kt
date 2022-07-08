@@ -26,12 +26,12 @@ import com.google.accompanist.pager.rememberPagerState
 import com.seiko.tv.anime.ui.common.SetSystemBarColor
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvTabBar
-import moe.tlaster.koin.compose.getViewModel
-import moe.tlaster.precompose.navigation.NavController
+import moe.tlaster.koin.getViewModel
+import moe.tlaster.precompose.navigation.Navigator
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun FeedScene(navController: NavController) {
+fun FeedScene(navigator: Navigator) {
   SetSystemBarColor()
 
   val viewModel: FeedViewModel = getViewModel()
@@ -83,7 +83,7 @@ fun FeedScene(navController: NavController) {
             }
         ) {
           FeedAnimePage(
-            navController = navController,
+            navigator = navigator,
             tab = tabs[index],
             modifier = Modifier
               .onFocusChanged {

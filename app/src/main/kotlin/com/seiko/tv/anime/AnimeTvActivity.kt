@@ -18,7 +18,8 @@ import com.seiko.tv.anime.util.ToastScreenComponent
 import com.seiko.tv.anime.util.autoSizeDensity
 import moe.tlaster.precompose.lifecycle.PreComposeActivity
 import moe.tlaster.precompose.lifecycle.setContent
-import moe.tlaster.precompose.navigation.rememberNavController
+import moe.tlaster.precompose.navigation.BackHandler
+import moe.tlaster.precompose.navigation.rememberNavigator
 
 class AnimeTvActivity : PreComposeActivity(), DoubleBackPressed by DoubleBackPressedDelegate() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,19 +28,19 @@ class AnimeTvActivity : PreComposeActivity(), DoubleBackPressed by DoubleBackPre
     WindowCompat.setDecorFitsSystemWindows(window, false)
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
-    backDispatcher.addCallback {
-      onDoubleBackPressed()
-    }
-
     setContent {
-      AnimeTvTheme {
+      AnimeTvTheme(false) {
         CompositionLocalProvider(
           LocalIndication provides NoRippleIndication,
           LocalDensity provides autoSizeDensity(this@AnimeTvActivity, 480)
         ) {
+          BackHandler {
+            onDoubleBackPressed()
+          }
+
           Box(Modifier.handleBack { onBackPressed() }) {
             Router(
-              navController = rememberNavController()
+              navigator = rememberNavigator()
             )
 
             ToastScreenComponent()

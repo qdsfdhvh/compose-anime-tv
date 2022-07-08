@@ -24,13 +24,13 @@ import com.seiko.compose.focuskit.focusClick
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.SetSystemBarColor
 import com.seiko.tv.anime.ui.common.foundation.RoundIcon
-import moe.tlaster.koin.compose.getViewModel
-import moe.tlaster.precompose.navigation.NavController
+import moe.tlaster.koin.getViewModel
+import moe.tlaster.precompose.navigation.Navigator
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScene(
-  navController: NavController
+  navigator: Navigator
 ) {
   SetSystemBarColor()
 
@@ -53,8 +53,8 @@ fun HomeScene(
               .focusClick {
                 focusRequester.requestFocus()
                 when (item) {
-                  HomeItem.Home -> navController.navigate(Router.Feed.route)
-                  HomeItem.Favorite -> navController.navigate(Router.Favorite.route)
+                  HomeItem.Home -> navigator.navigate(Router.Feed.route)
+                  HomeItem.Favorite -> navigator.navigate(Router.Favorite.route)
                   else -> Unit
                 }
               }

@@ -1,7 +1,6 @@
 package com.seiko.tv.anime
 
 import android.app.Application
-import android.content.Context
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import com.seiko.tv.anime.di.appModules

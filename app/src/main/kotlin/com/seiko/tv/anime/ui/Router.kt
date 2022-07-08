@@ -8,37 +8,38 @@ import com.seiko.tv.anime.ui.home.HomeScene
 import com.seiko.tv.anime.ui.player.PlayerScene
 import com.seiko.tv.anime.ui.tag.TagScene
 import moe.tlaster.precompose.navigation.BackStackEntry
-import moe.tlaster.precompose.navigation.NavController
 import moe.tlaster.precompose.navigation.NavHost
+import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.RouteBuilder
+import moe.tlaster.precompose.navigation.query
 
 @Composable
-fun Router(navController: NavController) {
-  NavHost(navController, initialRoute = initialRoute) {
+fun Router(navigator: Navigator) {
+  NavHost(navigator = navigator, initialRoute = initialRoute) {
     scene(Router.Home) {
-      HomeScene(navController = navController)
+      HomeScene(navigator = navigator)
     }
     scene(Router.Feed) {
-      FeedScene(navController = navController)
+      FeedScene(navigator = navigator)
     }
     scene(Router.Detail) {
       DetailScene(
-        navController = navController,
+        navigator = navigator,
         uri = Router.Detail.getUri(it)
       )
     }
     scene(Router.Player) {
       PlayerScene(
-        navController = navController,
+        navigator = navigator,
         uri = Router.Player.getUri(it)
       )
     }
     scene(Router.Favorite) {
-      FavoriteScene(navController = navController)
+      FavoriteScene(navigator = navigator)
     }
     scene(Router.TagPage) {
       TagScene(
-        navController = navController,
+        navigator = navigator,
         uri = Router.TagPage.getUri(it)
       )
     }
@@ -65,7 +66,7 @@ sealed class Router(val route: String) {
 
   object Detail : Router("/detail") {
     fun getUri(entry: BackStackEntry): String {
-      return entry.query("uri", "")
+      return entry.query("uri", "").orEmpty()
     }
 
     operator fun invoke(uri: String): String {
@@ -75,7 +76,7 @@ sealed class Router(val route: String) {
 
   object Player : Router("/player") {
     fun getUri(entry: BackStackEntry): String {
-      return entry.query("uri", "")
+      return entry.query("uri", "").orEmpty()
     }
 
     operator fun invoke(uri: String): String {
@@ -87,7 +88,7 @@ sealed class Router(val route: String) {
 
   object TagPage : Router("/tagpage") {
     fun getUri(entry: BackStackEntry): String {
-      return entry.query("uri", "")
+      return entry.query("uri", "").orEmpty()
     }
 
     operator fun invoke(uri: String): String {

@@ -43,11 +43,11 @@ import com.seiko.tv.anime.ui.common.foundation.NetworkImage
 import com.seiko.tv.anime.ui.common.foundation.screenState
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.uiValue
-import moe.tlaster.precompose.navigation.NavController
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
 fun TagScene(
-  navController: NavController,
+  navigator: Navigator,
   uri: String
 ) {
   val viewModel = tagViewModel(uri)
@@ -81,7 +81,7 @@ fun TagScene(
             }
             .focusClick {
               focusRequester.requestFocus()
-              navController.navigate(Router.Detail(anime.uri))
+              navigator.navigate(Router.Detail(anime.uri))
             }
             .focusRequester(focusRequester)
         )

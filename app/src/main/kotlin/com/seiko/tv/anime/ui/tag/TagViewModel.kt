@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.seiko.tv.anime.data.repository.AnimeRepository
-import moe.tlaster.koin.compose.getViewModel
+import moe.tlaster.koin.getViewModel
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
 import org.koin.core.parameter.parametersOf

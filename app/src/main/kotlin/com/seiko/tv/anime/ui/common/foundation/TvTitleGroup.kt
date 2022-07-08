@@ -48,13 +48,13 @@ import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 import com.seiko.tv.anime.ui.theme.uiValue
-import moe.tlaster.precompose.navigation.NavController
-import moe.tlaster.precompose.navigation.rememberNavController
+import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.navigation.rememberNavigator
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TvTitleGroup(
-  navController: NavController,
+  navigator: Navigator,
   title: String,
   list: List<Anime>,
   modifier: Modifier = Modifier
@@ -100,7 +100,7 @@ fun TvTitleGroup(
             }
             .focusClick {
               focusRequester.requestFocus()
-              navController.navigate(Router.Detail(item.uri))
+              navigator.navigate(Router.Detail(item.uri))
             }
             .focusRequester(focusRequester)
             .focusTarget(),
@@ -195,7 +195,7 @@ fun TvTitleGroupPreview() {
   AnimeTvTheme {
     Surface(color = backgroundColor) {
       TvTitleGroup(
-        navController = rememberNavController(),
+        navigator = rememberNavigator(),
         title = "最新更新",
         list = listOf(
           Anime(

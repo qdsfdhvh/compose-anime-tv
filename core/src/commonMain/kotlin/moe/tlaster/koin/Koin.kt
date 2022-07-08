@@ -18,7 +18,7 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with Mask-Android.  If not, see <http://www.gnu.org/licenses/>.
  */
-package moe.tlaster.koin.compose
+package moe.tlaster.koin
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -26,9 +26,37 @@ import moe.tlaster.precompose.ui.LocalViewModelStoreOwner
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.ViewModelStoreOwner
 import moe.tlaster.precompose.viewmodel.getViewModel
+import org.koin.core.Koin
+import org.koin.core.annotation.KoinReflectAPI
+import org.koin.core.definition.Definition
+import org.koin.core.instance.InstanceFactory
+import org.koin.core.instance.newInstance
+import org.koin.core.module.Module
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
+import org.koin.mp.KoinPlatformTools
 import kotlin.reflect.KClass
+
+inline fun <reified T> get(
+  qualifier: Qualifier? = null,
+  noinline parameters: ParametersDefinition? = null
+): T = KoinPlatformTools.defaultContext().get().get(qualifier, parameters)
+
+fun getKoin(): Koin = KoinPlatformTools.defaultContext().get()
+
+inline fun <reified T : ViewModel> Module.viewModel(
+  qualifier: Qualifier? = null,
+  noinline definition: Definition<T>
+): Pair<Module, InstanceFactory<T>> {
+  return factory(qualifier, definition)
+}
+
+@OptIn(KoinReflectAPI::class)
+inline fun <reified T : ViewModel> Module.viewModel(
+  qualifier: Qualifier? = null
+): Pair<Module, InstanceFactory<T>> {
+  return factory(qualifier) { newInstance(it) }
+}
 
 @Composable
 inline fun <reified T : ViewModel> getViewModel(
@@ -40,25 +68,6 @@ inline fun <reified T : ViewModel> getViewModel(
     owner.getViewModel(qualifier, parameters)
   }
 }
-
-// inline fun <reified T : ViewModel> ViewModelStoreOwner.viewModel(
-//     qualifier: Qualifier? = null,
-//     mode: LazyThreadSafetyMode = LazyThreadSafetyMode.SYNCHRONIZED,
-//     noinline parameters: ParametersDefinition? = null,
-// ): Lazy<T> {
-//     return lazy(mode) {
-//         getViewModel<T>(qualifier, parameters)
-//     }
-// }
-//
-// fun <T : ViewModel> ViewModelStoreOwner.viewModel(
-//     qualifier: Qualifier? = null,
-//     clazz: KClass<T>,
-//     mode: LazyThreadSafetyMode = LazyThreadSafetyMode.SYNCHRONIZED,
-//     parameters: ParametersDefinition? = null,
-// ): Lazy<T> {
-//     return lazy(mode) { getViewModel(qualifier, clazz, parameters) }
-// }
 
 inline fun <reified T : ViewModel> ViewModelStoreOwner.getViewModel(
   qualifier: Qualifier? = null,

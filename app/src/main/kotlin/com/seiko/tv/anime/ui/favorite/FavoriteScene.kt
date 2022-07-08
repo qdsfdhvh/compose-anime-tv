@@ -33,13 +33,13 @@ import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
 import com.seiko.tv.anime.ui.common.foundation.itemsGridIndexed
 import com.seiko.tv.anime.ui.common.foundation.screenState
-import moe.tlaster.koin.compose.getViewModel
-import moe.tlaster.precompose.navigation.NavController
+import moe.tlaster.koin.getViewModel
+import moe.tlaster.precompose.navigation.Navigator
 
 private const val FavoriteColumnNum = 6
 
 @Composable
-fun FavoriteScene(navController: NavController) {
+fun FavoriteScene(navigator: Navigator) {
   val viewModel: FavoriteViewModel = getViewModel()
   val list = viewModel.favorites.collectAsLazyPagingItems()
 
@@ -79,7 +79,7 @@ fun FavoriteScene(navController: NavController) {
             .focusClick {
               focusRequesters[index].requestFocus()
 
-              navController.navigate(Router.Detail(item.uri))
+              navigator.navigate(Router.Detail(item.uri))
             }
             .focusRequester(focusRequesters[index]).focusProperties {
               up = focusRequesters.getOrDefault(index - FavoriteColumnNum)

@@ -36,11 +36,11 @@ import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 import com.seiko.tv.anime.ui.theme.uiValue
-import moe.tlaster.precompose.navigation.NavController
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
 fun TvEpisodeList(
-  navController: NavController,
+  navigator: Navigator,
   title: String,
   list: List<AnimeEpisode>,
   modifier: Modifier = Modifier
@@ -82,7 +82,7 @@ fun TvEpisodeList(
             }
             .focusClick {
               focusRequester.requestFocus()
-              navController.navigate(Router.Player(item.uri))
+              navigator.navigate(Router.Player(item.uri))
             }
             .focusRequester(focusRequester)
             .focusTarget(),

@@ -15,11 +15,11 @@ import com.seiko.compose.player.rememberPlayer
 import com.seiko.compose.player.rememberVideoPlayerController
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvSelectDialog
-import moe.tlaster.precompose.navigation.NavController
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
 fun PlayerScene(
-  navController: NavController,
+  navigator: Navigator,
   uri: String
 ) {
   val viewModel = playerViewModel(uri)
@@ -67,7 +67,7 @@ fun PlayerScene(
         text = "是否退出播放？",
         onCenterClick = {
           openDialog = false
-          navController.popBackStack()
+          navigator.popBackStack()
         },
         onCancelClick = {
           openDialog = false
