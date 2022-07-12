@@ -1,6 +1,5 @@
 package com.seiko.tv.anime.ui.detail
 
-import androidx.compose.runtime.Composable
 import com.seiko.tv.anime.data.repository.AnimeRepository
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineDispatcher
@@ -14,10 +13,8 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.scan
 import kotlinx.coroutines.flow.stateIn
-import moe.tlaster.koin.getViewModel
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
-import org.koin.core.parameter.parametersOf
 
 class DetailViewModel(
   uri: String,

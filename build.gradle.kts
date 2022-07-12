@@ -28,12 +28,15 @@ allprojects {
         "$buildDir/**/*.kt",
         "bin/**/*.kt",
         "buildSrc/**/*.kt",
-        "**/*Response.kt"
+        "**/*Response.kt",
+        "**/material3/**/*.kt"
       )
       ktlint(Versions.ktlint).editorConfigOverride(
         mapOf(
           "indent_size" to "2",
-          "continuation_indent_size" to "2"
+          "continuation_indent_size" to "2",
+          // rules: https://github.com/pinterest/ktlint/blob/master/README.md#standard-rules
+          "disabled_rules" to "filename,trailing-comma"
         )
       )
       trimTrailingWhitespace()
@@ -47,7 +50,8 @@ allprojects {
       ktlint(Versions.ktlint).editorConfigOverride(
         mapOf(
           "indent_size" to "2",
-          "continuation_indent_size" to "2"
+          "continuation_indent_size" to "2",
+          "disabled_rules" to "trailing-comma"
         )
       )
       trimTrailingWhitespace()

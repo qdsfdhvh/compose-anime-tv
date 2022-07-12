@@ -22,7 +22,6 @@ package moe.tlaster.koin
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import kotlin.reflect.KClass
 import moe.tlaster.precompose.ui.LocalViewModelStoreOwner
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.ViewModelStoreOwner
@@ -34,6 +33,7 @@ import org.koin.core.module.Module
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
 import org.koin.mp.KoinPlatformTools
+import kotlin.reflect.KClass
 
 inline fun <reified T> get(
   qualifier: Qualifier? = null,
