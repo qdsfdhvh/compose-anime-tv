@@ -31,11 +31,10 @@ kotlin {
         // Di
         api("io.insert-koin:koin-core:${Versions.koin}")
 
-        // Coroutines
+        // kotlinx
         api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.Kotlin.coroutines}")
-
-        // Serialization
         api("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.Kotlin.serialization}")
+        api("org.jetbrains.kotlinx:kotlinx-datetime:${Versions.Kotlin.deateTime}")
 
         // Navigator https://github.com/Tlaster/PreCompose
         api("moe.tlaster:precompose:1.2.3")

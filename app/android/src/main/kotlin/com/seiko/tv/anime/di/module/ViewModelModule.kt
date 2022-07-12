@@ -6,7 +6,6 @@ import com.seiko.tv.anime.ui.detail.DetailViewModel
 import com.seiko.tv.anime.ui.favorite.FavoriteViewModel
 import com.seiko.tv.anime.ui.feed.FeedAnimeViewModel
 import com.seiko.tv.anime.ui.feed.FeedViewModel
-import com.seiko.tv.anime.ui.home.HomeViewModel
 import com.seiko.tv.anime.ui.player.PlayerViewModel
 import com.seiko.tv.anime.ui.tag.TagViewModel
 import moe.tlaster.koin.viewModel
@@ -17,7 +16,6 @@ val viewModelModule = module {
   viewModel { FavoriteViewModel(get(ioDispatcher), get()) }
   viewModel { FeedViewModel(get()) }
   viewModel { (tab: AnimeTab) -> FeedAnimeViewModel(tab, get()) }
-  viewModel { HomeViewModel() }
   viewModel { (uri: String) -> PlayerViewModel(uri, get()) }
   viewModel { (uri: String) -> TagViewModel(uri, get()) }
 }

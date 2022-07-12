@@ -24,19 +24,40 @@ import com.seiko.compose.focuskit.focusClick
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.SetSystemBarColor
 import com.seiko.tv.anime.ui.common.foundation.RoundIcon
-import moe.tlaster.koin.getViewModel
 import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.rememberPresenter
+
+@Composable
+fun HomeScene(
+  navigator: Navigator,
+) {
+  SetSystemBarColor()
+
+  val stateFlow = rememberPresenter { HomePresenter() }
+  when (val state = stateFlow.collectAsState().value) {
+    is HomeState.Idle -> {
+      HomeScene(
+        list = state.items,
+        onItemClick = { item ->
+          when (item) {
+            HomeItem.Home -> navigator.navigate(Router.Feed.route)
+            HomeItem.Favorite -> navigator.navigate(Router.Favorite.route)
+            HomeItem.Setting -> Unit
+          }
+        }
+      )
+    }
+
+    is HomeState.Loading -> Unit
+  }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScene(
-  navigator: Navigator
+  list: List<HomeItem>,
+  onItemClick: (HomeItem) -> Unit,
 ) {
-  SetSystemBarColor()
-
-  val viewModel = getViewModel<HomeViewModel>()
-  val list by viewModel.list.collectAsState()
-
   Scaffold { innerPadding ->
     Box(Modifier.padding(innerPadding).fillMaxSize(), Alignment.Center) {
       var focusIndex by rememberSaveable { mutableStateOf(0) }
@@ -52,11 +73,7 @@ fun HomeScene(
             modifier = Modifier
               .focusClick {
                 focusRequester.requestFocus()
-                when (item) {
-                  HomeItem.Home -> navigator.navigate(Router.Feed.route)
-                  HomeItem.Favorite -> navigator.navigate(Router.Favorite.route)
-                  else -> Unit
-                }
+                onItemClick.invoke(item)
               }
               .onFocusChanged {
                 isFocused = it.isFocused
