@@ -12,38 +12,47 @@ kotlin {
       kotlinOptions.jvmTarget = Versions.Java.jvmTarget
     }
   }
+  ios()
   sourceSets {
     val commonMain by getting {
+      kotlin.srcDir("src/commonMain/material3")
       dependencies {
         // Compose
         api(compose.ui)
-        api(compose.uiTooling)
+        // api(compose.uiTooling)
         api(compose.foundation)
         api(compose.animation)
-        @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-        api(compose.material3)
+        // @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+        // api(compose.material3)
+        implementation(compose.material)
         api(compose.materialIconsExtended)
-
-        // Navigator
-        api("moe.tlaster:precompose:1.2.3")
+        implementation("org.jetbrains.compose.ui:ui-util:${Versions.compose_jb}")
 
         // Di
         api("io.insert-koin:koin-core:${Versions.koin}")
-        api("io.insert-koin:koin-core-jvm:${Versions.koin}")
 
         // Coroutines
         api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.Kotlin.coroutines}")
 
         // Serialization
         api("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.Kotlin.serialization}")
+
+        // Navigator https://github.com/Tlaster/PreCompose
+        api("moe.tlaster:precompose:1.2.3")
+
+        // Paging https://github.com/qdsfdhvh/multiplatform-paging
+        api("io.github.qdsfdhvh:paging:1.0.1")
+
+        // Log
+        api("io.github.aakira:napier:${Versions.napier}")
       }
     }
     val androidMain by getting {
       dependencies {
         // Compose
-        api("androidx.compose.material3:material3:1.0.0-alpha14")
+        api("androidx.compose.material3:material3:${Versions.composeMaterial}")
         api("androidx.compose.material:material-icons-extended:${Versions.compose}")
-        api("androidx.paging:paging-compose:${Versions.pagingCompose}")
+        // api("androidx.paging:paging-compose:${Versions.pagingCompose}")
         api("com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}")
         api("com.google.accompanist:accompanist-pager:${Versions.accompanist}")
 
@@ -56,19 +65,23 @@ kotlin {
 
         // Image
         api("io.coil-kt:coil-compose:${Versions.coil}")
-
-        // Log
-        api("com.jakewharton.timber:timber:${Versions.timber}")
       }
     }
     val jvmMain by getting {
       dependencies {
+        // Di
+        api("io.insert-koin:koin-core-jvm:${Versions.koin}")
+        // Coroutines
+        api("org.jetbrains.kotlinx:kotlinx-coroutines-swing:${Versions.Kotlin.coroutines}")
       }
+    }
+    val iosMain by getting {
     }
   }
 }
 
 android {
+  namespace = "com.seiko.tv.anime.core"
   compileSdk = AndroidSdk.compile
   defaultConfig {
     minSdk = AndroidSdk.min

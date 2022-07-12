@@ -21,9 +21,12 @@ dependencyResolutionManagement {
 rootProject.name = "compose-anime-tv"
 
 include(
-  ":app",
   ":core",
-  ":feature:service"
+  ":feature:service",
+  ":app:hosting",
+  ":app:android",
+  ":app:desktop",
+  ":app:ios",
 )
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
