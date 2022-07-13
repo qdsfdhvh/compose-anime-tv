@@ -3,6 +3,7 @@ package com.seiko.tv.anime.ui.common.foundation
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,7 +42,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
-import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.onFocusDirection
 import com.seiko.tv.anime.data.model.anime.Anime
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
@@ -95,7 +95,7 @@ fun TvTitleGroup(
               isFocused = it.isFocused
               if (isFocused) focusIndex = index
             }
-            .focusClick {
+            .clickable {
               focusRequester.requestFocus()
               onAnimeClick.invoke(item)
             }

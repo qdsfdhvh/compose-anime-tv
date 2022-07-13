@@ -1,6 +1,7 @@
 package com.seiko.tv.anime.ui.tag
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,7 +36,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
-import com.seiko.compose.focuskit.focusClick
 import com.seiko.tv.anime.data.model.anime.AnimeTag
 import com.seiko.tv.anime.data.model.anime.AnimeTagPageItem
 import com.seiko.tv.anime.ui.Router
@@ -97,7 +97,7 @@ fun TagScene(
               isFocused = it.isFocused
               if (isFocused) focusIndex = index
             }
-            .focusClick {
+            .clickable {
               focusRequester.requestFocus()
               onItemClick.invoke(tag)
             }

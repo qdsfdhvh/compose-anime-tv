@@ -2,6 +2,7 @@ package com.seiko.tv.anime.ui.common.foundation
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -30,7 +31,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
-import com.seiko.compose.focuskit.focusClick
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
@@ -78,7 +78,7 @@ fun TvEpisodeList(
               isFocused = it.isFocused
               if (isFocused) focusIndex = index
             }
-            .focusClick {
+            .clickable {
               focusRequester.requestFocus()
               onEpisodeClick.invoke(item)
             }

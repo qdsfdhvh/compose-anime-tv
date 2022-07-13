@@ -1,6 +1,7 @@
 package com.seiko.tv.anime.ui.common.foundation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -22,7 +23,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.seiko.compose.focuskit.focusClick
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 
 @Composable
@@ -45,7 +45,7 @@ fun TvSelectDialog(
       TvSelectDialogButton(
         modifier = Modifier
           .onFocusChanged { isFocused = it.isFocused }
-          .focusClick { onCancelClick() }
+          .clickable { onCancelClick() }
           .focusTarget(),
         text = cancelText,
         isFocused = isFocused
@@ -56,7 +56,7 @@ fun TvSelectDialog(
       TvSelectDialogButton(
         modifier = Modifier
           .onFocusChanged { isFocused = it.isFocused }
-          .focusClick { onCenterClick() }
+          .clickable { onCenterClick() }
           .focusRequester(focusRequester)
           .focusTarget(),
         text = centerText,

@@ -1,6 +1,5 @@
 package com.seiko.compose.focuskit
 
-import androidx.compose.foundation.clickable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -42,7 +41,3 @@ fun Modifier.handleEnterReturn(onAction: () -> Boolean) =
 @OptIn(ExperimentalComposeUiApi::class)
 fun Modifier.handleBackReturn(onAction: () -> Boolean) =
   handleDirection(FocusDirection.Out, onAction)
-
-@OptIn(ExperimentalComposeUiApi::class)
-fun Modifier.focusClick(onClick: () -> Unit) =
-  clickable(onClick = onClick).handleEnter(onClick)
