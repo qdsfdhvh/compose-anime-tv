@@ -16,7 +16,7 @@ class ResponseTest {
 
   @Test
   fun homeTest() = runBlocking {
-    val file = File("src/test/resources/api/sakura_home.html").readText()
+    val file = File("src/jvmTest/resources/api/sakura_home.html").readText()
     val response = Hson.deserializeKData<HomeResponse>(file)
     assert(response.titles.any())
     assert(response.titles[0].isNotEmpty())
@@ -30,7 +30,7 @@ class ResponseTest {
 
   @Test
   fun homeType2Test() = runBlocking {
-    val file = File("src/test/resources/api/sakura_home_type2.html").readText()
+    val file = File("src/jvmTest/resources/api/sakura_home_type2.html").readText()
     val response = Hson.deserializeKData<HomeResponse>(file)
     assert(response.titles.any()) { response }
     assert(response.titles[0].isNotEmpty()) { response }
@@ -42,7 +42,7 @@ class ResponseTest {
 
   @Test
   fun detailTest() = runBlocking {
-    val file = File("src/test/resources/api/sakura_detail.html").readText()
+    val file = File("src/jvmTest/resources/api/sakura_detail.html").readText()
     assert(file.isNotEmpty())
 
     val response = Hson.deserializeKData<DetailResponse>(file)
@@ -63,7 +63,7 @@ class ResponseTest {
 
   @Test
   fun videoTest() = runBlocking {
-    val file = File("src/test/resources/api/sakura_video.html").readText()
+    val file = File("src/jvmTest/resources/api/sakura_video.html").readText()
     assert(file.isNotEmpty())
 
     val response = Hson.deserializeKData<VideoResponse>(file)
@@ -73,7 +73,7 @@ class ResponseTest {
 
   @Test
   fun timeLineTest() = runBlocking {
-    val file = File("src/test/resources/api/sakura_home.html").readText()
+    val file = File("src/jvmTest/resources/api/sakura_home.html").readText()
     val response = Hson.deserializeKData<TimelineResponse>(file)
     assert(response.tags.isNotEmpty()) { response }
     assertEquals(response.tags.size, response.tagAnimesList.size)
@@ -82,7 +82,7 @@ class ResponseTest {
 
   @Test
   fun tagTest() = runBlocking {
-    val file = File("src/test/resources/api/sakura_tag.html").readText()
+    val file = File("src/jvmTest/resources/api/sakura_tag.html").readText()
     val response = Hson.deserializeKData<TagResponse>(file)
     assertEquals(response.title, "机战动漫")
     assert(response.animes.isNotEmpty())
