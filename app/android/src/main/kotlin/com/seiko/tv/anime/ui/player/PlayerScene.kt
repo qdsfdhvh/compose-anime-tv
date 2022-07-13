@@ -11,28 +11,41 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.seiko.compose.focuskit.handleBack
 import com.seiko.compose.player.TvVideoPlayer
+import com.seiko.compose.player.VideoPlayerSource
 import com.seiko.compose.player.rememberPlayer
 import com.seiko.compose.player.rememberVideoPlayerController
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvSelectDialog
-import moe.tlaster.koin.getViewModel
 import moe.tlaster.precompose.navigation.Navigator
-import org.koin.core.parameter.parametersOf
+import moe.tlaster.precompose.rememberPresenter
 
 @Composable
 fun PlayerScene(
   navigator: Navigator,
   uri: String
 ) {
-  val viewModel = getViewModel<PlayerViewModel> { parametersOf(uri) }
-  val source by viewModel.video.collectAsState()
-
-  if (source == null) {
-    LoadingState()
-    return
+  val stateFlow = rememberPresenter { PlayerPresenter(uri) }
+  when (val state = stateFlow.collectAsState().value) {
+    PlayerState.Loading -> {
+      LoadingState()
+    }
+    is PlayerState.Success -> {
+      PlayerScene(
+        source = state.source,
+        onBack = {
+          navigator.popBackStack()
+        }
+      )
+    }
   }
+}
 
-  val player = rememberPlayer(source!!)
+@Composable
+fun PlayerScene(
+  source: VideoPlayerSource,
+  onBack: () -> Unit,
+) {
+  val player = rememberPlayer(source)
   val controller = rememberVideoPlayerController(player)
 
   var openDialog by remember { mutableStateOf(false) }
@@ -69,7 +82,7 @@ fun PlayerScene(
         text = "是否退出播放？",
         onCenterClick = {
           openDialog = false
-          navigator.popBackStack()
+          onBack.invoke()
         },
         onCancelClick = {
           openDialog = false

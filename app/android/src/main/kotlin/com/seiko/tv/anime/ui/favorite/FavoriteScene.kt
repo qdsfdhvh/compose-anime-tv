@@ -12,6 +12,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,26 +24,42 @@ import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.LazyPagingItems
 import com.seiko.compose.focuskit.ItemScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.rememberFocusRequesterManager
 import com.seiko.compose.focuskit.tweenAnimateScrollBy
+import com.seiko.tv.anime.data.model.anime.Anime
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
+import com.seiko.tv.anime.ui.common.foundation.ScreenState
 import com.seiko.tv.anime.ui.common.foundation.itemsGridIndexed
-import com.seiko.tv.anime.ui.common.foundation.screenState
-import moe.tlaster.koin.getViewModel
 import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.rememberPresenter
 
 private const val FavoriteColumnNum = 6
 
 @Composable
 fun FavoriteScene(navigator: Navigator) {
-  val viewModel = getViewModel<FavoriteViewModel>()
-  val list = viewModel.favorites.collectAsLazyPagingItems()
+  val stateFlow = rememberPresenter { FavoritePresenter() }
+  when (val state = stateFlow.collectAsState().value) {
+    is FavoriteState.Success -> {
+      FavoriteScene(
+        pagingItems = state.pagingItems,
+        onAnimeClick = { anime ->
+          navigator.navigate(Router.Detail(anime.uri))
+        }
+      )
+    }
+  }
+}
 
+@Composable
+fun FavoriteScene(
+  pagingItems: LazyPagingItems<Anime>,
+  onAnimeClick: (Anime) -> Unit,
+) {
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
   val focusRequesters = rememberFocusRequesterManager()
@@ -66,7 +83,7 @@ fun FavoriteScene(navigator: Navigator) {
         }
       }
 
-      itemsGridIndexed(list, FavoriteColumnNum) { index, item ->
+      itemsGridIndexed(pagingItems, FavoriteColumnNum) { index, item ->
         var isFocused by remember { mutableStateOf(false) }
         GroupItem(
           item = item,
@@ -78,8 +95,7 @@ fun FavoriteScene(navigator: Navigator) {
             }
             .focusClick {
               focusRequesters[index].requestFocus()
-
-              navigator.navigate(Router.Detail(item.uri))
+              onAnimeClick.invoke(item)
             }
             .focusRequester(focusRequesters[index]).focusProperties {
               up = focusRequesters.getOrDefault(index - FavoriteColumnNum)
@@ -97,7 +113,7 @@ fun FavoriteScene(navigator: Navigator) {
         }
       }
 
-      screenState(list)
+      ScreenState(pagingItems)
     }
   }
 

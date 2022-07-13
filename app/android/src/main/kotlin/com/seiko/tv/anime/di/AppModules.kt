@@ -1,5 +1,6 @@
 package com.seiko.tv.anime.di
 
-import com.seiko.tv.anime.di.module.viewModelModule
+import org.koin.dsl.module
 
-val appModules = viewModelModule
+val appModules = module {
+}

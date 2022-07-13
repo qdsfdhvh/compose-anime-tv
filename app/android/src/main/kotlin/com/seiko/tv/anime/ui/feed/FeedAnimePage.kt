@@ -25,23 +25,38 @@ import androidx.compose.ui.platform.LocalFocusManager
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.onFocusDirection
+import com.seiko.tv.anime.data.model.anime.Anime
+import com.seiko.tv.anime.data.model.anime.AnimeGroup
 import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
-import moe.tlaster.koin.getViewModel
-import moe.tlaster.precompose.navigation.Navigator
-import org.koin.core.parameter.parametersOf
+import moe.tlaster.precompose.rememberPresenter
+
+@Composable
+fun FeedAnimePage(
+  tab: AnimeTab,
+  onAnimeClick: (Anime) -> Unit,
+  modifier: Modifier = Modifier
+) {
+  val stateFlow = rememberPresenter { FeedAnimePresenter(tab) }
+  when (val state = stateFlow.collectAsState().value) {
+    FeedAnimeState.Loading -> Unit
+    is FeedAnimeState.Success -> {
+      FeedAnimePage(
+        animeList = state.list,
+        onAnimeClick = onAnimeClick,
+        modifier = modifier,
+      )
+    }
+  }
+}
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FeedAnimePage(
-  navigator: Navigator,
-  tab: AnimeTab,
+  animeList: List<AnimeGroup>,
+  onAnimeClick: (Anime) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  val viewModel = getViewModel<FeedAnimeViewModel> { parametersOf(tab) }
-  val animeList by viewModel.animeList.collectAsState()
-  if (animeList.isEmpty()) return
-
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
 
@@ -73,9 +88,9 @@ fun FeedAnimePage(
   ) {
     itemsIndexed(animeList) { index, item ->
       TvTitleGroup(
-        navigator = navigator,
         title = item.title,
         list = item.animes,
+        onAnimeClick = onAnimeClick,
         modifier = Modifier
           .onFocusChanged {
             if (it.isFocused) focusIndex = index

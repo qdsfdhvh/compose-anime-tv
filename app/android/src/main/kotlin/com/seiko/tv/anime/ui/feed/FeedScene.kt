@@ -23,25 +23,39 @@ import androidx.compose.ui.input.pointer.pointerInput
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.seiko.tv.anime.data.model.anime.Anime
+import com.seiko.tv.anime.data.model.anime.AnimeTab
+import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.SetSystemBarColor
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvTabBar
-import moe.tlaster.koin.getViewModel
 import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.rememberPresenter
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun FeedScene(navigator: Navigator) {
   SetSystemBarColor()
 
-  val viewModel = getViewModel<FeedViewModel>()
-  val tabs by viewModel.tabs.collectAsState()
-
-  if (tabs.isEmpty()) {
-    LoadingState()
-    return
+  val stateFlow = rememberPresenter { FeedPresenter() }
+  when (val state = stateFlow.collectAsState().value) {
+    FeedState.Loading -> LoadingState()
+    is FeedState.Success -> {
+      FeedScene(
+        tabs = state.list,
+        onAnimeClick = { anime ->
+          navigator.navigate(Router.Detail(anime.uri))
+        }
+      )
+    }
   }
+}
 
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun FeedScene(
+  tabs: List<AnimeTab>,
+  onAnimeClick: (Anime) -> Unit,
+) {
   var isTabFocused by rememberSaveable { mutableStateOf(true) }
   var focusIndex by rememberSaveable { mutableStateOf(0) }
 
@@ -83,8 +97,8 @@ fun FeedScene(navigator: Navigator) {
             }
         ) {
           FeedAnimePage(
-            navigator = navigator,
             tab = tabs[index],
+            onAnimeClick = onAnimeClick,
             modifier = Modifier
               .onFocusChanged {
                 if (it.hasFocus) focusIndex = index

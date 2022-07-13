@@ -44,19 +44,16 @@ import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.compose.focuskit.onFocusDirection
 import com.seiko.tv.anime.data.model.anime.Anime
-import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
 import com.seiko.tv.anime.ui.theme.uiValue
-import moe.tlaster.precompose.navigation.Navigator
-import moe.tlaster.precompose.navigation.rememberNavigator
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TvTitleGroup(
-  navigator: Navigator,
   title: String,
   list: List<Anime>,
+  onAnimeClick: (Anime) -> Unit,
   modifier: Modifier = Modifier
 ) {
   val listState = rememberLazyListState()
@@ -100,7 +97,7 @@ fun TvTitleGroup(
             }
             .focusClick {
               focusRequester.requestFocus()
-              navigator.navigate(Router.Detail(item.uri))
+              onAnimeClick.invoke(item)
             }
             .focusRequester(focusRequester)
             .focusTarget(),
@@ -195,7 +192,6 @@ fun TvTitleGroupPreview() {
   AnimeTvTheme {
     Surface(color = backgroundColor) {
       TvTitleGroup(
-        navigator = rememberNavigator(),
         title = "最新更新",
         list = listOf(
           Anime(
@@ -208,7 +204,8 @@ fun TvTitleGroupPreview() {
             cover = "http://css.njhzmxx.com/comic/focus/2018/10/201810070913.jpg",
             uri = "/show/273.html"
           )
-        )
+        ),
+        onAnimeClick = {},
       )
     }
   }

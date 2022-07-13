@@ -20,7 +20,9 @@ import androidx.paging.compose.LazyPagingItems
 import com.seiko.tv.anime.R
 
 @Composable
-fun LoadingState(backgroundColor: Color = MaterialTheme.colorScheme.background) {
+fun LoadingState(
+  backgroundColor: Color = MaterialTheme.colorScheme.background,
+) {
   Box(
     modifier = Modifier
       .fillMaxSize()
@@ -43,7 +45,8 @@ fun ErrorState(onRetry: () -> Unit = {}) {
   }
 }
 
-fun <T : Any> LazyListScope.screenState(list: LazyPagingItems<T>) {
+@Suppress("FunctionName")
+fun <T : Any> LazyListScope.ScreenState(list: LazyPagingItems<T>) {
   list.apply {
     when {
       loadState.refresh is LoadState.Loading -> {

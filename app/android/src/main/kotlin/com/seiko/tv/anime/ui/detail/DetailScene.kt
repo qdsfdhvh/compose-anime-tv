@@ -22,27 +22,57 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
+import com.seiko.tv.anime.data.model.anime.Anime
+import com.seiko.tv.anime.data.model.anime.AnimeDetail
+import com.seiko.tv.anime.data.model.anime.AnimeEpisode
+import com.seiko.tv.anime.data.model.anime.AnimeTag
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.LoadingState
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
-import moe.tlaster.koin.getViewModel
 import moe.tlaster.precompose.navigation.Navigator
-import org.koin.core.parameter.parametersOf
+import moe.tlaster.precompose.rememberEvent
+import moe.tlaster.precompose.rememberPresenter
 
 @Composable
 fun DetailScene(
   navigator: Navigator,
   uri: String
 ) {
-  val viewModel = getViewModel<DetailViewModel> { parametersOf(uri) }
-  val viewState by viewModel.viewState.collectAsState()
-
-  if (viewState === DetailViewState.Empty) {
-    LoadingState()
-    return
+  val (channel, flow) = rememberEvent<DetailEvent>()
+  val stateFlow = rememberPresenter { DetailPresenter(flow, uri) }
+  when (val state = stateFlow.collectAsState().value) {
+    DetailState.Loading -> LoadingState()
+    is DetailState.Success -> {
+      DetailScene(
+        detail = state.detail,
+        isFavorite = state.isFavorite,
+        onFavoriteClick = {
+          channel.trySend(DetailEvent.ToggleFavorite)
+        },
+        onTagClick = { tag ->
+          navigator.navigate(Router.TagPage(tag.uri))
+        },
+        onEpisodeClick = { episode ->
+          navigator.navigate(Router.Player(episode.uri))
+        },
+        onAnimeClick = { anime ->
+          navigator.navigate(Router.Detail(anime.uri))
+        },
+      )
+    }
   }
+}
 
+@Composable
+fun DetailScene(
+  detail: AnimeDetail,
+  isFavorite: Boolean,
+  onFavoriteClick: () -> Unit,
+  onTagClick: (AnimeTag) -> Unit,
+  onEpisodeClick: (AnimeEpisode) -> Unit,
+  onAnimeClick: (Anime) -> Unit,
+) {
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
 
@@ -60,21 +90,17 @@ fun DetailScene(
           modifier = Modifier
             .onFocusChanged { if (it.isFocused) focusIndex = 0 }
             .focusRequester(focusRequester),
-          title = viewState.anime.title,
-          cover = viewState.anime.cover,
-          releaseTime = viewState.anime.releaseTime,
-          state = viewState.anime.state,
-          tags = viewState.anime.tags,
-          types = viewState.anime.types,
-          indexes = viewState.anime.indexes,
-          description = viewState.anime.description,
-          isFavorite = viewState.isFavorite,
-          onFavoriteClick = {
-            viewModel.send(DetailViewAction.ToggleFavorite)
-          },
-          onTagClick = { tag ->
-            navigator.navigate(Router.TagPage(tag.uri))
-          }
+          title = detail.title,
+          cover = detail.cover,
+          releaseTime = detail.releaseTime,
+          state = detail.state,
+          tags = detail.tags,
+          types = detail.types,
+          indexes = detail.indexes,
+          description = detail.description,
+          isFavorite = isFavorite,
+          onFavoriteClick = onFavoriteClick,
+          onTagClick = onTagClick,
         )
 
         if (focusIndex == 0) {
@@ -87,9 +113,9 @@ fun DetailScene(
       item {
         val focusRequester = remember { FocusRequester() }
         TvEpisodeList(
-          navigator = navigator,
           title = "播放列表",
-          list = viewState.anime.episodeList,
+          list = detail.episodeList,
+          onEpisodeClick = onEpisodeClick,
           modifier = Modifier
             .onFocusChanged { if (it.isFocused) focusIndex = 1 }
             .focusRequester(focusRequester)
@@ -105,9 +131,9 @@ fun DetailScene(
       item {
         val focusRequester = remember { FocusRequester() }
         TvTitleGroup(
-          navigator = navigator,
           title = "相关推荐",
-          list = viewState.anime.relatedList,
+          list = detail.relatedList,
+          onAnimeClick = onAnimeClick,
           modifier = Modifier
             .onFocusChanged { if (it.isFocused) focusIndex = 2 }
             .focusRequester(focusRequester)

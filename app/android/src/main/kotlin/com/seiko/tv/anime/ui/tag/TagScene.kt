@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,31 +31,46 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.focusClick
 import com.seiko.tv.anime.data.model.anime.AnimeTag
+import com.seiko.tv.anime.data.model.anime.AnimeTagPageItem
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.SpacerHeight
 import com.seiko.tv.anime.ui.common.SpacerWidth
 import com.seiko.tv.anime.ui.common.foundation.NetworkImage
-import com.seiko.tv.anime.ui.common.foundation.screenState
+import com.seiko.tv.anime.ui.common.foundation.ScreenState
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.uiValue
-import moe.tlaster.koin.getViewModel
 import moe.tlaster.precompose.navigation.Navigator
-import org.koin.core.parameter.parametersOf
+import moe.tlaster.precompose.rememberPresenter
 
 @Composable
 fun TagScene(
   navigator: Navigator,
   uri: String
 ) {
-  val viewModel = getViewModel<TagViewModel> { parametersOf(uri) }
-  val animes = viewModel.animes.collectAsLazyPagingItems()
+  val stateFlow = rememberPresenter { TagPresenter(uri) }
+  when (val state = stateFlow.collectAsState().value) {
+    is TagState.Success -> {
+      TagScene(
+        pagingItems = state.pagingItems,
+        onItemClick = { tag ->
+          navigator.navigate(Router.Detail(tag.uri))
+        }
+      )
+    }
+  }
+}
 
+@Composable
+fun TagScene(
+  pagingItems: LazyPagingItems<AnimeTagPageItem>,
+  onItemClick: (AnimeTagPageItem) -> Unit,
+) {
   val listState = rememberLazyListState()
   var focusIndex by rememberSaveable { mutableStateOf(0) }
 
@@ -63,18 +79,18 @@ fun TagScene(
     modifier = Modifier.fillMaxSize()
   ) {
     LazyColumn(state = listState) {
-      itemsIndexed(animes) { index, anime ->
-        anime ?: return@itemsIndexed
+      itemsIndexed(pagingItems) { index, tag ->
+        tag ?: return@itemsIndexed
 
         val focusRequester = remember { FocusRequester() }
         var isFocused by remember { mutableStateOf(false) }
 
         TagItem(
-          title = anime.title,
-          cover = anime.cover,
-          update = anime.update,
-          tags = anime.tags,
-          description = anime.description,
+          title = tag.title,
+          cover = tag.cover,
+          update = tag.update,
+          tags = tag.tags,
+          description = tag.description,
           isFocused = isFocused,
           modifier = Modifier
             .onFocusChanged {
@@ -83,7 +99,7 @@ fun TagScene(
             }
             .focusClick {
               focusRequester.requestFocus()
-              navigator.navigate(Router.Detail(anime.uri))
+              onItemClick.invoke(tag)
             }
             .focusRequester(focusRequester)
         )
@@ -95,7 +111,7 @@ fun TagScene(
         }
       }
 
-      screenState(animes)
+      ScreenState(pagingItems)
     }
   }
 
