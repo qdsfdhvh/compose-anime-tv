@@ -25,81 +25,85 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import com.seiko.tv.anime.ui.Router
-import com.seiko.tv.anime.ui.common.SetSystemBarColor
+import com.seiko.tv.anime.ui.common.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.common.foundation.RoundIcon
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberPresenter
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScene(
   navigator: Navigator,
 ) {
-  SetSystemBarColor()
-
   val stateFlow = rememberPresenter { HomePresenter() }
-  when (val state = stateFlow.collectAsState().value) {
-    is HomeState.Idle -> {
-      HomeScene(
-        list = state.items,
-        onItemClick = { item ->
-          when (item) {
-            HomeItem.Home -> navigator.navigate(Router.Feed.route)
-            HomeItem.Favorite -> navigator.navigate(Router.Favorite.route)
-            HomeItem.Setting -> Unit
-          }
-        }
-      )
-    }
+  Scaffold { innerPadding ->
+    when (val state = stateFlow.collectAsState().value) {
+      is HomeState.Loading -> {
+        LoadingIndicator(
+          modifier = Modifier.padding(innerPadding),
+        )
+      }
 
-    is HomeState.Loading -> Unit
+      is HomeState.Idle -> {
+        HomeScene(
+          list = state.items,
+          onItemClick = { item ->
+            when (item) {
+              HomeItem.Home -> navigator.navigate(Router.Feed.route)
+              HomeItem.Favorite -> navigator.navigate(Router.Favorite.route)
+              HomeItem.Setting -> Unit
+            }
+          },
+          modifier = Modifier.padding(innerPadding),
+        )
+      }
+    }
   }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScene(
   list: List<HomeItem>,
   onItemClick: (HomeItem) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-  Scaffold { innerPadding ->
-    Box(
-      modifier = Modifier.padding(innerPadding).fillMaxSize(),
-      contentAlignment = Alignment.Center,
-    ) {
-      var focusIndex by rememberSaveable { mutableStateOf(0) }
-      val focusRequesters = remember(list.size) {
-        Array(list.size) { FocusRequester() }
-      }
+  Box(
+    modifier = modifier.fillMaxSize(),
+    contentAlignment = Alignment.Center,
+  ) {
+    var focusIndex by rememberSaveable { mutableStateOf(0) }
+    val focusRequesters = remember(list.size) {
+      Array(list.size) { FocusRequester() }
+    }
 
-      Row {
-        list.forEachIndexed { index, item ->
-          var isFocused by remember { mutableStateOf(false) }
-          RoundIcon(
-            image = item.icon,
-            name = item.name,
-            isFocused = isFocused,
-            color = Color.Transparent,
-            contentColor = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-              .clickable {
-                focusRequesters[index].requestFocus()
-                onItemClick.invoke(item)
-              }
-              .onFocusChanged {
-                isFocused = it.isFocused
-                if (isFocused) focusIndex = index
-              }
-              .focusProperties {
-                left = focusRequesters.getOrNull(index - 1) ?: FocusRequester.Default
-                right = focusRequesters.getOrNull(index + 1) ?: FocusRequester.Default
-              }
-              .focusRequester(focusRequesters[index])
-              .focusTarget()
-          )
-          if (focusIndex == index) {
-            SideEffect {
+    Row {
+      list.forEachIndexed { index, item ->
+        var isFocused by remember { mutableStateOf(false) }
+        RoundIcon(
+          image = item.icon,
+          name = item.name,
+          isFocused = isFocused,
+          color = Color.Transparent,
+          contentColor = MaterialTheme.colorScheme.onBackground,
+          modifier = Modifier
+            .clickable {
               focusRequesters[index].requestFocus()
+              onItemClick.invoke(item)
             }
+            .onFocusChanged {
+              isFocused = it.isFocused
+              if (isFocused) focusIndex = index
+            }
+            .focusProperties {
+              left = focusRequesters.getOrNull(index - 1) ?: FocusRequester.Default
+              right = focusRequesters.getOrNull(index + 1) ?: FocusRequester.Default
+            }
+            .focusRequester(focusRequesters[index])
+            .focusTarget()
+        )
+        if (focusIndex == index) {
+          SideEffect {
+            focusRequesters[index].requestFocus()
           }
         }
       }

@@ -27,7 +27,7 @@ import com.seiko.tv.anime.data.model.anime.AnimeDetail
 import com.seiko.tv.anime.data.model.anime.AnimeEpisode
 import com.seiko.tv.anime.data.model.anime.AnimeTag
 import com.seiko.tv.anime.ui.Router
-import com.seiko.tv.anime.ui.common.foundation.LoadingState
+import com.seiko.tv.anime.ui.common.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 import moe.tlaster.precompose.navigation.Navigator
@@ -42,7 +42,7 @@ fun DetailScene(
   val (channel, flow) = rememberEvent<DetailEvent>()
   val stateFlow = rememberPresenter { DetailPresenter(flow, uri) }
   when (val state = stateFlow.collectAsState().value) {
-    DetailState.Loading -> LoadingState()
+    DetailState.Loading -> LoadingIndicator()
     is DetailState.Success -> {
       DetailScene(
         detail = state.detail,

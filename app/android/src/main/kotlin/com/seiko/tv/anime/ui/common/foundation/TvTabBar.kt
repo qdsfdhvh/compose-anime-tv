@@ -1,7 +1,6 @@
 package com.seiko.tv.anime.ui.common.foundation
 
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -21,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
@@ -34,7 +32,6 @@ import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.tv.anime.data.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.ui.theme.backgroundColor
-import com.seiko.tv.anime.ui.theme.uiValue
 
 @Composable
 fun TvTabBar(
@@ -60,6 +57,7 @@ fun TvTabBar(
     itemsIndexed(tabList) { index, tab ->
       val focusRequester = remember { FocusRequester() }
       var isFocused by remember { mutableStateOf(false) }
+      val scale by animateFloatAsState(if (isFocused) 1.1f else 1f)
       TvTabBarItem(
         modifier = Modifier
           .onFocusChanged {
@@ -68,12 +66,12 @@ fun TvTabBar(
           }
           .clickable { focusRequester.requestFocus() }
           .focusRequester(focusRequester)
-          .focusTarget(),
+          .focusTarget()
+          .scale(scale),
         title = tab.title,
         isFocused = isFocused,
-        isSelected = focusIndex == index
+        isSelected = focusIndex == index,
       )
-
       if (parentIsFocused && focusIndex == index) {
         SideEffect {
           focusRequester.requestFocus()
@@ -96,22 +94,14 @@ private fun TvTabBarItem(
   isSelected: Boolean,
   modifier: Modifier = Modifier
 ) {
-  val scale by animateFloatAsState(if (isFocused) 1.1f else 1f)
-  val background = if (isSelected) MaterialTheme.colorScheme.surface else Color.Transparent
-  Text(
-    text = title,
-    color = when {
-      isFocused -> Color.Black
-      else -> Color.Unspecified
-    },
-    style = MaterialTheme.typography.labelMedium,
-    modifier = modifier
-      .scale(scale)
-      .padding(5.dp)
-      .shadow(if (isFocused) MaterialTheme.uiValue.elevation else 0.dp, CircleShape)
-      .background(background, CircleShape)
-      .padding(15.dp, 5.dp)
-  )
+  Surface(
+    color = if (isFocused || isSelected) MaterialTheme.colorScheme.surfaceVariant else Color.Transparent,
+    contentColor = MaterialTheme.colorScheme.onSurface,
+    shape = CircleShape,
+    modifier = modifier.padding(8.dp),
+  ) {
+    Text(title, Modifier.padding(16.dp, 8.dp))
+  }
 }
 
 @Preview(showBackground = true)

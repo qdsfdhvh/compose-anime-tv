@@ -4,10 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
@@ -39,8 +42,6 @@ import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.tv.anime.data.model.anime.AnimeTag
 import com.seiko.tv.anime.data.model.anime.AnimeTagPageItem
 import com.seiko.tv.anime.ui.Router
-import com.seiko.tv.anime.ui.common.SpacerHeight
-import com.seiko.tv.anime.ui.common.SpacerWidth
 import com.seiko.tv.anime.ui.common.foundation.NetworkImage
 import com.seiko.tv.anime.ui.common.foundation.ScreenState
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
@@ -144,25 +145,25 @@ fun TagItem(
     verticalAlignment = Alignment.CenterVertically
   ) {
     NetworkImage(cover, Modifier.size(75.dp, 100.dp))
-    SpacerWidth(width = 10.dp)
+    Spacer(Modifier.width(10.dp))
     Column {
       Text(
         title,
         style = MaterialTheme.typography.titleMedium
       )
-      SpacerHeight(height = 5.dp)
+      Spacer(Modifier.height(5.dp))
       Text(
         update,
         color = Color.Red,
         style = MaterialTheme.typography.labelMedium
       )
-      SpacerHeight(height = 5.dp)
+      Spacer(Modifier.height(5.dp))
       Text(
         "类型：${tags.joinToString { it.title }}",
         color = Color.Gray,
         style = MaterialTheme.typography.labelMedium
       )
-      SpacerHeight(height = 10.dp)
+      Spacer(Modifier.height(10.dp))
       Text(
         description,
         color = Color.DarkGray,

@@ -14,7 +14,7 @@ import com.seiko.compose.player.TvVideoPlayer
 import com.seiko.compose.player.VideoPlayerSource
 import com.seiko.compose.player.rememberPlayer
 import com.seiko.compose.player.rememberVideoPlayerController
-import com.seiko.tv.anime.ui.common.foundation.LoadingState
+import com.seiko.tv.anime.ui.common.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.common.foundation.TvSelectDialog
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberPresenter
@@ -27,7 +27,7 @@ fun PlayerScene(
   val stateFlow = rememberPresenter { PlayerPresenter(uri) }
   when (val state = stateFlow.collectAsState().value) {
     PlayerState.Loading -> {
-      LoadingState()
+      LoadingIndicator()
     }
     is PlayerState.Success -> {
       PlayerScene(

@@ -15,6 +15,7 @@ kotlin {
   ios()
   sourceSets {
     val commonMain by getting {
+      kotlin.srcDir("src/commonMain/accompanist")
       kotlin.srcDir("src/commonMain/material3")
       dependencies {
         // Compose
@@ -26,24 +27,18 @@ kotlin {
         implementation(compose.material)
         api(compose.materialIconsExtended)
         implementation("org.jetbrains.compose.ui:ui-util:${Versions.compose_jb}")
-
         // Di
         api("io.insert-koin:koin-core:${Versions.koin}")
-
         // kotlinx
         api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.Kotlin.coroutines}")
         api("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.Kotlin.serialization}")
         api("org.jetbrains.kotlinx:kotlinx-datetime:${Versions.Kotlin.deateTime}")
-
         // Navigator https://github.com/Tlaster/PreCompose
         api("moe.tlaster:precompose:1.2.3")
-
         // Paging https://github.com/qdsfdhvh/multiplatform-paging
         api("io.github.qdsfdhvh:paging:1.0.1")
-
         // Image https://github.com/qdsfdhvh/compose-imageloader
         api("io.github.qdsfdhvh:image-loader:1.0.6")
-
         // Log
         api("io.github.aakira:napier:${Versions.napier}")
       }
@@ -53,12 +48,8 @@ kotlin {
         // Compose
         api("androidx.compose.material3:material3:${Versions.composeMaterial}")
         api("androidx.compose.material:material-icons-extended:${Versions.compose}")
-        api("com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}")
-        api("com.google.accompanist:accompanist-pager:${Versions.accompanist}")
-
         // Coroutines
         api("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutines}")
-
         // android
         api("androidx.core:core-ktx:${Versions.coreKtx}")
         api("androidx.activity:activity-ktx:${Versions.activity}")
@@ -87,5 +78,4 @@ android {
     sourceCompatibility = Versions.Java.java
     targetCompatibility = Versions.Java.java
   }
-  sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 }

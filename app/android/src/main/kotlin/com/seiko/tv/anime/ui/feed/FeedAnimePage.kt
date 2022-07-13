@@ -28,6 +28,7 @@ import com.seiko.compose.focuskit.onFocusDirection
 import com.seiko.tv.anime.data.model.anime.Anime
 import com.seiko.tv.anime.data.model.anime.AnimeGroup
 import com.seiko.tv.anime.data.model.anime.AnimeTab
+import com.seiko.tv.anime.ui.common.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 import moe.tlaster.precompose.rememberPresenter
 
@@ -39,7 +40,10 @@ fun FeedAnimePage(
 ) {
   val stateFlow = rememberPresenter { FeedAnimePresenter(tab) }
   when (val state = stateFlow.collectAsState().value) {
-    FeedAnimeState.Loading -> Unit
+    FeedAnimeState.Loading -> {
+      LoadingIndicator()
+    }
+
     is FeedAnimeState.Success -> {
       FeedAnimePage(
         animeList = state.list,
