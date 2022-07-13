@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  fix dialog not gravity center in samsung  -->
+    <style name="DialogWindowTheme" parent="android:Theme.Dialog">
+        <item name="android:windowClipToOutline">false</item>
+    </style>
+</resources>
