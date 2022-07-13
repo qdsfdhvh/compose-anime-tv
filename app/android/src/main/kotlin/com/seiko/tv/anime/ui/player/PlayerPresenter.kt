@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.seiko.compose.player.VideoPlayerSource
-import com.seiko.tv.anime.data.repository.AnimeRepository
+import com.seiko.tv.anime.repository.AnimeRepository
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.catch
 import moe.tlaster.koin.get

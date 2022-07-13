@@ -9,8 +9,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.seiko.tv.anime.data.model.anime.AnimeTagPageItem
-import com.seiko.tv.anime.data.repository.AnimeRepository
+import com.seiko.tv.anime.model.anime.AnimeTagPageItem
+import com.seiko.tv.anime.repository.AnimeRepository
 import moe.tlaster.koin.get
 
 @SuppressLint("ComposableNaming")

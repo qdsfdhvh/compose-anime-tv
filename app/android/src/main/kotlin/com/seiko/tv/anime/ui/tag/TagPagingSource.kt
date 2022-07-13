@@ -2,8 +2,8 @@ package com.seiko.tv.anime.ui.tag
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.seiko.tv.anime.data.model.anime.AnimeTagPageItem
-import com.seiko.tv.anime.data.repository.AnimeRepository
+import com.seiko.tv.anime.model.anime.AnimeTagPageItem
+import com.seiko.tv.anime.repository.AnimeRepository
 
 class TagPagingSource(
   private val url: String,

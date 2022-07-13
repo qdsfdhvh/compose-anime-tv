@@ -7,9 +7,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.seiko.tv.anime.data.model.anime.AnimeGroup
-import com.seiko.tv.anime.data.model.anime.AnimeTab
-import com.seiko.tv.anime.data.repository.AnimeRepository
+import com.seiko.tv.anime.model.anime.AnimeGroup
+import com.seiko.tv.anime.model.anime.AnimeTab
+import com.seiko.tv.anime.repository.AnimeRepository
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.catch
 import moe.tlaster.koin.get

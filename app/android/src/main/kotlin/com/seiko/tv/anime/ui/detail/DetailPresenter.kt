@@ -8,8 +8,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.paging.platform.ioDispatcher
-import com.seiko.tv.anime.data.model.anime.AnimeDetail
-import com.seiko.tv.anime.data.repository.AnimeRepository
+import com.seiko.tv.anime.model.anime.AnimeDetail
+import com.seiko.tv.anime.repository.AnimeRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

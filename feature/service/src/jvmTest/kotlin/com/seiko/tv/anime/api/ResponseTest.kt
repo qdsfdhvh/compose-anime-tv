@@ -1,10 +1,10 @@
 package com.seiko.tv.anime.api
 
-import com.seiko.tv.anime.data.remote.response.sakura.DetailResponse
-import com.seiko.tv.anime.data.remote.response.sakura.HomeResponse
-import com.seiko.tv.anime.data.remote.response.sakura.TagResponse
-import com.seiko.tv.anime.data.remote.response.sakura.TimelineResponse
-import com.seiko.tv.anime.data.remote.response.sakura.VideoResponse
+import com.seiko.tv.anime.model.response.sakura.DetailResponse
+import com.seiko.tv.anime.model.response.sakura.HomeResponse
+import com.seiko.tv.anime.model.response.sakura.TagResponse
+import com.seiko.tv.anime.model.response.sakura.TimelineResponse
+import com.seiko.tv.anime.model.response.sakura.VideoResponse
 import kotlinx.coroutines.runBlocking
 import moe.tlaster.hson.Hson
 import org.junit.Test

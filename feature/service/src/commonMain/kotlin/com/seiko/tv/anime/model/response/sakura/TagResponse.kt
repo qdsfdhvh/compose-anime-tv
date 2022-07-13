@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.data.remote.response.sakura
+package com.seiko.tv.anime.model.response.sakura
 
 import moe.tlaster.hson.annotations.HtmlSerializable
 

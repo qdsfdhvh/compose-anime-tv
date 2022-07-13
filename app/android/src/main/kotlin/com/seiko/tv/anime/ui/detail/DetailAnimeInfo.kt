@@ -40,7 +40,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.onFocusDirection
-import com.seiko.tv.anime.data.model.anime.AnimeTag
+import com.seiko.tv.anime.model.anime.AnimeTag
 import com.seiko.tv.anime.ui.common.foundation.FocusableImageButton
 import com.seiko.tv.anime.ui.common.foundation.FocusableTextButton
 import com.seiko.tv.anime.ui.common.foundation.NetworkImage

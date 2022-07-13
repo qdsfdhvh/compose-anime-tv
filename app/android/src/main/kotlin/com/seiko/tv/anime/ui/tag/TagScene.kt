@@ -39,8 +39,8 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
-import com.seiko.tv.anime.data.model.anime.AnimeTag
-import com.seiko.tv.anime.data.model.anime.AnimeTagPageItem
+import com.seiko.tv.anime.model.anime.AnimeTag
+import com.seiko.tv.anime.model.anime.AnimeTagPageItem
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.NetworkImage
 import com.seiko.tv.anime.ui.common.foundation.ScreenState

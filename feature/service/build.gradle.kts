@@ -12,24 +12,17 @@ kotlin {
       kotlinOptions.jvmTarget = Versions.Java.jvmTarget
     }
   }
+  // ios()
   sourceSets {
     val commonMain by getting {
       dependencies {
         implementation(projects.core)
 
         // Network
-        implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
-        implementation("com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}")
+        implementation("io.ktor:ktor-client-logging:${Versions.ktor}")
+        implementation("io.ktor:ktor-client-content-negotiation:${Versions.ktor}")
         implementation("com.github.qdsfdhvh:Hson:0.1.5")
         implementation("org.jsoup:jsoup:1.14.3")
-
-        // Room
-        implementation("androidx.room:room-runtime:${Versions.room}")
-        implementation("androidx.room:room-ktx:${Versions.room}")
-        implementation("androidx.room:room-paging:${Versions.room}") {
-          exclude("androidx.paging")
-        }
-        // ksp("androidx.room:room-compiler:${Versions.room}")
       }
     }
     val commonTest by getting {
@@ -37,7 +30,33 @@ kotlin {
         implementation(kotlin("test"))
       }
     }
+    val androidMain by getting {
+      dependencies {
+        implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
+
+        // Room
+        implementation("androidx.room:room-runtime:${Versions.room}")
+        implementation("androidx.room:room-ktx:${Versions.room}")
+        implementation("androidx.room:room-paging:${Versions.room}") {
+          exclude("androidx.paging")
+        }
+      }
+    }
+    val jvmMain by getting {
+      dependencies {
+        implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
+      }
+    }
+    // val iosMain by getting {
+    //   dependencies {
+    //     implementation("io.ktor:ktor-client-darwin:${Versions.ktor}")
+    //   }
+    // }
   }
+}
+
+dependencies {
+  add("kspAndroid", "androidx.room:room-compiler:${Versions.room}")
 }
 
 ksp {

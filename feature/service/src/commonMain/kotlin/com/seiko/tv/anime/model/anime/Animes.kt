@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.data.model.anime
+package com.seiko.tv.anime.model.anime
 
 data class Anime(
   val title: String,

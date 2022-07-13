@@ -30,7 +30,7 @@ import com.seiko.compose.focuskit.ItemScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.rememberFocusRequesterManager
 import com.seiko.compose.focuskit.tweenAnimateScrollBy
-import com.seiko.tv.anime.data.model.anime.Anime
+import com.seiko.tv.anime.model.anime.Anime
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.GroupItem
 import com.seiko.tv.anime.ui.common.foundation.ScreenState

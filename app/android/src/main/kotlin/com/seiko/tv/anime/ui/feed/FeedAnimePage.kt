@@ -25,9 +25,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.compose.focuskit.onFocusDirection
-import com.seiko.tv.anime.data.model.anime.Anime
-import com.seiko.tv.anime.data.model.anime.AnimeGroup
-import com.seiko.tv.anime.data.model.anime.AnimeTab
+import com.seiko.tv.anime.model.anime.Anime
+import com.seiko.tv.anime.model.anime.AnimeGroup
+import com.seiko.tv.anime.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.common.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.common.foundation.TvTitleGroup
 import moe.tlaster.precompose.rememberPresenter

@@ -22,10 +22,10 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
-import com.seiko.tv.anime.data.model.anime.Anime
-import com.seiko.tv.anime.data.model.anime.AnimeDetail
-import com.seiko.tv.anime.data.model.anime.AnimeEpisode
-import com.seiko.tv.anime.data.model.anime.AnimeTag
+import com.seiko.tv.anime.model.anime.Anime
+import com.seiko.tv.anime.model.anime.AnimeDetail
+import com.seiko.tv.anime.model.anime.AnimeEpisode
+import com.seiko.tv.anime.model.anime.AnimeTag
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.common.foundation.TvEpisodeList

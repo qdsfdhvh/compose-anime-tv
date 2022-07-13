@@ -29,7 +29,7 @@ object Versions {
   const val accompanist = "0.24.13-rc"
   // const val paging = "3.2.0-alpha01"
   // const val pagingCompose = "1.0.0-alpha15"
-  const val okhttp = "4.10.0"
+  const val ktor = "2.0.2"
   const val room = "2.5.0-alpha02"
   // const val appCenter = "4.1.0"
   // const val coil = "2.1.0"

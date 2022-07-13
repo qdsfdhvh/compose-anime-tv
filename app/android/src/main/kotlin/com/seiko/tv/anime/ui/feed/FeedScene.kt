@@ -22,8 +22,8 @@ import androidx.compose.ui.focus.onFocusChanged
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
-import com.seiko.tv.anime.data.model.anime.Anime
-import com.seiko.tv.anime.data.model.anime.AnimeTab
+import com.seiko.tv.anime.model.anime.Anime
+import com.seiko.tv.anime.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.common.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.common.foundation.TvTabBar
