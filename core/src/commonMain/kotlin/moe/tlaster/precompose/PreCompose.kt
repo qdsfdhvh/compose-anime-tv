@@ -2,6 +2,7 @@ package moe.tlaster.precompose
 
 import androidx.compose.runtime.BroadcastFrameClock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.currentCompositeKeyHash
 import app.cash.molecule.launchMolecule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +40,11 @@ private class PresenterViewModel<T : Any>(
 
 @Composable
 fun <T : Any> rememberPresenter(body: @Composable () -> T): StateFlow<T> {
-  return viewModel { PresenterViewModel(body) }.state
+  return viewModel(
+    keys = listOf(
+      currentCompositeKeyHash.toString(36),
+    )
+  ) { PresenterViewModel(body) }.state
 }
 
 private class EventViewModel<E> : ViewModel() {
@@ -49,5 +54,9 @@ private class EventViewModel<E> : ViewModel() {
 
 @Composable
 fun <E> rememberEvent(): Pair<Channel<E>, Flow<E>> {
-  return viewModel { EventViewModel<E>() }.pair
+  return viewModel(
+    keys = listOf(
+      currentCompositeKeyHash.toString(36),
+    )
+  ) { EventViewModel<E>() }.pair
 }
