@@ -20,66 +20,11 @@
  */
 package moe.tlaster.koin
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import moe.tlaster.precompose.ui.LocalViewModelStoreOwner
-import moe.tlaster.precompose.viewmodel.ViewModel
-import moe.tlaster.precompose.viewmodel.ViewModelStoreOwner
-import moe.tlaster.precompose.viewmodel.getViewModel
-import org.koin.core.Koin
-import org.koin.core.definition.Definition
-import org.koin.core.instance.InstanceFactory
-import org.koin.core.module.Module
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
 import org.koin.mp.KoinPlatformTools
-import kotlin.reflect.KClass
 
 inline fun <reified T> get(
   qualifier: Qualifier? = null,
   noinline parameters: ParametersDefinition? = null
 ): T = KoinPlatformTools.defaultContext().get().get(qualifier, parameters)
-
-fun getKoin(): Koin = KoinPlatformTools.defaultContext().get()
-
-inline fun <reified T : ViewModel> Module.viewModel(
-  qualifier: Qualifier? = null,
-  noinline definition: Definition<T>
-): Pair<Module, InstanceFactory<T>> {
-  return factory(qualifier, definition)
-}
-
-expect inline fun <reified T : ViewModel> Module.viewModel(
-  qualifier: Qualifier? = null
-): Pair<Module, InstanceFactory<T>>
-
-@Composable
-inline fun <reified T : ViewModel> getViewModel(
-  qualifier: Qualifier? = null,
-  owner: ViewModelStoreOwner = LocalViewModelStoreOwner.current,
-  noinline parameters: ParametersDefinition? = null
-): T {
-  return remember(qualifier, parameters) {
-    owner.getViewModel(qualifier, parameters)
-  }
-}
-
-inline fun <reified T : ViewModel> ViewModelStoreOwner.getViewModel(
-  qualifier: Qualifier? = null,
-  noinline parameters: ParametersDefinition? = null
-): T {
-  return getViewModel(qualifier, T::class, parameters)
-}
-
-fun <T : ViewModel> ViewModelStoreOwner.getViewModel(
-  qualifier: Qualifier? = null,
-  clazz: KClass<T>,
-  parameters: ParametersDefinition? = null
-): T {
-  return this.viewModelStore.getViewModel(
-    key = qualifier?.value ?: (clazz.toString() + parameters?.invoke()),
-    clazz = clazz
-  ) {
-    getKoin().get(clazz, qualifier, parameters)
-  }
-}

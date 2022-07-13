@@ -15,9 +15,11 @@ import kotlinx.datetime.Clock
 import moe.tlaster.precompose.ui.viewModel
 import moe.tlaster.precompose.viewmodel.ViewModel
 
+private typealias Awaiter = () -> Unit
+
 private class PresenterViewModel<T : Any>(
   body: @Composable () -> T
-) : ViewModel(), () -> Unit {
+) : ViewModel(), Awaiter {
 
   private val clock = BroadcastFrameClock(this)
   private val scope = CoroutineScope(Dispatchers.Main) + clock
