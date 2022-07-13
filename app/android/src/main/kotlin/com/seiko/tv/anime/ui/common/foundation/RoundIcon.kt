@@ -13,20 +13,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.seiko.tv.anime.ui.theme.backgroundColor
-import com.seiko.tv.anime.ui.theme.uiValue
 
 @Composable
 fun RoundIcon(
@@ -34,30 +34,37 @@ fun RoundIcon(
   name: String,
   isFocused: Boolean,
   modifier: Modifier = Modifier,
-  background: Color = MaterialTheme.colorScheme.surface,
+  color: Color = MaterialTheme.colorScheme.surface,
+  contentColor: Color = contentColorFor(color),
   contentDescription: String? = null
 ) {
   val painter = rememberVectorPainter(image = image)
   val scale by animateFloatAsState(if (isFocused) 1.2f else 1f)
-  Column(
-    horizontalAlignment = Alignment.CenterHorizontally
+  Surface(
+    modifier = modifier,
+    color = color,
+    contentColor = contentColor,
   ) {
-    Icon(
-      painter = painter,
-      contentDescription = contentDescription,
-      modifier = modifier
-        .scale(scale)
-        .padding(16.dp)
-        .shadow(if (isFocused) MaterialTheme.uiValue.elevation else 0.dp, CircleShape)
-        .background(background, CircleShape)
-        .padding(MaterialTheme.uiValue.paddingHorizontalSmall)
-        .size(40.dp)
-    )
-    Text(
-      modifier = Modifier.padding(top = 4.dp),
-      text = name,
-      style = MaterialTheme.typography.labelMedium
-    )
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+      Surface(
+        shape = CircleShape,
+        tonalElevation = 1.dp,
+        shadowElevation = if (isFocused) 1.dp else 0.dp,
+        modifier = Modifier
+          .scale(scale)
+          .padding(16.dp)
+          .size(60.dp),
+      ) {
+        Icon(
+          painter = painter,
+          contentDescription = contentDescription,
+          modifier = Modifier.padding(16.dp),
+        )
+      }
+      Text(text = name)
+    }
   }
 }
 
