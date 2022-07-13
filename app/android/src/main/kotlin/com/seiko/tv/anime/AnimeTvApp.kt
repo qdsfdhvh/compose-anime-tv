@@ -1,8 +1,6 @@
 package com.seiko.tv.anime
 
 import android.app.Application
-import coil.ImageLoader
-import coil.ImageLoaderFactory
 import com.seiko.tv.anime.di.appModules
 import com.seiko.tv.anime.di.commonModules
 import com.seiko.tv.anime.di.serviceModules
@@ -13,8 +11,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
-class AnimeTvApp : Application(), ImageLoaderFactory {
-
+class AnimeTvApp : Application() {
   override fun onCreate() {
     super.onCreate()
     if (BuildConfig.DEBUG) {
@@ -25,11 +22,5 @@ class AnimeTvApp : Application(), ImageLoaderFactory {
       androidContext(this@AnimeTvApp)
       modules(commonModules + serviceModules + appModules)
     }
-  }
-
-  override fun newImageLoader(): ImageLoader {
-    return ImageLoader.Builder(this)
-      .crossfade(true)
-      .build()
   }
 }

@@ -8,13 +8,12 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
-import okhttp3.internal.immutableListOf
 
 @SuppressLint("ComposableNaming")
 @Composable
 fun HomePresenter(): HomeState {
   val list = remember {
-    immutableListOf(
+    listOf(
       HomeItem.Home,
       HomeItem.Favorite,
       HomeItem.Setting,

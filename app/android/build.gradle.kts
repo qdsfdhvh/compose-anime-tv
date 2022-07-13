@@ -66,8 +66,8 @@ android {
 }
 
 dependencies {
-  implementation(project(":core"))
-  implementation(project(":feature:service"))
+  implementation(projects.core)
+  implementation(projects.feature.service)
 
   implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
 

@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-  implementation(project(":core"))
+  implementation(projects.core)
 
   // Network
   implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
@@ -38,9 +38,6 @@ dependencies {
     exclude("androidx.paging")
   }
   ksp("androidx.room:room-compiler:${Versions.room}")
-
-  // Paging
-  // implementation("androidx.paging:paging-common-ktx:${Versions.paging}")
 
   // Test
   testImplementation(kotlin("test"))

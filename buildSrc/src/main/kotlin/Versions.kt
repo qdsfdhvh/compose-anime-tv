@@ -32,7 +32,7 @@ object Versions {
   const val okhttp = "4.10.0"
   const val room = "2.5.0-alpha02"
   // const val appCenter = "4.1.0"
-  const val coil = "2.1.0"
+  // const val coil = "2.1.0"
   // const val timber = "4.7.1"
   const val napier = "2.6.1"
 }

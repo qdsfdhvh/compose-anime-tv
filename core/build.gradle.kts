@@ -19,7 +19,6 @@ kotlin {
       dependencies {
         // Compose
         api(compose.ui)
-        // api(compose.uiTooling)
         api(compose.foundation)
         api(compose.animation)
         // @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
@@ -42,6 +41,9 @@ kotlin {
         // Paging https://github.com/qdsfdhvh/multiplatform-paging
         api("io.github.qdsfdhvh:paging:1.0.1")
 
+        // Image https://github.com/qdsfdhvh/compose-imageloader
+        api("io.github.qdsfdhvh:image-loader:1.0.6")
+
         // Log
         api("io.github.aakira:napier:${Versions.napier}")
       }
@@ -51,7 +53,6 @@ kotlin {
         // Compose
         api("androidx.compose.material3:material3:${Versions.composeMaterial}")
         api("androidx.compose.material:material-icons-extended:${Versions.compose}")
-        // api("androidx.paging:paging-compose:${Versions.pagingCompose}")
         api("com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}")
         api("com.google.accompanist:accompanist-pager:${Versions.accompanist}")
 
@@ -61,9 +62,6 @@ kotlin {
         // android
         api("androidx.core:core-ktx:${Versions.coreKtx}")
         api("androidx.activity:activity-ktx:${Versions.activity}")
-
-        // Image
-        api("io.coil-kt:coil-compose:${Versions.coil}")
       }
     }
     val jvmMain by getting {
