@@ -17,12 +17,11 @@ kotlin {
     val commonMain by getting {
       dependencies {
         implementation(projects.core)
+        implementation(projects.ksoup)
 
         // Network
         implementation("io.ktor:ktor-client-logging:${Versions.ktor}")
         implementation("io.ktor:ktor-client-content-negotiation:${Versions.ktor}")
-        implementation("com.github.qdsfdhvh:Hson:0.1.5")
-        implementation("org.jsoup:jsoup:1.14.3")
       }
     }
     val commonTest by getting {

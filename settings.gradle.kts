@@ -22,6 +22,7 @@ rootProject.name = "compose-anime-tv"
 
 include(
   ":core",
+  ":ksoup",
   ":feature:service",
   ":app:hosting",
   ":app:android",
