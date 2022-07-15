@@ -10,9 +10,9 @@ import androidx.paging.cachedIn
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.map
+import com.seiko.tv.anime.di.scope.ioDispatcher
 import com.seiko.tv.anime.model.anime.Anime
 import com.seiko.tv.anime.repository.AnimeRepository
-import com.seiko.tv.anime.di.scope.ioDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
