@@ -15,7 +15,7 @@ kotlin {
   ios()
   sourceSets {
     val commonMain by getting {
-      kotlin.srcDir("src/commonMain/accompanist")
+      kotlin.srcDir("src/commonMain/third")
       kotlin.srcDir("src/commonMain/material3")
       dependencies {
         // Compose
