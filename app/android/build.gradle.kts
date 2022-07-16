@@ -3,9 +3,6 @@
 plugins {
   id("com.android.application")
   kotlin("android")
-  id("org.jetbrains.compose")
-  kotlin("plugin.parcelize")
-  id("com.google.devtools.ksp")
 }
 
 android {
@@ -67,13 +64,7 @@ android {
 
 dependencies {
   implementation(projects.core)
-  implementation(projects.feature.service)
-
-  implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
-
+  implementation(projects.hosting)
   // Di
   implementation("io.insert-koin:koin-android:${Versions.koin}")
-
-  // player https://github.com/google/ExoPlayer
-  implementation("com.google.android.exoplayer:exoplayer:2.18.0")
 }

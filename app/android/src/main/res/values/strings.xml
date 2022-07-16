@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">Compose Anime</string>
-    <string name="accessibility_common_network_image">Network Image</string>
-    <string name="retry">Retry</string>
 </resources>

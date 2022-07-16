@@ -24,7 +24,7 @@ include(
   ":core",
   ":ksoup",
   ":feature:service",
-  ":app:hosting",
+  ":hosting",
   ":app:android",
   ":app:desktop",
   ":app:ios",
