@@ -16,7 +16,7 @@ kotlin {
     }
   }
   ios {
-    setupNativeConfig()
+    // setupNativeConfig()
   }
   sourceSets {
     val commonMain by getting {
@@ -53,10 +53,10 @@ kotlin {
     framework {
       baseName = "Ksoup"
     }
-    pod(
-      name = "SwiftSoup",
-      version = ">=2.0.0",
-    )
+    // pod(
+    //   name = "SwiftSoup",
+    //   version = ">=2.0.0",
+    // )
     pod(
       name = "GDataXML-HTML",
       version = "~> 1.4.1",
@@ -76,16 +76,16 @@ android {
   }
 }
 
-fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.setupNativeConfig() {
-  compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
-    "-Xallocator=mimalloc",
-    "-Xruntime-logs=gc=info",
-    "-Xexport-kdoc"
-  )
-  binaries {
-    /*all {
-        binaryOptions["memoryModel"] = "experimental"
-        binaryOptions["freezing"] = "disabled"
-    }*/
-  }
-}
+// fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.setupNativeConfig() {
+//   compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
+//     "-Xallocator=mimalloc",
+//     "-Xruntime-logs=gc=info",
+//     "-Xexport-kdoc"
+//   )
+//   binaries {
+//     /*all {
+//         binaryOptions["memoryModel"] = "experimental"
+//         binaryOptions["freezing"] = "disabled"
+//     }*/
+//   }
+// }

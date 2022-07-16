@@ -1,8 +1,8 @@
 package com.seiko.tv.anime.di.module
 
-import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
+import org.koin.core.module.Module
 
-internal actual fun provideHttpClientEngine(): HttpClientEngine {
-  return OkHttp.create()
+internal actual fun Module.setupHttpClientEngine() {
+  single { OkHttp.create() }
 }

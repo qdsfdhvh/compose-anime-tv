@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS DbAnime(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    title TEXT NOT NULL,
+    cover TEXT NOT NULL,
+    uri TEXT NOT NULL UNIQUE,
+    updateAt INTEGER NOT NULL,
+    createAt INTEGER NOT NULL
+);
+
+getFavoritesCount:
+SELECT COUNT(*) FROM DbAnime;
+
+getFavorites:
+SELECT * FROM DbAnime ORDER BY createAt DESC LIMIT :limit OFFSET :offset;
+
+insert:
+INSERT OR REPLACE INTO DbAnime(
+    title, cover, uri, updateAt, createAt
+) VALUES ?;
+
+contains:
+SELECT COUNT(1) FROM DbAnime WHERE uri=:uri LIMIT 1;
+
+delete:
+DELETE FROM DbAnime WHERE uri=:uri;

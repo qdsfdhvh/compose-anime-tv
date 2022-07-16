@@ -69,7 +69,7 @@ kotlin {
 }
 
 android {
-  namespace = "com.seiko.tv.anime.core"
+  namespace = "${Package.applicationId}.core"
   compileSdk = AndroidSdk.compile
   defaultConfig {
     minSdk = AndroidSdk.min

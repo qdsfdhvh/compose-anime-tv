@@ -2,6 +2,7 @@ plugins {
   kotlin("multiplatform")
   id("com.android.library")
   id("com.google.devtools.ksp")
+  id("app.cash.sqldelight").version(Versions.sqldelight)
   kotlin("plugin.serialization").version(Versions.Kotlin.lang)
 }
 
@@ -12,7 +13,7 @@ kotlin {
       kotlinOptions.jvmTarget = Versions.Java.jvmTarget
     }
   }
-  // ios()
+  ios()
   sourceSets {
     val commonMain by getting {
       dependencies {
@@ -22,6 +23,9 @@ kotlin {
         // Network
         implementation("io.ktor:ktor-client-logging:${Versions.ktor}")
         implementation("io.ktor:ktor-client-content-negotiation:${Versions.ktor}")
+
+        // Db
+        implementation("app.cash.sqldelight:coroutines-extensions:${Versions.sqldelight}")
       }
     }
     val commonTest by getting {
@@ -32,40 +36,26 @@ kotlin {
     val androidMain by getting {
       dependencies {
         implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
-
-        // Room
-        implementation("androidx.room:room-runtime:${Versions.room}")
-        implementation("androidx.room:room-ktx:${Versions.room}")
-        implementation("androidx.room:room-paging:${Versions.room}") {
-          exclude("androidx.paging")
-        }
+        implementation("app.cash.sqldelight:android-driver:${Versions.sqldelight}")
       }
     }
     val jvmMain by getting {
       dependencies {
         implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
+        implementation("app.cash.sqldelight:sqlite-driver:${Versions.sqldelight}")
       }
     }
-    // val iosMain by getting {
-    //   dependencies {
-    //     implementation("io.ktor:ktor-client-darwin:${Versions.ktor}")
-    //   }
-    // }
+    val iosMain by getting {
+      dependencies {
+        implementation("io.ktor:ktor-client-darwin:${Versions.ktor}")
+        implementation("app.cash.sqldelight:native-driver:${Versions.sqldelight}")
+      }
+    }
   }
 }
 
-dependencies {
-  add("kspAndroid", "androidx.room:room-compiler:${Versions.room}")
-}
-
-ksp {
-  arg("room.schemaLocation", "$projectDir/schemas")
-  arg("room.incremental", "true")
-  arg("room.expandProjection", "true")
-}
-
 android {
-  namespace = "com.seiko.tv.anime.feature.service"
+  namespace = "${Package.applicationId}.feature.service"
   compileSdk = AndroidSdk.compile
   defaultConfig {
     minSdk = AndroidSdk.min
@@ -73,5 +63,12 @@ android {
   compileOptions {
     sourceCompatibility = Versions.Java.java
     targetCompatibility = Versions.Java.java
+  }
+}
+
+sqldelight {
+  database("AppDatabase") {
+    packageName = "${Package.applicationId}.db"
+    sourceFolders = listOf("sqldelight/app")
   }
 }

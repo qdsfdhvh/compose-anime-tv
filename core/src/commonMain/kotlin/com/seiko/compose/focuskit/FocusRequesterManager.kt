@@ -20,6 +20,6 @@ class FocusRequesterManager internal constructor() {
   }
 
   fun getOrDefault(key: Any): FocusRequester {
-    return focusRequesters.getOrDefault(key, FocusRequester.Default)
+    return focusRequesters[key] ?: FocusRequester.Default
   }
 }

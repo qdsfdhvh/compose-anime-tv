@@ -21,18 +21,12 @@ object Versions {
   const val compose_jb = "1.2.0-alpha01-dev741" // TODO focus error, androidx 1.0.5 ok
   const val compose = "1.3.0-alpha01"
   const val composeMaterial = "1.0.0-alpha14"
+  const val ktor = "2.0.2"
+  const val sqldelight = "2.0.0-alpha03"
+  const val buildkonfig = "0.12.0"
+  const val napier = "2.6.1"
+
   const val activity = "1.6.0-alpha05"
   const val lifecycle = "2.6.0-alpha01"
   const val coreKtx = "1.9.0-alpha05"
-  // const val navigation = "2.4.0-beta02"
-  // const val navigationCompose = "1.0.0-beta01"
-  const val accompanist = "0.24.13-rc"
-  // const val paging = "3.2.0-alpha01"
-  // const val pagingCompose = "1.0.0-alpha15"
-  const val ktor = "2.0.2"
-  const val room = "2.5.0-alpha02"
-  // const val appCenter = "4.1.0"
-  // const val coil = "2.1.0"
-  // const val timber = "4.7.1"
-  const val napier = "2.6.1"
 }

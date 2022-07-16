@@ -1,7 +1,9 @@
 package com.seiko.tv.anime.repository
 
-import com.seiko.tv.anime.data.local.db.AnimeDataBase
-import com.seiko.tv.anime.data.local.db.model.DbAnime
+import androidx.paging.PagingSource
+import app.cash.sqldelight.paging3.QueryPagingSource
+import com.seiko.tv.anime.db.AppDatabase
+import com.seiko.tv.anime.db.DbAnime
 import com.seiko.tv.anime.model.anime.Anime
 import com.seiko.tv.anime.model.anime.AnimeDetail
 import com.seiko.tv.anime.model.anime.AnimeEpisode
@@ -14,6 +16,8 @@ import com.seiko.tv.anime.model.anime.AnimeTimeLine
 import com.seiko.tv.anime.model.anime.AnimeTimeLineGroup
 import com.seiko.tv.anime.model.anime.AnimeVideo
 import com.seiko.tv.anime.service.SakuraService
+import com.seiko.tv.anime.util.flatMap
+import io.ktor.util.date.getTimeMillis
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -22,11 +26,11 @@ import kotlinx.coroutines.withContext
 
 class AnimeRepository(
   private val service: SakuraService,
-  private val dataBase: AnimeDataBase,
+  private val dataBase: AppDatabase,
   private val ioDispatcher: CoroutineDispatcher
 ) {
 
-  private val dbAnime by lazy { dataBase.animeDao() }
+  private val dbAnime get() = dataBase.animeQueries
 
   fun getTabs(): Flow<List<AnimeTab>> {
     return flow {
@@ -156,13 +160,13 @@ class AnimeRepository(
 
   suspend fun isFavoriteAnime(uri: String): Boolean {
     return withContext(ioDispatcher) {
-      dbAnime.contains(uri) > 0
+      dbAnime.contains(uri).executeAsOne() > 0
     }
   }
 
   suspend fun insertFavoriteAnime(anime: AnimeDetail): Boolean {
     return withContext(ioDispatcher) {
-      val current = System.currentTimeMillis()
+      val current = getTimeMillis()
       dbAnime.insert(
         DbAnime(
           id = 0,
@@ -179,11 +183,27 @@ class AnimeRepository(
 
   suspend fun removeFavoriteAnime(uri: String): Boolean {
     return withContext(ioDispatcher) {
-      dbAnime.delete(uri) > 0
+      dbAnime.delete(uri)
+      true
     }
   }
 
-  fun getFavorites() = dbAnime.findAll()
+  fun getFavorites(): PagingSource<Long, Anime> {
+    return QueryPagingSource(
+      dispatcher = ioDispatcher,
+      transacter = dataBase.animeQueries,
+      countQuery = dbAnime.getFavoritesCount(),
+      queryProvider = { limit, offset ->
+        dbAnime.getFavorites(limit, offset).flatMap { item ->
+          Anime(
+            title = item.title,
+            cover = item.cover,
+            uri = item.uri
+          )
+        }
+      },
+    )
+  }
 
   fun getTimeLine(): Flow<List<AnimeTimeLineGroup>> {
     return flow {

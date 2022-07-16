@@ -1,8 +1,8 @@
 package com.seiko.tv.anime.di.module
 
-import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.engine.darwin.Darwin
 import org.koin.core.module.Module
 
 internal actual fun Module.setupHttpClientEngine() {
-  single { OkHttp.create() }
+  single { Darwin.create() }
 }

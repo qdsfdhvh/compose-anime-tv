@@ -9,19 +9,21 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import org.koin.core.module.Module
 import org.koin.dsl.module
 
 internal val httpModule = module {
+  setupHttpClientEngine()
   single {
-    provideHttpClient()
+    createHttpClient(get())
   }
   single {
     SakuraService(YHDM_BAS_URL, get())
   }
 }
 
-private fun provideHttpClient(): HttpClient {
-  return HttpClient(provideHttpClientEngine()) {
+private fun createHttpClient(engine: HttpClientEngine): HttpClient {
+  return HttpClient(engine) {
     install(HttpTimeout) {
       connectTimeoutMillis = 15000
       requestTimeoutMillis = 15000
@@ -37,4 +39,4 @@ private fun provideHttpClient(): HttpClient {
   }
 }
 
-internal expect fun provideHttpClientEngine(): HttpClientEngine
+internal expect fun Module.setupHttpClientEngine()
