@@ -141,7 +141,7 @@ internal class DefaultVideoPlayerController(
   }
 
   private fun updatePlaybackState(playbackStateCode: Int) {
-    val playbackState = when(playbackStateCode) {
+    val playbackState = when (playbackStateCode) {
       Player.STATE_IDLE -> PlaybackState.STATE_IDLE
       Player.STATE_READY -> PlaybackState.STATE_READY
       Player.STATE_BUFFERING -> PlaybackState.STATE_BUFFERING
