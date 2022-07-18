@@ -23,7 +23,7 @@ private class PresenterViewModel<T : Any>(
 ) : ViewModel(), Awaiter {
 
   private val clock = BroadcastFrameClock(this)
-  private val scope = CoroutineScope(Dispatchers.Main) + clock
+  private val scope = CoroutineScope(Dispatchers.Default) + clock
 
   val state: StateFlow<T> = scope.launchMolecule {
     body()
