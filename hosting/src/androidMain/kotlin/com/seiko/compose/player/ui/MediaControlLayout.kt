@@ -5,21 +5,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.seiko.compose.player.LocalVideoPlayerController
+import com.seiko.compose.player.VideoPlayerState
 import com.seiko.compose.player.internal.getDurationString
 
 @Composable
-fun MediaControlLayout(modifier: Modifier = Modifier) {
-  val controller = LocalVideoPlayerController.current
-  val state by controller.state.collectAsState()
-
+fun MediaControlLayout(
+  state: VideoPlayerState,
+  modifier: Modifier = Modifier,
+) {
   val isSeeking by remember(state.seekDirection) {
     mutableStateOf(state.seekDirection.isSeeking)
   }

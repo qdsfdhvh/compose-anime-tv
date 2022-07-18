@@ -2,8 +2,6 @@ package com.seiko.compose.player.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
@@ -12,13 +10,16 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.StyledPlayerView
-import com.seiko.compose.player.LocalVideoPlayerController
+import com.seiko.compose.player.VideoPlayerController
+import com.seiko.compose.player.VideoPlayerState
 
 @Composable
-fun MediaPlayerLayout(player: Player, modifier: Modifier = Modifier) {
-  val controller = LocalVideoPlayerController.current
-  val state by controller.state.collectAsState()
-
+fun MediaPlayerLayout(
+  player: Player,
+  controller: VideoPlayerController,
+  state: VideoPlayerState,
+  modifier: Modifier = Modifier,
+) {
   val lifecycle = LocalLifecycleOwner.current.lifecycle
 
   PlayerSurface(modifier) { playerView ->

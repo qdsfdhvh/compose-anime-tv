@@ -7,15 +7,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.seiko.compose.focuskit.handleBack
 import com.seiko.compose.player.TvVideoPlayer
+import com.seiko.compose.player.VideoPlayerFactory
 import com.seiko.compose.player.VideoPlayerSource
-import com.seiko.compose.player.rememberPlayer
 import com.seiko.compose.player.rememberVideoPlayerController
 import com.seiko.tv.anime.ui.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.foundation.TvSelectDialog
+import moe.tlaster.koin.get
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberPresenter
 
@@ -45,8 +47,12 @@ fun PlayerScene(
   source: VideoPlayerSource,
   onBack: () -> Unit,
 ) {
-  val player = rememberPlayer(source)
-  val controller = com.seiko.compose.player.rememberVideoPlayerController(player)
+  val playerFactory: VideoPlayerFactory = get()
+  val player = remember(source) {
+    playerFactory.createPlayer(source)
+  }
+  val scope = rememberCoroutineScope()
+  val controller = rememberVideoPlayerController(player, scope)
 
   var openDialog by remember { mutableStateOf(false) }
   var isPlaying by remember(source) { mutableStateOf(false) }

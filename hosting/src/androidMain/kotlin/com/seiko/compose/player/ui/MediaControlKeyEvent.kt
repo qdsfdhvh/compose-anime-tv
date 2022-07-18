@@ -6,8 +6,6 @@ import androidx.compose.material.icons.filled.FastForward
 import androidx.compose.material.icons.filled.FastRewind
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -17,15 +15,17 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import com.seiko.compose.focuskit.onFocusDirection
-import com.seiko.compose.player.LocalVideoPlayerController
+import com.seiko.compose.player.VideoPlayerController
+import com.seiko.compose.player.VideoPlayerState
 import com.seiko.compose.player.VideoSeekDirection
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun MediaControlKeyEvent(modifier: Modifier = Modifier) {
-  val controller = LocalVideoPlayerController.current
-  val state by controller.state.collectAsState()
-
+fun MediaControlKeyEvent(
+  controller: VideoPlayerController,
+  state: VideoPlayerState,
+  modifier: Modifier = Modifier,
+) {
   val focusRequester = remember { FocusRequester() }
 
   Box(
