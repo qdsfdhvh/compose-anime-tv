@@ -29,10 +29,10 @@ import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.foundation.TvEpisodeList
 import com.seiko.tv.anime.ui.foundation.TvTitleGroup
+import com.seiko.tv.anime.util.statusBarsPadding
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberEvent
 import moe.tlaster.precompose.rememberPresenter
-import com.seiko.tv.anime.util.statusBarsPadding
 
 @Composable
 fun DetailScene(

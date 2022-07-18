@@ -99,5 +99,3 @@ internal fun TvTabBarItem(
     Text(title, Modifier.padding(16.dp, 8.dp))
   }
 }
-
-
