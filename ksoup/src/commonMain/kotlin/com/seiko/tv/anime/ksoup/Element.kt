@@ -1,5 +1,7 @@
 package com.seiko.tv.anime.ksoup
 
+import kotlin.jvm.JvmInline
+
 expect open class Element {
   fun select(query: String): Elements
 
@@ -10,7 +12,8 @@ expect open class Element {
   fun hasAttr(attributeKey: String): Boolean
 }
 
-class Elements(
+@JvmInline
+value class Elements(
   private val elements: List<Element>
 ) : List<Element> by elements {
   fun text(): String {
