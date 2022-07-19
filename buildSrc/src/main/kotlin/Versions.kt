@@ -20,7 +20,7 @@ object Versions {
   const val koin = "3.1.6"
   const val compose_jb = "1.2.0-alpha01-dev741" // TODO focus error, androidx 1.0.5 ok
   const val compose = "1.3.0-alpha01"
-  const val composeMaterial = "1.0.0-alpha14"
+  // const val composeMaterial = "1.0.0-alpha14"
   const val ktor = "2.0.2"
   const val sqldelight = "2.0.0-alpha03"
   const val buildkonfig = "0.12.0"

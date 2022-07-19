@@ -16,7 +16,6 @@ kotlin {
   sourceSets {
     val commonMain by getting {
       kotlin.srcDir("src/commonMain/third")
-      kotlin.srcDir("src/commonMain/material3")
       dependencies {
         // Compose
         api(compose.ui)
@@ -39,6 +38,8 @@ kotlin {
         api("io.github.qdsfdhvh:paging:1.0.1")
         // Image https://github.com/qdsfdhvh/compose-imageloader
         api("io.github.qdsfdhvh:image-loader:1.0.6")
+        // TODO remove when material3 support ios
+        api("io.github.qdsfdhvh:material3:1.0.4")
         // Log
         api("io.github.aakira:napier:${Versions.napier}")
       }
@@ -46,7 +47,7 @@ kotlin {
     val androidMain by getting {
       dependencies {
         // Compose
-        api("androidx.compose.material3:material3:${Versions.composeMaterial}")
+        // api("androidx.compose.material3:material3:${Versions.composeMaterial}")
         api("androidx.compose.material:material-icons-extended:${Versions.compose}")
         // Coroutines
         api("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutines}")
