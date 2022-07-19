@@ -24,21 +24,33 @@ import com.google.accompanist.pager.rememberPagerState
 import com.seiko.tv.anime.model.anime.Anime
 import com.seiko.tv.anime.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.Router
+import com.seiko.tv.anime.ui.foundation.ErrorState
 import com.seiko.tv.anime.ui.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.foundation.TvTabBar
 import com.seiko.tv.anime.util.statusBarsPadding
 import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.rememberEvent
 import moe.tlaster.precompose.rememberPresenter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeedScene(navigator: Navigator) {
-  val stateFlow = rememberPresenter { FeedPresenter() }
+  val (channel, event) = rememberEvent<FeedEvent>()
+  val stateFlow = rememberPresenter { FeedPresenter(event) }
   Scaffold { innerPadding ->
     when (val state = stateFlow.collectAsState().value) {
       FeedState.Loading -> {
         LoadingIndicator(
           modifier = Modifier.padding(innerPadding),
+        )
+      }
+
+      is FeedState.Error -> {
+        ErrorState(
+          onRetry = {
+            channel.trySend(FeedEvent.Retry)
+          },
+          message = state.message,
         )
       }
 
