@@ -1,15 +1,15 @@
 package com.seiko.tv.anime.di.module
 
-import com.seiko.tv.anime.di.scope.defaultDispatcher
-import com.seiko.tv.anime.di.scope.ioDispatcher
-import com.seiko.tv.anime.di.scope.mainDispatcher
-import com.seiko.tv.anime.di.scope.mainImmediateDispatcher
+import com.seiko.tv.anime.di.scope.defaultDispatcherName
+import com.seiko.tv.anime.di.scope.ioDispatcherName
+import com.seiko.tv.anime.di.scope.mainDispatcherName
+import com.seiko.tv.anime.di.scope.mainImmediateDispatcherName
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 internal actual val coroutinesDispatchersModule = module {
-  single(defaultDispatcher) { Dispatchers.Default }
-  single(ioDispatcher) { Dispatchers.Default }
-  single(mainDispatcher) { Dispatchers.Main }
-  single(mainImmediateDispatcher) { Dispatchers.Main.immediate }
+  single(defaultDispatcherName) { Dispatchers.Default }
+  single(ioDispatcherName) { Dispatchers.Default }
+  single(mainDispatcherName) { Dispatchers.Main }
+  single(mainImmediateDispatcherName) { Dispatchers.Main.immediate }
 }
