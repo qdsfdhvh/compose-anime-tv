@@ -25,11 +25,11 @@ fun DetailPresenter(
   val isFavorite by remember {
     repository.isFavoriteAnime(uri)
   }.collectAsState(false)
-  val detailResult = remember(retryKey) {
+  val detailResult by remember(retryKey) {
     repository.getDetail(uri).asResult().onFailure {
       Napier.w(it) { "Detail error: " }
     }
-  }.collectAsState(null).value
+  }.collectAsState(null)
   LaunchedEffect(Unit) {
     event.collect { event ->
       when (event) {
@@ -50,7 +50,7 @@ fun DetailPresenter(
   }
   return when (detailResult) {
     null -> DetailState.Loading
-    else -> detailResult.fold(
+    else -> detailResult!!.fold(
       onSuccess = { detail ->
         DetailState.Success(
           detail = detail,
