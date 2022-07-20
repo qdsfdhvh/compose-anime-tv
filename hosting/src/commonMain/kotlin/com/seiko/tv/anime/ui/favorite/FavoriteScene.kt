@@ -32,9 +32,9 @@ import com.seiko.compose.focuskit.rememberFocusRequesterManager
 import com.seiko.compose.focuskit.tweenAnimateScrollBy
 import com.seiko.tv.anime.model.anime.Anime
 import com.seiko.tv.anime.ui.Router
-import com.seiko.tv.anime.ui.foundation.GroupItem
-import com.seiko.tv.anime.ui.foundation.ScreenState
-import com.seiko.tv.anime.ui.foundation.itemsGridIndexed
+import com.seiko.tv.anime.ui.widget.GroupItem
+import com.seiko.tv.anime.ui.widget.ScreenState
+import com.seiko.tv.anime.ui.widget.itemsGridIndexed
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberPresenter
 

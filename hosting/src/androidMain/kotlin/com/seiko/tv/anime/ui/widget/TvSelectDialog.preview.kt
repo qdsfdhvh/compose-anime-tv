@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.ui.foundation
+package com.seiko.tv.anime.ui.widget
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

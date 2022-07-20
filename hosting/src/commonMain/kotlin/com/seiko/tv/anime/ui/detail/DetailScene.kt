@@ -27,10 +27,10 @@ import com.seiko.tv.anime.model.anime.AnimeDetail
 import com.seiko.tv.anime.model.anime.AnimeEpisode
 import com.seiko.tv.anime.model.anime.AnimeTag
 import com.seiko.tv.anime.ui.Router
-import com.seiko.tv.anime.ui.foundation.ErrorState
-import com.seiko.tv.anime.ui.foundation.LoadingIndicator
-import com.seiko.tv.anime.ui.foundation.TvEpisodeList
-import com.seiko.tv.anime.ui.foundation.TvTitleGroup
+import com.seiko.tv.anime.ui.widget.ErrorState
+import com.seiko.tv.anime.ui.widget.LoadingIndicator
+import com.seiko.tv.anime.ui.widget.TvEpisodeList
+import com.seiko.tv.anime.ui.widget.TvTitleGroup
 import com.seiko.tv.anime.util.statusBarsPadding
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberEvent

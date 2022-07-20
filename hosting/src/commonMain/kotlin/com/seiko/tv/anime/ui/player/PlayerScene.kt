@@ -14,8 +14,8 @@ import com.seiko.compose.player.TvVideoPlayer
 import com.seiko.compose.player.VideoPlayerFactory
 import com.seiko.compose.player.VideoPlayerSource
 import com.seiko.compose.player.rememberVideoPlayerController
-import com.seiko.tv.anime.ui.foundation.LoadingIndicator
-import com.seiko.tv.anime.ui.foundation.TvSelectDialog
+import com.seiko.tv.anime.ui.widget.LoadingIndicator
+import com.seiko.tv.anime.ui.widget.TvSelectDialog
 import moe.tlaster.koin.get
 import moe.tlaster.precompose.navigation.BackHandler
 import moe.tlaster.precompose.navigation.Navigator

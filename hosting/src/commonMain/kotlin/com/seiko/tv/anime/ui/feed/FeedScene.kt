@@ -24,9 +24,9 @@ import com.google.accompanist.pager.rememberPagerState
 import com.seiko.tv.anime.model.anime.Anime
 import com.seiko.tv.anime.model.anime.AnimeTab
 import com.seiko.tv.anime.ui.Router
-import com.seiko.tv.anime.ui.foundation.ErrorState
-import com.seiko.tv.anime.ui.foundation.LoadingIndicator
-import com.seiko.tv.anime.ui.foundation.TvTabBar
+import com.seiko.tv.anime.ui.widget.ErrorState
+import com.seiko.tv.anime.ui.widget.LoadingIndicator
+import com.seiko.tv.anime.ui.widget.TvTabBar
 import com.seiko.tv.anime.util.statusBarsPadding
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberEvent

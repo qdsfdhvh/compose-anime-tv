@@ -28,9 +28,9 @@ import com.seiko.compose.focuskit.onFocusDirection
 import com.seiko.tv.anime.model.anime.Anime
 import com.seiko.tv.anime.model.anime.AnimeGroup
 import com.seiko.tv.anime.model.anime.AnimeTab
-import com.seiko.tv.anime.ui.foundation.ErrorState
-import com.seiko.tv.anime.ui.foundation.LoadingIndicator
-import com.seiko.tv.anime.ui.foundation.TvTitleGroup
+import com.seiko.tv.anime.ui.widget.ErrorState
+import com.seiko.tv.anime.ui.widget.LoadingIndicator
+import com.seiko.tv.anime.ui.widget.TvTitleGroup
 import io.github.aakira.napier.Napier
 import moe.tlaster.precompose.rememberEvent
 import moe.tlaster.precompose.rememberPresenter

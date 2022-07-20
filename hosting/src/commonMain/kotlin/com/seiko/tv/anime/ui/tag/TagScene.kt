@@ -41,9 +41,9 @@ import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.tv.anime.model.anime.AnimeTag
 import com.seiko.tv.anime.model.anime.AnimeTagPageItem
 import com.seiko.tv.anime.ui.Router
-import com.seiko.tv.anime.ui.foundation.NetworkImage
-import com.seiko.tv.anime.ui.foundation.ScreenState
 import com.seiko.tv.anime.ui.theme.uiValue
+import com.seiko.tv.anime.ui.widget.NetworkImage
+import com.seiko.tv.anime.ui.widget.ScreenState
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberPresenter
 

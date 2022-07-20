@@ -25,8 +25,8 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import com.seiko.tv.anime.ui.Router
-import com.seiko.tv.anime.ui.foundation.LoadingIndicator
-import com.seiko.tv.anime.ui.foundation.RoundIcon
+import com.seiko.tv.anime.ui.widget.LoadingIndicator
+import com.seiko.tv.anime.ui.widget.RoundIcon
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberPresenter
 

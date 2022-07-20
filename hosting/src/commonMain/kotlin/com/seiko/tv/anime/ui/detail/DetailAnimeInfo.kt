@@ -39,10 +39,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.onFocusDirection
 import com.seiko.tv.anime.model.anime.AnimeTag
-import com.seiko.tv.anime.ui.foundation.FocusableImageButton
-import com.seiko.tv.anime.ui.foundation.FocusableTextButton
-import com.seiko.tv.anime.ui.foundation.NetworkImage
 import com.seiko.tv.anime.ui.theme.uiValue
+import com.seiko.tv.anime.ui.widget.FocusableImageButton
+import com.seiko.tv.anime.ui.widget.FocusableTextButton
+import com.seiko.tv.anime.ui.widget.NetworkImage
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

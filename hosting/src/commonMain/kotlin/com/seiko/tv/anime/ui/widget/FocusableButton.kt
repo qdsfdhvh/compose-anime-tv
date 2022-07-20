@@ -1,4 +1,4 @@
-package com.seiko.tv.anime.ui.foundation
+package com.seiko.tv.anime.ui.widget
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.RowScope
