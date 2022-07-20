@@ -1,7 +1,6 @@
 package com.seiko.tv.anime.ui.foundation
 
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -20,12 +19,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.unit.dp
 import com.seiko.compose.focuskit.ScrollBehaviour
 import com.seiko.compose.focuskit.animateScrollToItem
 import com.seiko.tv.anime.model.anime.AnimeEpisode
