@@ -1,5 +1,6 @@
 package com.seiko.compose.player
 
+@kotlinx.serialization.Serializable
 data class VideoPlayerState constructor(
   val isPlaying: Boolean = true,
   val controlsVisible: Boolean = false,

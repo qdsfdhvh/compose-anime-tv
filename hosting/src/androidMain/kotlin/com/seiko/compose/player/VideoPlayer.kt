@@ -14,8 +14,9 @@ import com.seiko.compose.player.internal.DefaultVideoPlayerController
 import com.seiko.compose.player.ui.MediaControlKeyEvent
 import com.seiko.compose.player.ui.MediaControlLayout
 import com.seiko.compose.player.ui.MediaPlayerLayout
+import com.seiko.tv.anime.util.fromJson
+import com.seiko.tv.anime.util.toJson
 import kotlinx.coroutines.CoroutineScope
-import moe.tlaster.koin.get
 
 actual typealias Player = com.google.android.exoplayer2.Player
 
@@ -27,17 +28,17 @@ actual fun rememberVideoPlayerController(
   return rememberSaveable(
     player,
     scope,
-    saver = object : Saver<DefaultVideoPlayerController, VideoPlayerState> {
-      override fun restore(value: VideoPlayerState): DefaultVideoPlayerController {
+    saver = object : Saver<DefaultVideoPlayerController, String> {
+      override fun restore(value: String): DefaultVideoPlayerController {
         return DefaultVideoPlayerController(
           player = player,
-          initialState = value,
+          initialState = value.fromJson(),
           coroutineScope = scope,
         )
       }
 
-      override fun SaverScope.save(value: DefaultVideoPlayerController): VideoPlayerState {
-        return value.currentState
+      override fun SaverScope.save(value: DefaultVideoPlayerController): String {
+        return value.currentState.toJson()
       }
     },
     init = {

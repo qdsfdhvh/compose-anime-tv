@@ -10,7 +10,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.seiko.compose.focuskit.handleBack
 import com.seiko.compose.player.TvVideoPlayer
 import com.seiko.compose.player.VideoPlayerFactory
 import com.seiko.compose.player.VideoPlayerSource
@@ -18,6 +17,7 @@ import com.seiko.compose.player.rememberVideoPlayerController
 import com.seiko.tv.anime.ui.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.foundation.TvSelectDialog
 import moe.tlaster.koin.get
+import moe.tlaster.precompose.navigation.BackHandler
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.rememberPresenter
 
@@ -67,16 +67,15 @@ fun PlayerScene(
     }
   }
 
-  Box(
-    modifier = Modifier
-      .handleBack {
-        if (!openDialog) {
-          openDialog = true
-          savePlayState()
-          controller.pause()
-        }
-      }
-  ) {
+  BackHandler {
+    if (!openDialog) {
+      openDialog = true
+      savePlayState()
+      controller.pause()
+    }
+  }
+
+  Box {
     TvVideoPlayer(
       player = player,
       controller = controller,
