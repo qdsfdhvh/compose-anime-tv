@@ -28,8 +28,11 @@ import com.seiko.compose.focuskit.onFocusDirection
 import com.seiko.tv.anime.model.anime.Anime
 import com.seiko.tv.anime.model.anime.AnimeGroup
 import com.seiko.tv.anime.model.anime.AnimeTab
+import com.seiko.tv.anime.ui.foundation.ErrorState
 import com.seiko.tv.anime.ui.foundation.LoadingIndicator
 import com.seiko.tv.anime.ui.foundation.TvTitleGroup
+import io.github.aakira.napier.Napier
+import moe.tlaster.precompose.rememberEvent
 import moe.tlaster.precompose.rememberPresenter
 
 @Composable
@@ -38,10 +41,23 @@ fun FeedAnimePage(
   onAnimeClick: (Anime) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  val stateFlow = rememberPresenter { FeedAnimePresenter(tab) }
+  val (channel, event) = rememberEvent<FeedAnimeEvent>()
+  val stateFlow = rememberPresenter { FeedAnimePresenter(event, tab) }
   when (val state = stateFlow.collectAsState().value) {
     FeedAnimeState.Loading -> {
-      LoadingIndicator()
+      LoadingIndicator(
+        modifier = modifier,
+      )
+    }
+
+    is FeedAnimeState.Error -> {
+      ErrorState(
+        onRetry = {
+          channel.trySend(FeedAnimeEvent.Retry)
+        },
+        message = state.message,
+        modifier = modifier,
+      )
     }
 
     is FeedAnimeState.Success -> {
@@ -86,6 +102,9 @@ fun FeedAnimePage(
       .onFocusChanged {
         parentHasFocused = it.hasFocus
         parentIsFocused = it.isFocused
+        if (it.isFocused) {
+          Napier.d(tag = "Feed") { "root has focus" }
+        }
       }
       .focusTarget(),
     state = listState
@@ -97,7 +116,10 @@ fun FeedAnimePage(
         onAnimeClick = onAnimeClick,
         modifier = Modifier
           .onFocusChanged {
-            if (it.isFocused) focusIndex = index
+            if (it.isFocused) {
+              focusIndex = index
+              Napier.d(tag = "Feed") { "${item.title} has focus, index=$index" }
+            }
           }
           .focusRequester(focusRequesters[index]).focusProperties {
             focusRequesters.getOrNull(index - 1)?.let { up = it }
