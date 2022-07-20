@@ -1,6 +1,7 @@
 package com.seiko.tv.anime.repository
 
 import androidx.paging.PagingSource
+import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.paging3.QueryPagingSource
 import com.seiko.tv.anime.db.AppDatabase
 import com.seiko.tv.anime.db.DbAnime
@@ -22,6 +23,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class AnimeRepository(
@@ -66,61 +68,63 @@ class AnimeRepository(
     }.flowOn(ioDispatcher)
   }
 
-  suspend fun getDetail(url: String): AnimeDetail {
-    return withContext(ioDispatcher) {
+  fun getDetail(url: String): Flow<AnimeDetail> {
+    return flow {
       val response = service.getDetailResponse(url)
-      AnimeDetail(
-        title = response.title,
-        cover = response.cover,
-        alias = response.alias,
-        rating = response.rating,
-        releaseTime = response.tags.find { it.tip.startsWith("上映") }?.run {
-          titles.joinToString { it }
-        } ?: "",
-        area = response.tags.find { it.tip.startsWith("地区") }?.run {
-          titles.joinToString { it }
-        } ?: "",
-        types = response.tags.find { it.tip.startsWith("类型") }?.run {
-          titles.mapIndexed { index, title ->
-            AnimeTag(
-              title = title,
-              uri = service.wrapUrl(hrefs[index])
+      emit(
+        AnimeDetail(
+          title = response.title,
+          cover = response.cover,
+          alias = response.alias,
+          rating = response.rating,
+          releaseTime = response.tags.find { it.tip.startsWith("上映") }?.run {
+            titles.joinToString { it }
+          } ?: "",
+          area = response.tags.find { it.tip.startsWith("地区") }?.run {
+            titles.joinToString { it }
+          } ?: "",
+          types = response.tags.find { it.tip.startsWith("类型") }?.run {
+            titles.mapIndexed { index, title ->
+              AnimeTag(
+                title = title,
+                uri = service.wrapUrl(hrefs[index])
+              )
+            }
+          }.orEmpty(),
+          tags = response.tags.find { it.tip.startsWith("标签") }?.run {
+            titles.mapIndexed { index, title ->
+              AnimeTag(
+                title = title,
+                uri = service.wrapUrl(hrefs[index])
+              )
+            }
+          }.orEmpty(),
+          indexes = response.tags.find { it.tip.startsWith("索引") }?.run {
+            titles.mapIndexed { index, title ->
+              AnimeTag(
+                title = title,
+                uri = service.wrapUrl(hrefs[index])
+              )
+            }
+          }.orEmpty(),
+          description = response.description,
+          episodeList = response.episodeList.map { episode ->
+            AnimeEpisode(
+              title = episode.title,
+              uri = service.wrapUrl(episode.href)
             )
-          }
-        }.orEmpty(),
-        tags = response.tags.find { it.tip.startsWith("标签") }?.run {
-          titles.mapIndexed { index, title ->
-            AnimeTag(
-              title = title,
-              uri = service.wrapUrl(hrefs[index])
+          },
+          relatedList = response.relatedList.map { anime ->
+            Anime(
+              title = anime.title,
+              cover = anime.cover,
+              uri = service.wrapUrl(anime.href)
             )
-          }
-        }.orEmpty(),
-        indexes = response.tags.find { it.tip.startsWith("索引") }?.run {
-          titles.mapIndexed { index, title ->
-            AnimeTag(
-              title = title,
-              uri = service.wrapUrl(hrefs[index])
-            )
-          }
-        }.orEmpty(),
-        description = response.description,
-        episodeList = response.episodeList.map { episode ->
-          AnimeEpisode(
-            title = episode.title,
-            uri = service.wrapUrl(episode.href)
-          )
-        },
-        relatedList = response.relatedList.map { anime ->
-          Anime(
-            title = anime.title,
-            cover = anime.cover,
-            uri = service.wrapUrl(anime.href)
-          )
-        },
-        uri = url
+          },
+          uri = url
+        )
       )
-    }
+    }.flowOn(ioDispatcher)
   }
 
   suspend fun getTags(url: String): AnimeTagPage {
@@ -158,10 +162,8 @@ class AnimeRepository(
     }.flowOn(ioDispatcher)
   }
 
-  suspend fun isFavoriteAnime(uri: String): Boolean {
-    return withContext(ioDispatcher) {
-      dbAnime.contains(uri).executeAsOne() > 0
-    }
+  fun isFavoriteAnime(uri: String): Flow<Boolean> {
+    return dbAnime.contains(uri).asFlow().map { it.executeAsOne() > 0 }
   }
 
   suspend fun insertFavoriteAnime(anime: AnimeDetail): Boolean {

@@ -49,7 +49,7 @@ fun ErrorState(
         style = TextStyle(color = MaterialTheme.colorScheme.onPrimary, fontSize = 20.sp)
       )
     }
-    if (message != null) {
+    if (!message.isNullOrEmpty()) {
       Spacer(Modifier.height(8.dp))
       Text(message)
     }

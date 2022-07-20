@@ -63,7 +63,7 @@ fun TvTitleGroup(
     Text(
       text = title,
       style = MaterialTheme.typography.labelSmall,
-      modifier = Modifier.padding(start = 15.dp, top = 10.dp)
+      modifier = Modifier.padding(start = 15.dp, top = 10.dp),
     )
     LazyRow(
       modifier = modifier

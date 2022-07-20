@@ -112,11 +112,6 @@ internal fun EpisodeItem(
     modifier = modifier
       .scale(scale)
       .padding(MaterialTheme.uiValue.paddingHorizontalSmall)
-      .shadow(
-        if (isFocused) MaterialTheme.uiValue.elevation else 0.dp,
-        MaterialTheme.shapes.medium
-      )
-      .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.medium)
       .padding(
         horizontal = MaterialTheme.uiValue.paddingHorizontal,
         vertical = MaterialTheme.uiValue.paddingVertical

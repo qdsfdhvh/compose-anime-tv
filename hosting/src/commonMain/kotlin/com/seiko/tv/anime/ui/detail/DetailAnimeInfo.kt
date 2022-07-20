@@ -140,7 +140,7 @@ private fun DetailAnimeInfoDesc(
   onTagClick: (AnimeTag) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  Text(title, style = MaterialTheme.typography.titleMedium)
+  Text(title, style = MaterialTheme.typography.titleLarge)
 
   Row(
     modifier = Modifier.fillMaxWidth(),
@@ -195,7 +195,7 @@ private fun DetailAnimeInfoDesc(
 
   Text(
     description,
-    style = MaterialTheme.typography.headlineSmall,
+    style = MaterialTheme.typography.labelSmall,
     overflow = TextOverflow.Ellipsis,
     maxLines = 5
   )

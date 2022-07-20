@@ -18,7 +18,6 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import com.seiko.compose.focuskit.handleEnter
 
 @Composable
 fun FocusableButton(
@@ -32,14 +31,10 @@ fun FocusableButton(
   Button(
     onClick = onClick,
     modifier = modifier
-      .handleEnter(onClick)
       .onFocusChanged { isFocused = it.isFocused }
       .focusTarget()
       .scale(scale),
     elevation = null,
-    colors = ButtonDefaults.buttonColors(
-      containerColor = MaterialTheme.colorScheme.surface
-    ),
     content = {
       content(isFocused)
     }
