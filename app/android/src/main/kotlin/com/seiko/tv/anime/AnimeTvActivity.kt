@@ -14,14 +14,14 @@ import com.seiko.imageloader.LocalImageLoader
 import com.seiko.imageloader.cache.disk.DiskCacheBuilder
 import com.seiko.imageloader.cache.memory.MemoryCacheBuilder
 import com.seiko.tv.anime.util.DoubleBackPressed
-import com.seiko.tv.anime.util.DoubleBackPressedDelegate
 import com.seiko.tv.anime.util.autoSizeDensity
+import io.github.aakira.napier.Napier
 import moe.tlaster.precompose.lifecycle.PreComposeActivity
 import moe.tlaster.precompose.lifecycle.setContent
 import moe.tlaster.precompose.navigation.BackHandler
 import okio.Path.Companion.toOkioPath
 
-class AnimeTvActivity : PreComposeActivity(), DoubleBackPressed by DoubleBackPressedDelegate() {
+class AnimeTvActivity : PreComposeActivity(), DoubleBackPressed by DoubleBackPressed {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
