@@ -28,7 +28,7 @@ kotlin {
     }
     val androidMain by getting {
       dependencies {
-        implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
+        api("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
         // Player https://github.com/google/ExoPlayer
         implementation("com.google.android.exoplayer:exoplayer:2.18.0")
       }
