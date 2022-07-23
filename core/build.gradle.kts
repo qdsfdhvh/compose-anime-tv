@@ -47,6 +47,8 @@ kotlin {
     val androidMain by getting {
       dependencies {
         // Compose
+        api("androidx.compose.ui:ui:${Versions.compose}")
+        api("androidx.compose.foundation:foundation:${Versions.compose}")
         // api("androidx.compose.material3:material3:${Versions.composeMaterial}")
         api("androidx.compose.material:material-icons-extended:${Versions.compose}")
         // Coroutines
