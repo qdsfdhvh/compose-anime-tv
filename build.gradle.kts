@@ -12,8 +12,7 @@ allprojects {
     kotlinOptions {
       jvmTarget = Versions.Java.jvmTarget
       allWarningsAsErrors = false
-      freeCompilerArgs += listOf(
-        "-opt-in=kotlin.RequiresOptIn",
+      freeCompilerArgs = freeCompilerArgs + listOf(
         "-Xallow-unstable-dependencies",
         "-Xskip-prerelease-check"
       )
