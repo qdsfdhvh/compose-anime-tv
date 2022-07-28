@@ -25,11 +25,3 @@ fun Modifier.handleDirection(
   if (it == focusDirection) onAction()
   else false
 }
-
-@OptIn(ExperimentalComposeUiApi::class)
-fun Modifier.handleEnterReturn(onAction: () -> Boolean) =
-  handleDirection(FocusDirection.In, onAction)
-
-@OptIn(ExperimentalComposeUiApi::class)
-fun Modifier.handleBackReturn(onAction: () -> Boolean) =
-  handleDirection(FocusDirection.Out, onAction)

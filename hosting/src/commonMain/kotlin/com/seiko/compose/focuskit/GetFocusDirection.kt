@@ -19,7 +19,7 @@ fun getFocusDirection(keyEvent: KeyEvent): FocusDirection? {
     Key.DirectionUp -> FocusDirection.Up
     Key.DirectionDown -> FocusDirection.Down
     Key.DirectionCenter, Key.Enter -> FocusDirection.In
-    Key.Back -> FocusDirection.Out
+    Key.Back, Key.Escape -> FocusDirection.Out
     else -> null
   }
 }
