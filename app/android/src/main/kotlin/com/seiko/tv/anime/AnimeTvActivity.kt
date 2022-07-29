@@ -15,7 +15,6 @@ import com.seiko.imageloader.cache.disk.DiskCacheBuilder
 import com.seiko.imageloader.cache.memory.MemoryCacheBuilder
 import com.seiko.tv.anime.util.DoubleBackPressed
 import com.seiko.tv.anime.util.autoSizeDensity
-import io.github.aakira.napier.Napier
 import moe.tlaster.precompose.lifecycle.PreComposeActivity
 import moe.tlaster.precompose.lifecycle.setContent
 import moe.tlaster.precompose.navigation.BackHandler
@@ -36,7 +35,10 @@ class AnimeTvActivity : PreComposeActivity(), DoubleBackPressed by DoubleBackPre
         BackHandler {
           onDoubleBackPressed()
         }
-        App(Modifier.fillMaxSize())
+        App(
+          onBack = { onBackPressed() },
+          modifier = Modifier.fillMaxSize(),
+        )
       }
     }
   }

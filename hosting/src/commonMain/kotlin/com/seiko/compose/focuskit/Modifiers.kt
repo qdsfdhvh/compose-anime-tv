@@ -1,6 +1,5 @@
 package com.seiko.compose.focuskit
 
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.input.key.onKeyEvent

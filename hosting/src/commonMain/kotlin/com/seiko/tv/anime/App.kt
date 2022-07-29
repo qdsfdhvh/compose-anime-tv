@@ -12,29 +12,33 @@ import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.NoRippleIndication
 import com.seiko.tv.anime.util.ToastScreenComponent
+import com.seiko.tv.anime.widget.ProvideDialogHost
 import moe.tlaster.precompose.navigation.rememberNavigator
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun App(
+  onBack: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
   AnimeTvTheme(false) {
     CompositionLocalProvider(
       LocalIndication provides NoRippleIndication,
     ) {
-      val navigator = rememberNavigator()
-      Box(
-        modifier = modifier
-          .handleDirection(FocusDirection.Out) {
-            navigator.goBack()
-            true
-          }
-      ) {
-        Router(
-          navigator = navigator,
-        )
-        ToastScreenComponent()
+      ProvideDialogHost {
+        val navigator = rememberNavigator()
+        Box(
+          modifier = modifier
+            .handleDirection(FocusDirection.Out) {
+              onBack.invoke()
+              true
+            }
+        ) {
+          Router(
+            navigator = navigator,
+          )
+          ToastScreenComponent()
+        }
       }
     }
   }

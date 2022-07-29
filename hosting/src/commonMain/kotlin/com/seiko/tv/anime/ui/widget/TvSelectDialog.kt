@@ -29,11 +29,9 @@ fun TvSelectDialog(
   onCenterClick: () -> Unit = {},
   onCancelClick: () -> Unit = {}
 ) {
-  val focusRequester = remember { FocusRequester() }
-
   PlatformDialog(
     onDismissRequest = { onCancelClick() },
-    title = { Text(text = title) },
+    title = { Text(title) },
     text = { Text(text) },
     confirmButton = {
       var isFocused by remember { mutableStateOf(false) }
@@ -43,10 +41,11 @@ fun TvSelectDialog(
           .clickable { onCancelClick() }
           .focusTarget(),
         text = cancelText,
-        isFocused = isFocused
+        isFocused = isFocused,
       )
     },
     dismissButton = {
+      val focusRequester = remember { FocusRequester() }
       var isFocused by remember { mutableStateOf(false) }
       TvSelectDialogButton(
         modifier = Modifier
@@ -55,14 +54,13 @@ fun TvSelectDialog(
           .focusRequester(focusRequester)
           .focusTarget(),
         text = centerText,
-        isFocused = isFocused
+        isFocused = isFocused,
       )
+      LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+      }
     }
   )
-
-  LaunchedEffect(Unit) {
-    focusRequester.requestFocus()
-  }
 }
 
 @Composable
