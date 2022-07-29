@@ -16,6 +16,7 @@ kotlin {
   ios()
   sourceSets {
     val commonMain by getting {
+      kotlin.srcDir("src/commonMain/third")
       dependencies {
         implementation(projects.core)
         implementation(projects.ksoup)
