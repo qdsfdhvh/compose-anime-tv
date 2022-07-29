@@ -18,6 +18,7 @@ import com.seiko.tv.anime.util.autoSizeDensity
 import moe.tlaster.precompose.lifecycle.PreComposeActivity
 import moe.tlaster.precompose.lifecycle.setContent
 import moe.tlaster.precompose.navigation.BackHandler
+import moe.tlaster.precompose.navigation.rememberNavigator
 import okio.Path.Companion.toOkioPath
 
 class AnimeTvActivity : PreComposeActivity(), DoubleBackPressed by DoubleBackPressed {
@@ -35,9 +36,11 @@ class AnimeTvActivity : PreComposeActivity(), DoubleBackPressed by DoubleBackPre
         BackHandler {
           onDoubleBackPressed()
         }
+        val navigator = rememberNavigator()
         App(
           onBack = { onBackPressed() },
           modifier = Modifier.fillMaxSize(),
+          navigator = navigator,
         )
       }
     }
