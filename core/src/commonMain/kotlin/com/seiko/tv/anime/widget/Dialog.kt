@@ -25,6 +25,9 @@ private class ContentHolder {
   fun setContent(content: @Composable (() -> Unit)?) {
     _content.value = content
   }
+  fun dismiss() {
+    _content.value = null
+  }
 }
 
 @Composable
@@ -54,7 +57,7 @@ fun DialogImpl(
   val dialogHost = LocalDialogHost.current
   DisposableEffect(Unit) {
     onDispose {
-      dialogHost.setContent(null)
+      dialogHost.dismiss()
     }
   }
   dialogHost.setContent {
@@ -63,15 +66,18 @@ fun DialogImpl(
         .fillMaxSize()
         .background(DrawerDefaults.ScrimColor)
         .clickable(
-          onClick = {
-            onDismissRequest()
-          },
+          onClick = onDismissRequest,
           interactionSource = remember { MutableInteractionSource() },
           indication = null,
         ),
       contentAlignment = Alignment.Center,
     ) {
-      content.invoke()
+      Box(
+        modifier = Modifier.clickable { /*  */ },
+        contentAlignment = Alignment.Center,
+      ) {
+        content.invoke()
+      }
     }
   }
 }

@@ -14,9 +14,9 @@ import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 fun TvSelectDialogButtonPreview() {
   AnimeTvTheme {
     Row {
-      TvSelectDialogButton(text = "确认", isFocused = true)
+      TvSelectDialogButton(text = "确认", isFocused = true, onClick = {})
       Spacer(modifier = Modifier.width(5.dp))
-      TvSelectDialogButton(text = "取消", isFocused = false)
+      TvSelectDialogButton(text = "取消", isFocused = false, onClick = {})
     }
   }
 }

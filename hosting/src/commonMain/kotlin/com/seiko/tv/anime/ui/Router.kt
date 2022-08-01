@@ -6,56 +6,52 @@ import com.seiko.tv.anime.ui.favorite.FavoriteScene
 import com.seiko.tv.anime.ui.feed.FeedScene
 import com.seiko.tv.anime.ui.home.HomeScene
 import com.seiko.tv.anime.ui.player.PlayerScene
+import com.seiko.tv.anime.ui.setting.SettingDialog
 import com.seiko.tv.anime.ui.tag.TagScene
 import moe.tlaster.precompose.navigation.BackStackEntry
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.Navigator
-import moe.tlaster.precompose.navigation.RouteBuilder
 import moe.tlaster.precompose.navigation.query
 
 @Composable
 fun Router(navigator: Navigator) {
   NavHost(navigator = navigator, initialRoute = initialRoute) {
-    scene(Router.Home) {
-      HomeScene(navigator = navigator)
+    scene(Router.Home.route) {
+      HomeScene(
+        navigator = navigator,
+        entry = it,
+      )
     }
-    scene(Router.Feed) {
+    scene(Router.Feed.route) {
       FeedScene(navigator = navigator)
     }
-    scene(Router.Detail) {
+    scene(Router.Detail.route) {
       DetailScene(
         navigator = navigator,
         uri = Router.Detail.getUri(it)
       )
     }
-    scene(Router.Player) {
+    scene(Router.Player.route) {
       PlayerScene(
         navigator = navigator,
         uri = Router.Player.getUri(it)
       )
     }
-    scene(Router.Favorite) {
+    scene(Router.Favorite.route) {
       FavoriteScene(navigator = navigator)
     }
-    scene(Router.TagPage) {
+    scene(Router.TagPage.route) {
       TagScene(
         navigator = navigator,
         uri = Router.TagPage.getUri(it)
       )
     }
+    dialog(Router.Setting.route) {
+      SettingDialog(
+        navigator = navigator,
+      )
+    }
   }
-}
-
-private fun RouteBuilder.scene(
-  router: Router,
-  deepLinks: List<String> = emptyList(),
-  content: @Composable (BackStackEntry) -> Unit
-) {
-  scene(
-    route = router.route,
-    deepLinks = deepLinks,
-    content = content
-  )
 }
 
 sealed class Router(val route: String) {
@@ -63,6 +59,8 @@ sealed class Router(val route: String) {
   object Home : Router("/home")
 
   object Feed : Router("/feed")
+
+  object Setting : Router("/setting")
 
   object Detail : Router("/detail") {
     fun getUri(entry: BackStackEntry): String {

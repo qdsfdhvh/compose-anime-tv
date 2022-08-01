@@ -23,4 +23,4 @@ interface DoubleBackPressed {
   }
 }
 
-private const val CLICK_TIME = 2000L
+private const val CLICK_TIME = 1500L

@@ -7,12 +7,16 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import com.seiko.compose.focuskit.handleDirection
 import com.seiko.tv.anime.ui.Router
 import com.seiko.tv.anime.ui.theme.AnimeTvTheme
 import com.seiko.tv.anime.util.NoRippleIndication
 import com.seiko.tv.anime.util.ToastScreenComponent
 import com.seiko.tv.anime.widget.ProvideDialogHost
+import io.github.aakira.napier.Napier
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.rememberNavigator
 
@@ -27,19 +31,25 @@ fun App(
     CompositionLocalProvider(
       LocalIndication provides NoRippleIndication,
     ) {
-      ProvideDialogHost {
-        Box(
-          modifier = modifier
-            .handleDirection(FocusDirection.Out) {
-              onBack.invoke()
-              true
+      Box(
+        modifier = modifier
+          .onPreviewKeyEvent {
+            if (it.type == KeyEventType.KeyDown) {
+              Napier.d { "onPreviewKeyEvent $it" }
             }
-        ) {
+            false
+          }
+          .handleDirection(FocusDirection.Out) {
+            onBack.invoke()
+            true
+          }
+      ) {
+        ProvideDialogHost {
           Router(
             navigator = navigator,
           )
-          ToastScreenComponent()
         }
+        ToastScreenComponent()
       }
     }
   }

@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusProperties
 import com.seiko.compose.player.TvVideoPlayer
 import com.seiko.compose.player.VideoPlayerFactory
 import com.seiko.compose.player.VideoPlayerSource
@@ -59,6 +60,9 @@ fun PlayerScene(
 
   fun savePlayState() {
     isPlaying = controller.isPlaying
+    if (isPlaying) {
+      controller.pause()
+    }
   }
 
   fun restorePlayState() {
@@ -68,10 +72,12 @@ fun PlayerScene(
   }
 
   BackHandler {
-    if (!openDialog) {
+    if (openDialog) {
+      openDialog = false
+      restorePlayState()
+    } else {
       openDialog = true
       savePlayState()
-      controller.pause()
     }
   }
 
@@ -79,7 +85,11 @@ fun PlayerScene(
     TvVideoPlayer(
       player = player,
       controller = controller,
-      modifier = Modifier.fillMaxSize()
+      modifier = Modifier
+        .focusProperties {
+          canFocus = !openDialog
+        }
+        .fillMaxSize(),
     )
 
     if (openDialog) {

@@ -21,8 +21,8 @@ fun RoundIconPreview() {
       .background(backgroundColor)
       .padding(20.dp)
   ) {
-    RoundIcon(image = Icons.Filled.Settings, name = "设置", isFocused = true)
+    RoundIcon(image = Icons.Filled.Settings, name = "设置", isFocused = true, onClick = {})
     Spacer(modifier = Modifier.width(20.dp))
-    RoundIcon(image = Icons.Filled.Settings, name = "设置", isFocused = false)
+    RoundIcon(image = Icons.Filled.Settings, name = "设置", isFocused = false, onClick = {})
   }
 }
